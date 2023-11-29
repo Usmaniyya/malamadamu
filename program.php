@@ -32,7 +32,6 @@ if (mysqli_stmt_affected_rows($stmt) > 0) {
 mysqli_stmt_close($stmt);
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

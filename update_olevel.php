@@ -56,7 +56,10 @@ if (isset($_POST['update'])) {
         $bindParams = array_merge([$user_id], array_values($data));
         $bindString = str_repeat('s', count($bindParams));
         mysqli_stmt_bind_param($stmt, $bindString, ...$bindParams);
-        mysqli_stmt_execute($stmt);
+        // mysqli_stmt_execute($stmt);
+        if(mysqli_stmt_execute($stmt)){
+            header("location:olevel");
+        }
     }
 
     // Close the database connection

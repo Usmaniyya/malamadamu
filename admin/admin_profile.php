@@ -66,10 +66,10 @@ if ($row = mysqli_fetch_assoc($result)) { ?>
     <div class="row">
         <!-- Sidebar -->
  <?php include '../includes/admin_sidebar.php'; ?>
- <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5">
+ <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-3">
     <h2 class="fs-4">Admin Profile</h2>
     <hr>
-    <table border="1">
+    <table class="table" border="1">
         <tr>
             <td><b>First Name: </b></td>
             <td><?= $row['first_name'] ?></td>
@@ -99,8 +99,9 @@ if ($row = mysqli_fetch_assoc($result)) { ?>
             <td><?= $row['updated_at'] ?></td>
         </tr>
     </table>
+    <hr>
 <!-- Add a password change form -->
-<h3 class="">Change Password</h3>
+<h3 class="mt-3">Change Password</h3>
 <form method="post">
     <div class="row mb-2">
     <div class="col-4">

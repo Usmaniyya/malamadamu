@@ -33,7 +33,7 @@ $result = mysqli_query($conn, $query);
     <hr>
 <?php
 if ($result) {
-    echo '<table border="1"  class="table">';
+    echo '<table border="1"  class="table" id="myTable">';
     echo '<thead><tr class=""><th>A-ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Dob</th><th>State</th><th>LGA</th><th>View</th></tr></thead>';
     while ($row = mysqli_fetch_assoc($result)) {
         $applicantId = $row['applicant_id'];

@@ -17,13 +17,25 @@
                                Add Admin
                             </a>
                         </li>
+                        <li class="nav-item mb-3">
+                            <a class="nav-link fs-6 text-dark" href="../admin/add_faculty">
+                                  <i class="bi bi-book text-warning"></i>
+                                Add Faculty
+                            </a>
+                        </li>
                          <li class="nav-item mb-3">
                             <a class="nav-link fs-6 text-dark" href="../admin/add_program">
                                   <i class="bi bi-book text-warning"></i>
                                 Add Program
                             </a>
                         </li>
-                       <li class="nav-item mb-3">
+                        <li class="nav-item mb-3">
+                            <a class="nav-link fs-6 text-dark" href="../admin/manage_faculty_&_program">
+                                  <i class="bi bi-book text-warning"></i>
+                                Manage Faculties & Programs
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
                             <a class="nav-link fs-6 text-dark" href="applications">
                                   <i class="bi bi-list-check text-warning"></i>
                                 Applications

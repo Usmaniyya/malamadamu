@@ -12,29 +12,54 @@ if (isset($_POST['signup'])) {
         mysqli_real_escape_string($conn, $_POST['password']),
         PASSWORD_DEFAULT
     ); // Hash the password
-    $query =
-        'INSERT INTO signup (first_name, last_name, email, rank, status, password) VALUES (?, ?, ?, ?, ?, ?)';
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param(
-        $stmt,
-        'ssssis',
-        $first_name,
-        $last_name,
-        $email,
-        $rank,
-        $status,
-        $password
-    );
-    if (mysqli_stmt_execute($stmt)) {
-        $success = 'Admin Registered successful!.';
-        // Redirect to login.php
-        header("refresh:2; url='dashboard'");
+
+    // Check if the email already exists
+    $checkQuery = 'SELECT COUNT(*) FROM signup WHERE email = ?';
+    $checkStmt = mysqli_prepare($conn, $checkQuery);
+
+    if ($checkStmt) {
+        mysqli_stmt_bind_param($checkStmt, 's', $email);
+        mysqli_stmt_execute($checkStmt);
+        mysqli_stmt_bind_result($checkStmt, $count);
+        mysqli_stmt_fetch($checkStmt);
+        mysqli_stmt_close($checkStmt);
+
+        if ($count > 0) {
+            $message = '<small class="error">Email already exists. Please use a different email address.</small>';
+        } else {
+            // Proceed with the registration
+            $query =
+                'INSERT INTO signup (first_name, last_name, email, rank, status, password) VALUES (?, ?, ?, ?, ?, ?)';
+            $stmt = mysqli_prepare($conn, $query);
+            mysqli_stmt_bind_param(
+                $stmt,
+                'ssssis',
+                $first_name,
+                $last_name,
+                $email,
+                $rank,
+                $status,
+                $password
+            );
+
+            if (mysqli_stmt_execute($stmt)) {
+                $message = '<small class="success">Admin registered successfully!</small>';
+                // Redirect to login.php
+                header("refresh:2; url='dashboard'");
+            } else {
+                $message = '<small class="error">Registration failed. Please try again.</small>';
+            }
+
+            mysqli_stmt_close($stmt);
+        }
     } else {
-        $error = 'Registration failed. Please try again.';
+        $message = '<small class="error">Error in preparing the check statement: ' . mysqli_error($conn).'</small>';
     }
 
     mysqli_close($conn);
-} ?>
+}
+?>
+
 
 <!DOCTYPE html>
 <html>
@@ -47,6 +72,10 @@ if (isset($_POST['signup'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"></script>
     <title>Add - Admin</title>
+    <Style>
+        .error{color:red;}
+        .success{color:green;}
+    </Style>
 </head>
 <body>
      <div class="container-fluid">
@@ -55,11 +84,7 @@ if (isset($_POST['signup'])) {
  <?php include '../includes/admin_sidebar.php'; ?>
  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5">
     <h3>Add Admin</h3>
-    <?php if (isset($success)): ?>
-    <p><?= $success ?></p>
-    <?php elseif (isset($error)): ?>
-    <p><?= $error ?></p>
-    <?php endif; ?>
+    <?php if(isset($message)){echo $message;} ?><!-- Display the message within the form -->
 <hr>
     <form method="post">
         <div class="row mb-2">
@@ -83,7 +108,7 @@ if (isset($_POST['signup'])) {
             </div>
             <div class="col-4">
  <label for="status" class="form-label">Status</label>
-        <select type="text" class="form-select" name="status" disabled required>
+        <select type="text" class="form-select" name="status" readonly required>
           <option value="1">Admin</option>
         </select>
             </div>

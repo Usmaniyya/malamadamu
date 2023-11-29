@@ -57,7 +57,7 @@ if (isset($_POST['update'])) {
 
     if (mysqli_stmt_execute($stmt)) {
         echo "Data Saved successfully!";
-       // header("refresh:2; url='dashboard'"); // Redirect to the dashboard
+       header("refresh:2; url='dashboard'"); // Redirect to the dashboard
     } else {
         echo "Error: " . mysqli_error($conn);
     }

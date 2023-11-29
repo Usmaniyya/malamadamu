@@ -49,7 +49,7 @@ $result = mysqli_query($conn, $query);
             ?>
        <tr>
         <td> <?= $applicantId ?></td>
-        <td> <?= $firstName . $lastName ?></td>
+        <td> <?= $firstName ." ". $lastName ?></td>
         <td> <?= $email ?></td>
         <td> <?= $phone ?></td>
         <td> <?= $dob ?></td>

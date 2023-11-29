@@ -18,6 +18,9 @@ $result = mysqli_query($conn, $query);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
     <title>Applications</title>
 </head>
 <body>
@@ -30,8 +33,8 @@ $result = mysqli_query($conn, $query);
     <hr>
     <?php
     if ($result) {
-        echo '<table class="table">';
-        echo '<tr class="bg-warning"><th>A-ID</th><th>Name</th><th>Email</th><th>Phone</th><th>State</th><th>LGA</th><th>View</th></tr>';
+        echo '<table class="table" id="myTable">';
+        echo '<thead><tr class="mt-2"><th>A-ID</th><th>Name</th><th>Email</th><th>Phone</th><th>State</th><th>LGA</th><th>View</th></tr></thead>';
 
         while ($row = mysqli_fetch_assoc($result)) {
 
@@ -68,3 +71,8 @@ $result = mysqli_query($conn, $query);
 </body>
 </html>
 
+<script>
+    $('#myTable').DataTable({
+        "responsive": true, "lengthChange": false, "autoWidth": false,
+    });
+</script>

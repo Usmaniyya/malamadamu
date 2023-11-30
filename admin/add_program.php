@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_stmt_close($checkStmt);
 
         if ($count > 0) {
-            $message = "<small class='error'>Program already exists!</small>";
+            $message = "<script>swal('Error!', 'Program Already exist!', 'error')</script>";
         } else {
             // Prepare and execute the SQL query to insert into the programs table
             $insertQuery = "INSERT INTO programs (faculty_id, name) VALUES (?, ?)";
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $result = mysqli_stmt_execute($insertStmt);
 
                 if ($result) {
-                    $message = "<small class='success'>Program successfully Saved!</small>";
+                    $message = "<script>swal('Done!', 'Program Added!', 'success')</script>";
                 } else {
                     $message = "<small class='error'>Error: " . mysqli_error($conn).'</small>';
                 }
@@ -47,9 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = "<small class='error'>Error in preparing the check statement: " . mysqli_error($conn).'</small>';
     }
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,12 +58,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>Add Program</title>
-    <Style>
+      <style>
         .error{color:red;}
         .success{color:green;}
-    </Style>
-    
+    </style>
 </head>
 <body>
 

@@ -22,11 +22,11 @@ if (isset($_POST['signup'])) {
         $password
     );
     if (mysqli_stmt_execute($stmt)) {
-        $success = 'Registration successful. You can now login.';
+        $success = "<script>swal('Done!', 'Registration Successful!', 'success')</script>";
         // Redirect to login.php
         header("refresh:2; url='login'");
     } else {
-        $error = 'Registration failed. Please try again.';
+        $error = "<script>swal('Error!', 'Registration Failed!', 'error')</script>";
     }
 
     mysqli_close($conn);
@@ -38,6 +38,7 @@ if (isset($_POST['signup'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>Signup</title>
 </head>
 <body>

@@ -75,8 +75,8 @@ if (isset($_SESSION['email'])) {
 <div class="row mb-2">
 <div class="col-12">
   <label for="amount" class="form-label">Amount to Pay</label>
-    <input type="tel" class="form-control"  value="4000" required readonly="yes" />
-    <input type="hidden" id="amount" value="4000" required readonly="yes" />
+    <input type="tel" class="form-control"  value="4500" required readonly="yes" />
+    <input type="hidden" id="amount" value="4500" required readonly="yes" />
 </div>
 </div>
 <div class="row">

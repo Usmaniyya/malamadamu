@@ -23,13 +23,13 @@ if (isset($_POST['login'])) {
         if ($row['status'] == 1) {
             // User is an admin, redirect to the admin dashboard
             $success =
-                '<span class="alert alert-success">Login successful. Redirecting to Admin Dashboard...</span>' .
+                '<span class="alert alert-success">Login successful.</span>' .
                 $_SESSION['first_name'];
             header("refresh:2; url='admin/dashboard'");
         } else {
             // User is a regular user, redirect to the regular user dashboard
             $success =
-                '<span class="alert alert-success">Login successful. Redirecting to User Dashboard...</span>' .
+                '<span class="alert alert-success">Login successful.</span>' .
                 $_SESSION['first_name'];
             header('refresh:2; url=dashboard');
         }
@@ -51,7 +51,8 @@ if (isset($_POST['login'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-</head>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  </head>
 <body>
     <!-- Login -->
 <section class="py-3 py-md-5 py-xl-8">

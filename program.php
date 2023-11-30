@@ -23,9 +23,9 @@ mysqli_stmt_execute($stmt);
 
 // Check for success
 if (mysqli_stmt_affected_rows($stmt) > 0) {
-   $message = "<span class='alert alert-success'>Program Saved successfully.</span>";
+   $message = "<script>swal('Done!', 'Program Saved Successfully!', 'success')</script>";
 } else {
-   $message = "<span class='alert alert-danger'>Error Saving Program.</span>";
+   $message = "<script>swal('Error!', 'Error saving program!', 'error')</script>";
 }
 
 // Close the statement
@@ -42,6 +42,7 @@ mysqli_stmt_close($stmt);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>Program</title>
 </head>
 <body>
@@ -64,7 +65,6 @@ if (isset($_SESSION['email'])) {
     $user_data = mysqli_fetch_assoc($result);
 }
 ?>
- 
  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5">
 <h2 class="mb-3">Program of Study</h2>
 <hr>
@@ -72,7 +72,7 @@ if (isset($_SESSION['email'])) {
     <h4>Select the program you want to study</h4>
     <form method="POST">
         <div class="row mb-2">
-       <?php $default_message = "<span class='alert alert-success'>Program Selected successfully. </span>";?>
+       <?php $default_message = "<script>swal('Done!', 'Program Selected Successfully!', 'success')</script>";?>
             <?php $message = isset($user_data["program"])? $default_message : ''?>
             <?=$message?>
             <div class="col-6">

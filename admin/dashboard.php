@@ -15,6 +15,7 @@ $sql = "SELECT
     SUM(j.english_score + j.subject1_score + j.subject2_score + j.subject3_score) AS total_score
 FROM signup s
 INNER JOIN jamb_results j ON s.id = j.student_id
+INNER JOIN payments p ON s.id = p.student_id
 GROUP BY s.id
 ORDER BY total_score DESC";
 

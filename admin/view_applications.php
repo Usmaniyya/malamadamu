@@ -107,7 +107,7 @@ if (isset($_GET['id'])) {
     // var_dump($row['decision']);
     // var_dump($applicantId);
 
-    if ($row['decision'] == 2) {
+    if ($row['decision'] == 2 || $row['decision'] == 0) {
         // echo '<h3>Decision Making</h3>';
         echo '<a href="status_approve_decline?aid=' .
             $applicantId .
@@ -310,7 +310,7 @@ if (isset($_GET['id'])) {
 
         echo '<tr>';
         echo '<td colspan="2"><b>Olevel Details (' .
-            ['First Sitting', 'Second Sitting'][$i] .
+            (isset(['First Sitting', 'Second Sitting'][$i]) ? ['First Sitting', 'Second Sitting'][$i] : 'N/A') .
             ')</b></td>';
         echo '</tr>';
 

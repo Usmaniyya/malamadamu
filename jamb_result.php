@@ -113,7 +113,7 @@ input::-webkit-inner-spin-button {
         </div>
         <div class="row mb-2">
              <div class="col-6">
-<button type="submit" class="btn btn-warning" name="update">Save</button>
+            <button type="submit" class="btn btn-warning" name="update">Save</button>
         </div>
         </div>
     </form>

@@ -78,7 +78,7 @@ if (isset($_SESSION['email'])) {
             <div class="col-6">
  <input type="text" class="form-control" name="english[]" placeholder="English" value="<?= $user_data[
      'english'
- ] ?? '' ?>" required disabled>
+ ] ?? '' ?>" required readonly>
         <select class="form-select mt-2 w-50" name="english_grade[]" required>
             <option><?= $user_data['english_grade'] ?? 'Grade' ?></option>
             <option value="A1">A1</option>
@@ -96,7 +96,7 @@ if (isset($_SESSION['email'])) {
                  <!-- Row 3: Math Grade -->
         <input type="text" class="form-control" name="maths[]" placeholder="Mathematics" value="<?= $user_data[
             'maths'
-        ] ?? '' ?>" required disabled>
+        ] ?? '' ?>" required readonly>
         <select class="form-select mt-2 w-50" name="maths_grade[]" required>
             <option><?= $user_data['maths_grade'] ?? 'Grade' ?></option>
             <option value="A1">A1</option>

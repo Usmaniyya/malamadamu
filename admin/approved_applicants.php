@@ -17,7 +17,10 @@ $result = mysqli_query($conn, $query);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
     <title>Approved</title>
 </head>
 <body>
@@ -26,13 +29,13 @@ $result = mysqli_query($conn, $query);
         <!-- Sidebar -->
  <?php include '../includes/admin_sidebar.php'; ?>
  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5">
-    <h3>Approved</h3>
+    <h3>Approved Applications</h3>
     <hr>
     
     <?php
     if ($result) {
-        echo '<table border="1" class="table">';
-        echo '<tr class="bg-warning"><th>A-ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Dob</th><th>State</th><th>LGA</th><th>View</th></tr>';
+        echo '<table border="1" class="table" id="myTable">';
+        echo '<thead><tr><th>A-ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Dob</th><th>State</th><th>LGA</th><th>View</th></tr></thead>';
         while ($row = mysqli_fetch_assoc($result)) {
 
             $applicantId = $row['applicant_id'];
@@ -46,7 +49,7 @@ $result = mysqli_query($conn, $query);
             ?>
        <tr>
         <td> <?= $applicantId ?></td>
-        <td> <?= $firstName . $lastName ?></td>
+        <td> <?= $firstName ." ". $lastName ?></td>
         <td> <?= $email ?></td>
         <td> <?= $phone ?></td>
         <td> <?= $dob ?></td>
@@ -66,6 +69,14 @@ $result = mysqli_query($conn, $query);
 
     // Close the database connection
     mysqli_close($conn);
-
-
 ?>
+</main>
+</div>
+</div>
+</body>
+</html>
+<script>
+    $('#myTable').DataTable({
+        "responsive": true, "lengthChange": false, "autoWidth": false,
+    });
+</script>

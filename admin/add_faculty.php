@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_stmt_close($checkStmt);
 
         if ($count > 0) {
-            $message = "<small class='error'>Faculty already exists!</small>";
+            $message = "<script>swal('Error!', 'Faculty Already exist!', 'error')</script>";
         } else {
             // Prepare and execute the SQL query to insert into the faculty table
             $insertQuery = "INSERT INTO faculty (name) VALUES (?)";
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $result = mysqli_stmt_execute($insertStmt);
 
                 if ($result) {
-                    $message = "<small class='success'>Faculty successfully Saved!</small>";
+                    $message = "<script>swal('Done!', 'Faculty Added!', 'success')</script>";
                 } else {
                     $message = "<small class='error'>Error: " . mysqli_error($conn)."</small>";
                 }
@@ -59,6 +59,7 @@ mysqli_close($conn);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>Add Faculty</title>
     <Style>
         .error{color:red;}

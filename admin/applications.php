@@ -64,15 +64,14 @@ $result = mysqli_query($conn, $query);
     } else {
         echo 'Query failed: ' . mysqli_error($conn);
     }
-
     // Close the database connection
     mysqli_close($conn);
     ?>
-</body>
+</main>
+</div>
+</div>
+</body></body>
 </html>
-
 <script>
-    $('#myTable').DataTable({
-        "responsive": true, "lengthChange": false, "autoWidth": false,
-    });
+    $('#myTable').DataTable();
 </script>

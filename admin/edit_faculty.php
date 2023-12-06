@@ -21,7 +21,25 @@ if (isset($_POST["submit"])) {
     }
 
 }
-
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+     <title>Edit Faculty</title>
+</head>
+<body>
+<div class="container-fluid">
+<div class="row">
+        <!-- Sidebar -->
+ <?php include '../includes/admin_sidebar.php'; ?>
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5">
+<?php
 // Check if ID parameter is provided
 if (isset($_GET['id'])) {
     $facultyId = mysqli_real_escape_string($conn, $_GET['id']);
@@ -37,9 +55,15 @@ if (isset($_GET['id'])) {
         // Display a form to edit faculty
         echo "<h2>Edit Faculty</h2>";
         echo "<form method='post'>";
-        echo "<input type='hidden' name='id' value='" . $row['id'] . "'>";
-        echo "Name: <input type='text' name='name' value='" . htmlspecialchars($row['name']) . "'>";
-        echo "<input type='submit' name='submit' value='Update'>";
+        echo "<div class='row'>";
+        echo "<div class='col-12 mb-2'>";
+        echo "<input type='hidden' class='form-control' name='id' value='" . $row['id'] . "'>";
+        echo "Name: <input type='text' class='form-control' name='name' value='" . htmlspecialchars($row['name']) . "'>";
+        echo "</div>";
+         echo "<div class='col-4'>";
+        echo "<input type='submit' class='form-control bg-warning' name='submit' value='Update'>";
+        echo "</div>";
+        echo "</div>";
         echo "</form>";
     } else {
         echo "Faculty not found.";
@@ -51,3 +75,8 @@ if (isset($_GET['id'])) {
 // Close the database connection
 mysqli_close($conn);
 ?>
+</div>
+</div>
+</main>
+</body>
+</html>

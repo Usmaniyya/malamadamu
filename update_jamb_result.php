@@ -31,7 +31,7 @@ if (isset($_POST['update'])) {
 
     if (mysqli_stmt_execute($stmt)) {
         echo "Data updated successfully!";
-        header("refresh:2; url='jamb_result'");
+        header("refresh:2; url='program'");
     } else {
         echo "Error: " . mysqli_error($conn);
     }

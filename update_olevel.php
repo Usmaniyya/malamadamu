@@ -1,14 +1,13 @@
 <?php
 include("includes/config.php"); // Database connection
-if (!$_SESSION['id']){
+if (!$_SESSION['id']) {
     header("location: login");
 }
+
 if (isset($_POST['update'])) {
     $user_id = $_SESSION['id'];
-    // Get the number of sittings
-    // $sittingCount = isset($_POST['sittingCount']) ? count($_POST['exam_type']) : 0;
     $sittingCount = $_POST['sittingCount'];
-    echo($sittingCount);
+
     // Loop through each sitting and insert/update the data
     for ($i = 0; $i < $sittingCount; $i++) {
         $data = [
@@ -30,37 +29,51 @@ if (isset($_POST['update'])) {
             'subject4_grade' => $_POST['subject4_grade'][$i]
         ];
 
-        // Define the query for inserting or updating
-        $query = "INSERT INTO olevel (student_id, exam_type, exam_no, year, exam_center, english, english_grade, maths, maths_grade, subject1, subject1_grade, subject2, subject2_grade, subject3, subject3_grade, subject4, subject4_grade)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ON DUPLICATE KEY UPDATE
-            exam_type = VALUES(exam_type),
-            exam_no = VALUES(exam_no),
-            year = VALUES(year),
-            exam_center = VALUES(exam_center),
-            english = VALUES(english),
-            english_grade = VALUES(english_grade),
-            maths = VALUES(maths),
-            maths_grade = VALUES(maths_grade),
-            subject1 = VALUES(subject1),
-            subject1_grade = VALUES(subject1_grade),
-            subject2 = VALUES(subject2),
-            subject2_grade = VALUES(subject2_grade),
-            subject3 = VALUES(subject3),
-            subject3_grade = VALUES(subject3_grade),
-            subject4 = VALUES(subject4),
-            subject4_grade = VALUES(subject4_grade)";
+        // Check if the record exists
+        $checkQuery = "SELECT * FROM olevel WHERE student_id = ? AND exam_type = ?";
+        $checkStmt = mysqli_prepare($conn, $checkQuery);
+        mysqli_stmt_bind_param($checkStmt, "is", $user_id, $data['exam_type']);
+        mysqli_stmt_execute($checkStmt);
+        $checkResult = mysqli_stmt_get_result($checkStmt);
 
-        // Prepare and execute the query
-        $stmt = mysqli_prepare($conn, $query);
-        $bindParams = array_merge([$user_id], array_values($data));
-        $bindString = str_repeat('s', count($bindParams));
-        mysqli_stmt_bind_param($stmt, $bindString, ...$bindParams);
-        // mysqli_stmt_execute($stmt);
-        if(mysqli_stmt_execute($stmt)){
-            header("location:olevel");
+        if (mysqli_num_rows($checkResult) > 0) {
+            // Update the existing record
+            $updateQuery = "UPDATE olevel SET
+                exam_no = ?, year = ?, exam_center = ?, english = ?, english_grade = ?,
+                maths = ?, maths_grade = ?, subject1 = ?, subject1_grade = ?,
+                subject2 = ?, subject2_grade = ?, subject3 = ?, subject3_grade = ?,
+                subject4 = ?, subject4_grade = ?
+                WHERE student_id = ? AND exam_type = ?";
+                
+            $updateStmt = mysqli_prepare($conn, $updateQuery);
+            $updateBindParams = array_merge(
+                array_values($data),
+                [$user_id, $data['exam_type']]
+            );
+            $updateBindString = str_repeat('s', count($updateBindParams) - 2); // Exclude the last two parameters
+            mysqli_stmt_bind_param($updateStmt, $updateBindString, ...$updateBindParams);
+            
+            if (!mysqli_stmt_execute($updateStmt)) {
+                echo "Error updating record: " . mysqli_error($conn);
+            }
+        } else {
+            // Insert a new record
+            $insertQuery = "INSERT INTO olevel (student_id, exam_type, exam_no, year, exam_center, english, english_grade, maths, maths_grade, subject1, subject1_grade, subject2, subject2_grade, subject3, subject3_grade, subject4, subject4_grade)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                
+            $insertStmt = mysqli_prepare($conn, $insertQuery);
+            $insertBindParams = array_merge([$user_id], array_values($data));
+            $insertBindString = str_repeat('s', count($insertBindParams));
+            mysqli_stmt_bind_param($insertStmt, $insertBindString, ...$insertBindParams);
+            
+            if (!mysqli_stmt_execute($insertStmt)) {
+                echo "Error inserting record: " . mysqli_error($conn);
+            }
         }
     }
+
+    // Redirect after all iterations are complete
+    header("location: olevel");
 
     // Close the database connection
     mysqli_close($conn);

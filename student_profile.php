@@ -98,7 +98,7 @@ if (isset($_SESSION['email'])) {
         </div>
         <div class="col-4">
               <label for="" class="form-label">State</label>
-        <select placeholder="Select State" class="form-select" autocomplete="off" name="state" id="state" class="select">
+        <select placeholder="<?= $user_data['state'] ?? 'Select State' ?>" autocomplete="off" name="state" id="state" class="select">
             <option value=""></option>
             <option value="Abia">Abia</option>
             <option value="Adamawa">Adamawa</option>
@@ -141,7 +141,7 @@ if (isset($_SESSION['email'])) {
         </div>
         <div class="col-4">
               <label for="lga" class="form-label">Local Government</label>
-        <select placeholder="Select Local Government" class="form-select" autocomplete="off" name="lga" id="lga" class="lga">
+        <select placeholder="<?= $user_data['lga'] ?? 'Select Local Government' ?>" autocomplete="off" name="lga" id="lga" class="lga">
             <option value=""></option>
         </select>
         </div>

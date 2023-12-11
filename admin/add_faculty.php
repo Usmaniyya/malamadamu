@@ -1,6 +1,8 @@
 <?php
 include "../includes/config.php"; // Include database configuration
-
+if (!$_SESSION['id']) {
+    header('location: ../login');
+}
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get the faculty name from the form

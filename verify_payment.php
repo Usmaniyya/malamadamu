@@ -47,7 +47,9 @@ if (!$_SESSION['id']){
     $channel = $response["data"]['channel'];
     $currency = $response["data"]['currency'];
     $ip_address = $response["data"]['ip_address'];
-
+    $fixed_amount = 4500;
+ if (($amount / 100) == $fixed_amount ) {
+             
     // Prepare the SQL query
     $query = "INSERT INTO payments (student_id, message, status, reference, amount, paid_at, channel, currency, ip_address) 
               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -60,7 +62,9 @@ if (!$_SESSION['id']){
 
         if (mysqli_stmt_execute($stmt)) {
             // Payment data inserted successfully
+           
             header("location: acknowledgment_slip");
+            
         } else {
             // Error handling if the query execution fails
             echo "Error: " . mysqli_error($conn);
@@ -72,7 +76,10 @@ if (!$_SESSION['id']){
         // Error handling if the statement preparation fails
         echo "Error: " . mysqli_error($conn);
     }
-
+    
+  }else {
+    header("refresh:3; incomplete_payment");
+  }
     // Close the database connection
     mysqli_close($conn);
   }

@@ -74,7 +74,7 @@ if (isset($_SESSION['email'])) {
             <option value='2023'>2023</option>
             <option value='2024'>2024</option>
             <option value='2025'>2025</option>
-            <option value='2023-11-29'>2023-11-29</option>
+            <!-- <option value='2023-11-29'>2023-11-29</option> -->
         </select>
                 </div>
                   <div class="col-3">     
@@ -88,9 +88,9 @@ if (isset($_SESSION['email'])) {
         <div class="row mb-2">
                  <!-- Row 2: English Grade -->
             <div class="col-6">
- <input type="text" class="form-control" name="english[]" placeholder="English" read-only value="<?= $user_data[
+ <input type="text" class="form-control" name="english[]" placeholder="English" readonly value="<?= $user_data[
      'english'
- ] ?? '' ?>" required disabled>
+ ] ?? '' ?>" required>
         <select class="form-select mt-2 w-50" name="english_grade[]" required>
             <option><?= $user_data['english_grade'] ?? 'Grade' ?></option>
             <option value="A1">A1</option>
@@ -106,9 +106,9 @@ if (isset($_SESSION['email'])) {
                     </div>
 <div class="col-6">
                  <!-- Row 3: Math Grade -->
-        <input type="text" class="form-control" name="maths[]" placeholder="Mathematics" read-only value="<?= $user_data[
+        <input type="text" class="form-control" name="maths[]" placeholder="Mathematics" readonly value="<?= $user_data[
             'maths'
-        ] ?? '' ?>" required disabled>
+        ] ?? '' ?>" required>
         <select class="form-select mt-2 w-50" name="maths_grade[]" required>
             <option><?= $user_data['maths_grade'] ?? 'Grade' ?></option>
             <option value="A1">A1</option>
@@ -386,7 +386,7 @@ if (isset($_SESSION['email'])) {
 <div class="row mb-2">
             <!-- Update Button -->
     <div class="col-6">
-        <button type="submit" class="btn btn-warning" name="update">Update</button>
+        <button type="submit" class="btn btn-warning" name="update">Save</button>
     </div>
 </div>
             </div>

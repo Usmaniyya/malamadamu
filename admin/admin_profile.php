@@ -1,6 +1,8 @@
 <?php
 include '../includes/config.php'; // Include your database configuration
-
+if (!$_SESSION['id']) {
+    header('location: ../login');
+}
 if (
     $_SERVER['REQUEST_METHOD'] == 'POST' &&
     isset($_POST['old_password']) &&

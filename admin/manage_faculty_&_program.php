@@ -1,7 +1,9 @@
 <?php
 // Include database configuration
 include "../includes/config.php";
-
+if (!$_SESSION['id']) {
+    header('location: ../login');
+}
 // Fetch data from faculty table
 $facultyQuery = "SELECT id, name FROM faculty";
 $facultyResult = mysqli_query($conn, $facultyQuery);

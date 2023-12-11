@@ -1,6 +1,8 @@
 <?php
 include '../includes/config.php'; // Database connection
-
+if (!$_SESSION['id']) {
+    header('location: ../login');
+}
 // Perform the query
 $query = "SELECT a.status, a.id, a.student_id AS applicant_id, a.phone, a.dob, a.state, a.lga, a.address, a.next_of_kin, a.nok_address, a.nok_email, a.relation, a.passport_path, s.id AS signup_id, s.first_name, s.last_name, s.email, s.rank, s.status, s.created_at, s.updated_at
 FROM applicants a

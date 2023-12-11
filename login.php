@@ -19,6 +19,8 @@ if (isset($_POST['login'])) {
         $_SESSION['id'] = $row['id'];
         $_SESSION['email'] = $row['email'];
         $_SESSION['first_name'] = $row['first_name'];
+        $_SESSION['last_name'] = $row['last_name'];
+        $_SESSION['rank'] = $row['rank'];
 
         if ($row['status'] == 1) {
             // User is an admin, redirect to the admin dashboard

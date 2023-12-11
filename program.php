@@ -3,35 +3,51 @@ include 'includes/config.php'; // Database connection
 if (!$_SESSION['id']) {
     header('location: login');
 }
-if(isset($_POST["program"])){
-$applicant_id = mysqli_real_escape_string($conn, $_SESSION['id']);
-$faculty = mysqli_real_escape_string($conn, $_POST["faculty"]);
-$program = mysqli_real_escape_string($conn, $_POST["program"]);
 
-$sql = "INSERT INTO `choice_of_study`(`applicant_id`, `faculty`, `program`) VALUES (?, ?, ?)
-ON DUPLICATE KEY UPDATE
-        applicant_id = VALUES(applicant_id), faculty = VALUES(faculty), program = VALUES(program)";
+if (isset($_POST["program"])) {
+    $applicant_id = mysqli_real_escape_string($conn, $_SESSION['id']);
+    $faculty = mysqli_real_escape_string($conn, $_POST["faculty"]);
+    $program = mysqli_real_escape_string($conn, $_POST["program"]);
 
-// Prepare the statement
-$stmt = mysqli_prepare($conn, $sql);
+    // Check if the record exists
+    $checkQuery = "SELECT * FROM `choice_of_study` WHERE applicant_id = ?";
+    $checkStmt = mysqli_prepare($conn, $checkQuery);
+    mysqli_stmt_bind_param($checkStmt, "i", $applicant_id);
+    mysqli_stmt_execute($checkStmt);
+    $checkResult = mysqli_stmt_get_result($checkStmt);
 
-// Bind parameters
-mysqli_stmt_bind_param($stmt, "iii", $applicant_id, $faculty, $program);
+    if (mysqli_num_rows($checkResult) > 0) {
+        // Update the existing record
+        $updateQuery = "UPDATE `choice_of_study` SET faculty = ?, program = ? WHERE applicant_id = ?";
+        $updateStmt = mysqli_prepare($conn, $updateQuery);
+        mysqli_stmt_bind_param($updateStmt, "iii", $faculty, $program, $applicant_id);
 
-// Execute the statement
-mysqli_stmt_execute($stmt);
+        if (mysqli_stmt_execute($updateStmt)) {
+            $message = "<script>swal('Done!', 'Program Updated Successfully!', 'success')</script>";
+        } else {
+            $message = "<script>swal('Error!', 'Error updating program!', 'error')</script>";
+        }
 
-// Check for success
-if (mysqli_stmt_affected_rows($stmt) > 0) {
-   $message = "<script>swal('Done!', 'Program Saved Successfully!', 'success')</script>";
-} else {
-   $message = "<script>swal('Error!', 'Error saving program!', 'error')</script>";
-}
+        // Close the statement
+        mysqli_stmt_close($updateStmt);
+    } else {
+        // Insert a new record
+        $insertQuery = "INSERT INTO `choice_of_study` (applicant_id, faculty, program) VALUES (?, ?, ?)";
+        $insertStmt = mysqli_prepare($conn, $insertQuery);
+        mysqli_stmt_bind_param($insertStmt, "iii", $applicant_id, $faculty, $program);
 
-// Close the statement
-mysqli_stmt_close($stmt);
+        if (mysqli_stmt_execute($insertStmt)) {
+            $message = "<script>swal('Done!', 'Program Saved Successfully!', 'success')</script>";
+        } else {
+            $message = "<script>swal('Error!', 'Error saving program!', 'error')</script>";
+        }
+
+        // Close the statement
+        mysqli_stmt_close($insertStmt);
+    }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

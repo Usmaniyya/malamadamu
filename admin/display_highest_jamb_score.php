@@ -1,6 +1,8 @@
 <?php
 include "../includes/config.php"; // Include your database configuration
-
+if (!$_SESSION['id']) {
+    header('location: ../login');
+}
 // Prepare and execute the SQL query with calculated total score and order by total_score
 $sql = "SELECT 
     s.id,

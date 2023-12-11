@@ -4,7 +4,6 @@ if (!$_SESSION['id']) {
     header('location: ../login');
 }
 include 'fetch_data.php';
-
 // Prepare and execute the SQL query with calculated total score and order by total_score
 $sql = "SELECT 
     s.id,
@@ -24,97 +23,332 @@ $result = mysqli_query($conn, $sql);
 if (!$result) {
     die('Database query failed.');
 }
+
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"></script>
-    <title>Dashboard - Admin</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><?=$system_name?></title>
 
-</head>
-<body>
-    <div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
- <?php include '../includes/admin_sidebar.php'; ?>
- <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-2">
-    <h2 class="mb-2">Admin Dashboard</h2>
-    <hr>
-    <div class="row mb-2">
-        <div class="col-4">
-            <div class="bg-warning text-dark px-3 py-4 rounded">
-                <h5>Total Applications: <?= $total_applications ?></h5>
-            </div>
-        </div>
-        <div class="col-4">
-             <div class="bg-success text-light px-3 py-4 rounded">
-                <h5>Total Accepted: <?= $total_accepted ?></h5>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="bg-danger text-light px-3 py-4 rounded">
-                <h5>Total Rejected: <?= $total_rejected ?></h5>
-            </div>
-        </div>
-</div>
-<div class="row">
-    <div class="col-4">
-        <div class="bg-primary text-light px-3 py-4 rounded">
-<h5> Not Decided: <?= $total_not_viewed ?></h5>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="bg-secondary text-light px-3 py-4 rounded">
-<h5>Total Payments: <?= $total_payments ?></h5>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="bg-info text-dark px-3 py-4 rounded">
-<h5>Total Amount: &#8358;<?= $total_amount ?></h5>
-        </div>
-    </div>
-</div>
-<hr>
-    <h2>JAMB Total Scores</h2>
-<table class="table">
-    <tr class="bg-warning">
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>JAMB Number</th>
-        <th>Jamb Score</th>
-        <th>Rank</th>
-        <th>Details</th>
-    </tr>
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-buttons-bs4/2.4.2/buttons.bootstrap4.css" />
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-bs4/3.2.2/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-responsive-bs4/2.5.0/responsive.bootstrap4.css">
 
-    <?php
-    $rank = 1; // Initialize rank
-    while ($row = mysqli_fetch_assoc($result)) {
-        $applicantId = htmlspecialchars($row['id']);
-        echo '<tr>';
-        echo '<td>' . htmlspecialchars($row['first_name']) . '</td>';
-        echo '<td>' . htmlspecialchars($row['last_name']) . '</td>';
-        echo '<td>' . htmlspecialchars($row['email']) . '</td>';
-        echo '<td>' . htmlspecialchars($row['jamb_reg_no']) . '</td>';
-        echo '<td>' . htmlspecialchars($row['total_score']) . '</td>';
-        echo '<td>' . $rank . '</td>'; // Display the rank
-        echo '<td><a class="bg-primary p-2 text-light text-decoration-none rounded" href="view_applications?id=' .
-            $applicantId .
-            '">View</a></td>';
-        echo '</tr>';
-        $rank++; // Increment rank for the next student
+    
+  <style>
+    .bgColor{
+      background:#f8f9fa;
     }
-    ?>
-</table>
+  </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__wobble" src="../dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+  </div>
+
+<?php include "../includes/navbars.php"; ?>
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar bgColor elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">M.A FOUNDATION</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+     <?php include "../includes/sidebar.php"; ?>
     </div>
-</main>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Info boxes -->
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-4">
+            <div class="info-box">
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total Applications</span>
+                <span class="info-box-number">
+                <?= $total_applications ?>
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-4">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-thumbs-up"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total Accepted</span>
+                <span class="info-box-number"><?= $total_accepted ?></span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+
+          <!-- fix for small devices only -->
+          <div class="clearfix hidden-md-up"></div>
+
+          <div class="col-12 col-sm-6 col-md-4">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-shopping-cart"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total Rejected</span>
+                <span class="info-box-number"><?= $total_rejected ?></span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <!-- .row -->
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-4">
+              <div class="info-box mb-3">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">Not Decided</span>
+                  <span class="info-box-number"><?= $total_not_viewed ?></span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total Payments</span>
+                <span class="info-box-number"><?= $total_payments ?></span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-4">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total Amount</span>
+                <span class="info-box-number">&#8358;<?= $total_amount ?></span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+        </div>
+          <!-- /.col -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">JAMB Total Scores</h5>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-8">
+                  <!-- <h2>JAMB Total Scores</h2> -->
+                    <table id="myTable" class="table table-striped table-bordered" cellpadding="1" cellspacing="1" width="100%">
+                    <thead>
+                      <tr>
+                            <th>(Applicant)_Name</th>
+                            <!-- <th>Last Name</th> -->
+                            <th>Email</th>
+                            <th>JAMB_Number</th>
+                            <th>Jamb_Score</th>
+                            <th>Rank</th>
+                            <th>Details</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                        $rank = 1; // Initialize rank
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $applicantId = htmlspecialchars($row['id']);
+                            echo '<tr>';
+                            echo '<td>' . htmlspecialchars($row['first_name']).' '.htmlspecialchars($row['last_name']) . '</td>';
+                            // echo '<td>' . htmlspecialchars($row['last_name']) . '</td>';
+                            echo '<td>' . htmlspecialchars($row['email']) . '</td>';
+                            echo '<td>' . htmlspecialchars($row['jamb_reg_no']) . '</td>';
+                            echo '<td>' . htmlspecialchars($row['total_score']) . '</td>';
+                            echo '<td>' . $rank . '</td>'; // Display the rank
+                            echo '<td><a class="bg-primary p-2 text-light text-decoration-none rounded" href="view_applications?id=' .
+                                $applicantId .
+                                '">View</a></td>';
+                            echo '</tr>';
+                            $rank++; // Increment rank for the next student
+                        }
+                        ?>
+                      </tbody>
+                    </table>
+
+                  </div>
+                  <!-- /.col -->
+              <div class="col-md-4">
+                  <div class="col-md-12">
+                <!-- Info Boxes Style 2 -->
+                <div class="info-box mb-3 bg-warning">
+                  <span class="info-box-icon"><i class="fas fa-award"></i></span>
+
+                  <div class="info-box-content">
+                    <span class="info-box-text">Programs</span>
+                    <span class="info-box-number"><?= $total_programs ?></span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+                <div class="info-box mb-3 bg-success">
+                  <span class="info-box-icon"><i class="fa fa-book-open"></i></span>
+
+                  <div class="info-box-content">
+                    <span class="info-box-text">Faculties</span>
+                    <span class="info-box-number"><?= $total_faculty ?></span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+                <div class="info-box mb-3 bg-danger">
+                  <span class="info-box-icon"><i class="fas fa-solid fa-certificate"></i></span>
+
+                  <div class="info-box-content">
+                    <span class="info-box-text">Authorized</span>
+                    <span class="info-box-number"><?= $total_admins ?></span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+                <div class="info-box mb-3 bg-info">
+                  <span class="info-box-icon"><i class="far fa-comment"></i></span>
+
+                  <div class="info-box-content">
+                    <span class="info-box-text">Complains</span>
+                    <span class="info-box-number">0</span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+        </div>
+        <!-- /.row -->
+      </div><!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <strong> &copy; 2023 <a href="https://malamadamufoundation.edu.ng"><?=$system_name?></a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Founded</b> 2023.
+    </div>
+  </footer>
 </div>
-</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+<!-- jQuery -->
+<!-- <script src="../plugins/jquery/jquery.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-bs4/3.2.2/dataTables.bootstrap4.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables-responsive/2.5.0/dataTables.responsive.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-responsive-bs4/2.5.0/responsive.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables-buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-buttons-bs4/2.4.2/buttons.bootstrap4.min.js"></script>
+
+
+<!-- <script src="../plugins/datatables/jquery.dataTables.min.js"></script> -->
+<!-- <script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script> -->
+<!-- Bootstrap -->
+<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../dist/js/adminlte.js"></script>
+<!-- ChartJS -->
+<script src="../plugins/chart.js/Chart.min.js"></script>
+<script>
+    // $('#myTable').DataTable(responsive: true)
+  $(function () {
+    $("#myTable").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+    });
+    
+  });
+</script>
 </body>
 </html>

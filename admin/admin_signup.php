@@ -2,7 +2,9 @@
 if (isset($_POST['signup'])) {
     // Database connection
     require_once '../includes/config.php';
-
+    if (!$_SESSION['id']) {
+        header('location: ../login');
+    }
     $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
     $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);

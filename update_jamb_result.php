@@ -1,12 +1,13 @@
 <?php
-require_once("includes/config.php");// Database connection
-if (!$_SESSION['id']){
+require_once("includes/config.php"); // Database connection
+
+if (!$_SESSION['id']) {
     header("location: login");
 }
+
 if (isset($_POST['update'])) {
     // Extract and sanitize form data
     $student_id = $_SESSION['id'];
-    // echo $student_id;
     $jamb_reg_no = mysqli_real_escape_string($conn, $_POST['jamb_reg_no']);
     $english = mysqli_real_escape_string($conn, $_POST['english']);
     $english_score = mysqli_real_escape_string($conn, $_POST['english_score']);
@@ -17,23 +18,48 @@ if (isset($_POST['update'])) {
     $subject3 = mysqli_real_escape_string($conn, $_POST['subject3']);
     $subject3_score = mysqli_real_escape_string($conn, $_POST['subject3_score']);
 
-    // SQL query to insert or update data
-    $query = "INSERT INTO jamb_results (student_id, jamb_reg_no, english, english_score, subject1, subject1_score, subject2, subject2_score, subject3, subject3_score)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-              ON DUPLICATE KEY UPDATE
-              english = VALUES(english), english_score = VALUES(english_score),
-              subject1 = VALUES(subject1), subject1_score = VALUES(subject1_score),
-              subject2 = VALUES(subject2), subject2_score = VALUES(subject2_score),
-              subject3 = VALUES(subject3), subject3_score = VALUES(subject3_score)";
+    // Check if the record already exists
+    $check_query = "SELECT * FROM jamb_results WHERE student_id = ?";
+    $check_stmt = mysqli_prepare($conn, $check_query);
+    mysqli_stmt_bind_param($check_stmt, "i", $student_id);
+    mysqli_stmt_execute($check_stmt);
+    $result = mysqli_stmt_get_result($check_stmt);
 
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "isssssssss", $student_id, $jamb_reg_no, $english, $english_score, $subject1, $subject1_score, $subject2, $subject2_score, $subject3, $subject3_score);
+    if (mysqli_num_rows($result) > 0) {
+        // Record exists, perform an update
+        $update_query = "UPDATE jamb_results SET
+                         jamb_reg_no = ?,
+                         english = ?,
+                         english_score = ?,
+                         subject1 = ?,
+                         subject1_score = ?,
+                         subject2 = ?,
+                         subject2_score = ?,
+                         subject3 = ?,
+                         subject3_score = ?
+                         WHERE student_id = ?";
+        $update_stmt = mysqli_prepare($conn, $update_query);
+        mysqli_stmt_bind_param($update_stmt, "sssssssssi", $jamb_reg_no, $english, $english_score, $subject1, $subject1_score, $subject2, $subject2_score, $subject3, $subject3_score, $student_id);
 
-    if (mysqli_stmt_execute($stmt)) {
-        echo "Data updated successfully!";
-        header("refresh:2; url='program'");
+        if (mysqli_stmt_execute($update_stmt)) {
+            echo "Data updated successfully!";
+            header("refresh:2; url='program'");
+        } else {
+            echo "Error: " . mysqli_error($conn);
+        }
     } else {
-        echo "Error: " . mysqli_error($conn);
+        // Record does not exist, perform an insert
+        $insert_query = "INSERT INTO jamb_results (student_id, jamb_reg_no, english, english_score, subject1, subject1_score, subject2, subject2_score, subject3, subject3_score)
+                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $insert_stmt = mysqli_prepare($conn, $insert_query);
+        mysqli_stmt_bind_param($insert_stmt, "isssssssss", $student_id, $jamb_reg_no, $english, $english_score, $subject1, $subject1_score, $subject2, $subject2_score, $subject3, $subject3_score);
+
+        if (mysqli_stmt_execute($insert_stmt)) {
+            echo "Data inserted successfully!";
+            header("refresh:2; url='program'");
+        } else {
+            echo "Error: " . mysqli_error($conn);
+        }
     }
 
     // Close the database connection

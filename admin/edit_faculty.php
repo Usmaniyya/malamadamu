@@ -1,7 +1,9 @@
 <?php
 // Include database configuration
 include "../includes/config.php";
-
+if (!$_SESSION['id']) {
+    header('location: ../login');
+}
 if (isset($_POST["submit"])) {
     // Validate form data
     $facultyId = mysqli_real_escape_string($conn, $_POST['id']);

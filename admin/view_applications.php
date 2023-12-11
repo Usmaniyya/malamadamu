@@ -1,6 +1,8 @@
 <?php
 include '../includes/config.php'; // Include your database configuration
-
+if (!$_SESSION['id']) {
+    header('location: ../login');
+}
 // Check if the applicant ID is provided as a parameter
 if (isset($_GET['id'])) {
 
@@ -212,7 +214,7 @@ if (isset($_GET['id'])) {
 
     echo '<tr>';
     echo '<td>Amount</td>';
-    echo '<td>' . htmlspecialchars($row['amount']) . '</td>';
+    echo '<td>&#8358;' . htmlspecialchars(number_format(($row['amount'] / 100), 2)) . '</td>';
     echo '</tr>';
 
     echo '<tr>';

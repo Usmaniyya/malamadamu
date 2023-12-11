@@ -1,7 +1,9 @@
 <?php
 // Include your database configuration
 include "../includes/config.php";
-
+if (!$_SESSION['id']) {
+    header('location: ../login');
+}
 // Check if ID parameter is provided
 if (isset($_GET['id'])) {
     $facultyId = mysqli_real_escape_string($conn, $_GET['id']);

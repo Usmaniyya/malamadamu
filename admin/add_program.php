@@ -1,6 +1,8 @@
 <?php
 include "../includes/config.php"; // Include database configuration
-
+if (!$_SESSION['id']) {
+    header('location: ../login');
+}
 // Initialize the message variable
 $message = "";
 

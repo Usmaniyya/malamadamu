@@ -72,7 +72,7 @@ $result = mysqli_query($conn, $query);
     <hr>
     <?php
     if ($result) {
-        echo '<table class="table" id="myCustomeTable">';
+        echo '<table class="table" id="myTable">';
         echo '<thead><tr class="mt-2"><th>A-ID</th><th>Name</th><th>Email</th><th>Phone</th><th>State</th><th>LGA</th><th>View</th></tr></thead>';
 
         while ($row = mysqli_fetch_assoc($result)) {

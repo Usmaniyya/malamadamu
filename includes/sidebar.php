@@ -12,7 +12,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="profile_admin" class="nav-link">
+            <a href="admin_profile" class="nav-link">
               <i class="bi bi-person text-warning"></i>
               <p>
                 Profile

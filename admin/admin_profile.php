@@ -148,15 +148,15 @@ if ($row = mysqli_fetch_assoc($result)) { ?>
 <h3 class="mt-3">Change Password</h3>
   <form method="post">
       <div class="row mb-2">
-      <div class="col-4">
+      <div class="col-12">
       <label for="old_password" class="form-label">Old Password</label>
       <input type="password" class="form-control" name="old_password" required>
       </div>
-      <div class="col-4">
+      <div class="col-6">
   <label for="new_password" class="form-label">New Password</label>
       <input type="password" class="form-control" name="new_password" required>
       </div>
-      <div class="col-4">
+      <div class="col-6">
   <label for="confirm_password" class="form-label">Confirm New Password</label>
       <input type="password" class="form-control"  name="confirm_password" required>
   </div>

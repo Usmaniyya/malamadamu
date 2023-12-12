@@ -1,15 +1,10 @@
 <?php
 include '../includes/config.php'; // Database connection
-include 'fetch_data.php';
 if (!$_SESSION['id']) {
     header('location: ../login');
 }
-// Perform the query
-$query = "SELECT a.status, a.id, a.student_id AS applicant_id, a.phone, a.dob, a.state, a.lga, a.address, a.next_of_kin, a.nok_address, a.nok_email, a.relation, a.passport_path, s.id AS signup_id, s.first_name, s.last_name, s.email, s.rank, s.status, s.created_at, s.updated_at
-FROM applicants a
-INNER JOIN signup s ON a.student_id = s.id WHERE a.status = 1";
+include 'fetch_data.php';
 
-$result = mysqli_query($conn, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,12 +47,12 @@ $result = mysqli_query($conn, $query);
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Approved</h1>
+            <h1 class="m-0">Profile</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Approved Applications</li>
+              <li class="breadcrumb-item active">Profile</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -68,45 +63,8 @@ $result = mysqli_query($conn, $query);
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-      <div style="background:white;padding: 10px;">
-      <?php
-    if ($result) {
-        echo '<table class="table" id="myTable">';
-        echo '<thead><tr><th>A-ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Dob</th><th>State</th><th>LGA</th><th>View</th></tr></thead>';
-        while ($row = mysqli_fetch_assoc($result)) {
+        <div style="background:white;padding: 10px;"></div>
 
-            $applicantId = $row['applicant_id'];
-            $firstName = $row['first_name'];
-            $lastName = $row['last_name'];
-            $email = $row['email'];
-            $phone = $row['phone'];
-            $dob = $row['dob'];
-            $state = $row['state'];
-            $lga = $row['lga'];
-            ?>
-       <tr>
-        <td> <?= $applicantId ?></td>
-        <td> <?= $firstName ." ". $lastName ?></td>
-        <td> <?= $email ?></td>
-        <td> <?= $phone ?></td>
-        <td> <?= $dob ?></td>
-        <td> <?= $state ?></td>
-        <td> <?= $lga ?></td>
-        <td><a class="bg-primary p-2 text-light text-decoration-none rounded" href="view_applications?id=<?=$applicantId?>">View</a></td>
-       </tr>
-        <?php
-                }
-                echo '</table>';
-
-                // Free the result set
-                mysqli_free_result($result);
-            } else {
-                echo 'Query failed: ' . mysqli_error($conn);
-            }
-
-            // Close the database connection
-            mysqli_close($conn);
-        ?>
       </div><!--/. container-fluid -->
     </section>
     <!-- /.content -->

@@ -3,93 +3,155 @@ include 'includes/config.php'; // Database connection
 if (!$_SESSION['id']) {
     header('location: login');
 }
+include 'admin/fetch_data.php';
 if (isset($_SESSION['email'])) {
-    $user_id = $_SESSION['id'];
+  $user_id = $_SESSION['id'];
 
-    // Fetch all fields for the user with the specific ID
-    $query =
-        'SELECT * FROM `signup` JOIN applicants ON signup.id = applicants.student_id WHERE applicants.student_id = ?';
+  // Fetch all fields for the user with the specific ID
+  $query =
+      'SELECT * FROM `signup` JOIN applicants ON signup.id = applicants.student_id WHERE applicants.student_id = ?';
 
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, 'i', $user_id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $user_data = mysqli_fetch_assoc($result);
-    // Close the database connection
-    mysqli_close($conn);
+  $stmt = mysqli_prepare($conn, $query);
+  mysqli_stmt_bind_param($stmt, 'i', $user_id);
+  mysqli_stmt_execute($stmt);
+  $result = mysqli_stmt_get_result($stmt);
+  $user_data = mysqli_fetch_assoc($result);
+  // Close the database connection
+  mysqli_close($conn);
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"></script>
-    <title>Payment</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><?=$system_name?> - Payment</title>
+<?php include "includes/header_student.php"; ?>
 </head>
-<body>
-  <div class="container-fluid">
-    <div class="row">
- <?php include 'includes/student_sidebar.php'; ?>
- <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5">
-<h2>Payment</h2>
-<hr>
-<div class="container d-flex justify-content-center">
-<form id="paymentForm" class="mt-5">
-   <div class="row">
-    <div class="col-12 d-flex justify-content-center">
-      <h3>Secured with</h3>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+  </div>
+
+<?php include "includes/navbars.php"; ?>
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar bgColor elevation-4">
+    <!-- Brand Logo -->
+    <a href="dashboard" class="brand-link">
+      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">M.A FOUNDATION</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+     <?php include "includes/student_sidebar.php"; ?>
     </div>
-  </div>
-  <div class="row mb-3">
-    <div class="col-12 d-flex justify-content-center">
-      <img src="./images/paystack.png" alt="Paystack" width="150" />
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">MyPayment</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+              <li class="breadcrumb-item active">MyPayment</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
     </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div >
+          <!-- <hr> -->
+          <div class="container d-flex justify-content-center">
+          <form id="paymentForm" class="mt-5"style="background:white;padding: 10px;">
+            <div class="row">
+              <div class="col-12 d-flex justify-content-center">
+                <h3>Secured with</h3>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-12 d-flex justify-content-center">
+                <img src="./images/paystack.png" alt="Paystack" width="150" />
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-6">
+          <!-- <label for="first-name" class="form-label">First Name</label> -->
+              <input type="text" class="form-control" id="first-name" value="<?= $user_data[
+                  'first_name'
+              ] ?? '' ?>"  readonly/>
+              </div>
+              <div class="col-6">
+          <!-- <label for="last-name" class="form-label">Last Name</label> -->
+              <input type="text" class="form-control" id="last-name" value="<?= $user_data[
+                  'last_name'
+              ] ?? '' ?>" readonly />
+              </div>
+            </div>
+            <div class="row mb-2">
+            <div class="col-12">
+              <!-- <label for="email" class="form-label">Email Address</label> -->
+              <input type="email" class="form-control" id="email-address" disabled value="<?= $user_data[
+                  'email'
+              ] ?? '' ?>" required />
+            </div>
+            </div>
+          <div class="row mb-2">
+          <div class="col-12">
+            <label for="amount" class="form-label">Amount to Pay</label>
+              <input type="tel" class="form-control"  value="4500" required readonly="yes" />
+              <input type="hidden" id="amount" value="4500" required readonly="yes" />
+          </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+          <button type="submit" class="btn btn-warning w-100" onclick="payWithPaystack()"> Pay </button>
+            </div>
+          </div>
+          </form>
+          </div>
+          <script src="https://js.paystack.co/v1/inline.js"></script>
+
+      </div><!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
   </div>
-  <div class="row mb-2">
-    <div class="col-6">
-<!-- <label for="first-name" class="form-label">First Name</label> -->
-    <input type="text" class="form-control" id="first-name" value="<?= $user_data[
-        'first_name'
-    ] ?? '' ?>"  readonly/>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <strong> &copy; 2023 <a href="https://malamadamufoundation.edu.ng"><?=$system_name?></a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Founded</b> 2023.
     </div>
-    <div class="col-6">
- <!-- <label for="last-name" class="form-label">Last Name</label> -->
-    <input type="text" class="form-control" id="last-name" value="<?= $user_data[
-        'last_name'
-    ] ?? '' ?>" readonly />
-    </div>
-  </div>
-  <div class="row mb-2">
-   <div class="col-12">
-    <!-- <label for="email" class="form-label">Email Address</label> -->
-    <input type="email" class="form-control" id="email-address" disabled value="<?= $user_data[
-        'email'
-    ] ?? '' ?>" required />
-   </div>
-  </div>
-<div class="row mb-2">
-<div class="col-12">
-  <label for="amount" class="form-label">Amount to Pay</label>
-    <input type="tel" class="form-control"  value="4500" required readonly="yes" />
-    <input type="hidden" id="amount" value="4500" required readonly="yes" />
+  </footer>
 </div>
-</div>
-<div class="row">
-  <div class="col-12">
- <button type="submit" class="btn btn-warning w-100" onclick="payWithPaystack()"> Pay </button>
-  </div>
-</div>
-</form>
-</div>
-<script src="https://js.paystack.co/v1/inline.js"></script>
-</main>
-</div>
-</div>
+<!-- ./wrapper -->
+<?php include "includes/footer.php"; ?>
 </body>
 </html>
 

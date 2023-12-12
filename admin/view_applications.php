@@ -1,106 +1,146 @@
 <?php
-include '../includes/config.php'; // Include your database configuration
+include '../includes/config.php'; // Database connection
 if (!$_SESSION['id']) {
     header('location: ../login');
 }
+include 'fetch_data.php';
 // Check if the applicant ID is provided as a parameter
 if (isset($_GET['id'])) {
 
-    $applicantId = $_GET['id'];
+$applicantId = $_GET['id'];
 
-    // Prepare a query to fetch details for the selected applicant
-    $query = "SELECT 
-        a.passport_path AS Photograph,
-        a.phone,
-        a.dob, 
-        a.state,
-        a.lga,
-        a.address, 
-        a.next_of_kin, 
-        a.nok_address, 
-        a.nok_email, 
-        a.relation,
-        a.status AS decision, 
-        s.id AS Basic_Details, 
-        s.first_name, 
-        s.last_name, 
-        s.email, 
-        j.id AS JAMB_Details, 
-        j.jamb_reg_no, 
-        j.english, 
-        j.english_score, 
-        j.subject1, 
-        j.subject1_score, 
-        j.subject2, 
-        j.subject2_score, 
-        j.subject3, 
-        j.subject3_score,
-        o.id AS Olevel_Details,
-        o.exam_type, 
-        o.exam_no, 
-        o.year, 
-        o.exam_center, 
-        o.english AS English_Language, 
-        o.english_grade, 
-        o.maths, 
-        o.maths_grade, 
-        o.subject1 AS Subject1, 
-        o.subject1_grade, 
-        o.subject2 AS Subject2, 
-        o.subject2_grade, 
-        o.subject3 AS Subject3, 
-        o.subject3_grade, 
-        o.subject4 AS Subject4, 
-        o.subject4_grade,
-        p.id AS Payment_Details,
-        p.status AS payment_status, 
-        p.reference, 
-        p.amount, 
-        p.paid_at, 
-        p.channel, 
-        p.currency,
-        f.name As 'Faculty',
-        pr.name As 'Program'
-    FROM applicants a
-    INNER JOIN signup s ON a.student_id = s.id
-    INNER JOIN jamb_results j ON a.student_id = j.student_id
-    LEFT JOIN olevel o ON a.student_id = o.student_id
-    LEFT JOIN payments p ON a.student_id = p.student_id
-    JOIN choice_of_study cs ON s.id = cs.applicant_id
-    JOIN faculty f ON f.id = cs.faculty
-    JOIN programs pr ON pr.faculty_id = cs.program
-    WHERE a.student_id = ?";
+// Prepare a query to fetch details for the selected applicant
+$query = "SELECT 
+a.passport_path AS Photograph,
+a.phone,
+a.dob, 
+a.state,
+a.lga,
+a.address, 
+a.next_of_kin, 
+a.nok_address, 
+a.nok_email, 
+a.relation,
+a.status AS decision, 
+s.id AS Basic_Details, 
+s.first_name, 
+s.last_name, 
+s.email, 
+j.id AS JAMB_Details, 
+j.jamb_reg_no, 
+j.english, 
+j.english_score, 
+j.subject1, 
+j.subject1_score, 
+j.subject2, 
+j.subject2_score, 
+j.subject3, 
+j.subject3_score,
+o.id AS Olevel_Details,
+o.exam_type, 
+o.exam_no, 
+o.year, 
+o.exam_center, 
+o.english AS English_Language, 
+o.english_grade, 
+o.maths, 
+o.maths_grade, 
+o.subject1 AS Subject1, 
+o.subject1_grade, 
+o.subject2 AS Subject2, 
+o.subject2_grade, 
+o.subject3 AS Subject3, 
+o.subject3_grade, 
+o.subject4 AS Subject4, 
+o.subject4_grade,
+p.id AS Payment_Details,
+p.status AS payment_status, 
+p.reference, 
+p.amount, 
+p.paid_at, 
+p.channel, 
+p.currency,
+f.name As 'Faculty',
+pr.name As 'Program'
+FROM applicants a
+INNER JOIN signup s ON a.student_id = s.id
+INNER JOIN jamb_results j ON a.student_id = j.student_id
+LEFT JOIN olevel o ON a.student_id = o.student_id
+LEFT JOIN payments p ON a.student_id = p.student_id
+JOIN choice_of_study cs ON s.id = cs.applicant_id
+JOIN faculty f ON f.id = cs.faculty
+JOIN programs pr ON pr.faculty_id = cs.program
+WHERE a.student_id = ?";
 
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, 'i', $applicantId);
-    mysqli_stmt_execute($stmt);
+$stmt = mysqli_prepare($conn, $query);
+mysqli_stmt_bind_param($stmt, 'i', $applicantId);
+mysqli_stmt_execute($stmt);
 
-    $result = mysqli_stmt_get_result($stmt);
-    ?>
+$result = mysqli_stmt_get_result($stmt);
+?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"></script>
-    <title>View Applications</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><?=$system_name?></title>
+<?php include "../includes/header.php"; ?>
 </head>
-<body>
-    <div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
- <?php include '../includes/admin_sidebar.php'; ?>
- <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__wobble" src="../dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+  </div>
+
+<?php include "../includes/navbars.php"; ?>
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar bgColor elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">M.A FOUNDATION</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+     <?php include "../includes/sidebar.php"; ?>
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Applicant Details</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Applicant Details</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div style="background:white;padding: 10px;">
 <?php if ($row = mysqli_fetch_assoc($result)) {
     // Get the session ID and other data for the first row
     $session_id = $row['Basic_Details'];
 
     // Display the details for the selected applicant
-    echo '<h2>Applicant Details</h2><hr>';
     echo '<table class="table">';
     // buttons for decision making
     echo '<tr>';
@@ -113,12 +153,12 @@ if (isset($_GET['id'])) {
         // echo '<h3>Decision Making</h3>';
         echo '<a href="status_approve_decline?aid=' .
             $applicantId .
-            '">Approve</a>';
+            '" class="btn btn-success">Approve</a>';
     } elseif ($row['decision'] == 1) {
-        echo '<h3>Decision Making</h3>';
+        // echo '<h3>Decision Making</h3>';
         echo '<a href="status_approve_decline?did=' .
             $applicantId .
-            '">Reject</a>';
+            '" class="btn btn-danger">Reject</a>';
     }
     echo '</center></b></td>';
     echo '</tr>';
@@ -412,4 +452,29 @@ if (isset($_GET['id'])) {
 
 // Close the database connection
 mysqli_close($conn);
-?>
+        ?>
+      </div><!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <strong> &copy; 2023 <a href="https://malamadamufoundation.edu.ng"><?=$system_name?></a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Founded</b> 2023.
+    </div>
+  </footer>
+</div>
+<!-- ./wrapper -->
+<?php include "../includes/footer2.php"; ?>
+</body>
+</html>

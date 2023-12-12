@@ -5,7 +5,7 @@ if (isset($_POST['login'])) {
     $password = mysqli_real_escape_string($conn, $_POST['password']);
 
     $query =
-        'SELECT id, email, first_name, status, password FROM signup WHERE email = ?';
+        'SELECT id, email, first_name, last_name, rank, status, password FROM signup WHERE email = ?';
 
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, 's', $email);
@@ -21,6 +21,7 @@ if (isset($_POST['login'])) {
         $_SESSION['first_name'] = $row['first_name'];
         $_SESSION['last_name'] = $row['last_name'];
         $_SESSION['rank'] = $row['rank'];
+        $_SESSION['status'] = $row['status'];
 
         if ($row['status'] == 1) {
             // User is an admin, redirect to the admin dashboard

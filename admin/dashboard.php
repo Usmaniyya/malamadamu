@@ -3,6 +3,9 @@ include '../includes/config.php'; // Database connection
 if (!$_SESSION['id']) {
     header('location: ../login');
 }
+if ($_SESSION['status'] != 1) {
+  header('location: ../login');
+}
 include 'fetch_data.php';
 // Prepare and execute the SQL query with calculated total score and order by total_score
 $sql = "SELECT 
@@ -31,27 +34,7 @@ if (!$result) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?=$system_name?></title>
-
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-buttons-bs4/2.4.2/buttons.bootstrap4.css" />
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-bs4/3.2.2/dataTables.bootstrap4.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-responsive-bs4/2.5.0/responsive.bootstrap4.css">
-
-    
-  <style>
-    .bgColor{
-      background:#f8f9fa;
-    }
-  </style>
+<?php include "../includes/header.php"; ?>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -66,7 +49,7 @@ if (!$result) {
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar bgColor elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="dashboard" class="brand-link">
       <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">M.A FOUNDATION</span>
     </a>
@@ -317,38 +300,6 @@ if (!$result) {
   </footer>
 </div>
 <!-- ./wrapper -->
-
-<!-- REQUIRED SCRIPTS -->
-<!-- jQuery -->
-<!-- <script src="../plugins/jquery/jquery.min.js"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-bs4/3.2.2/dataTables.bootstrap4.min.js"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables-responsive/2.5.0/dataTables.responsive.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-responsive-bs4/2.5.0/responsive.bootstrap4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables-buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-buttons-bs4/2.4.2/buttons.bootstrap4.min.js"></script>
-
-
-<!-- <script src="../plugins/datatables/jquery.dataTables.min.js"></script> -->
-<!-- <script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script> -->
-<!-- Bootstrap -->
-<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- overlayScrollbars -->
-<script src="../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../dist/js/adminlte.js"></script>
-<!-- ChartJS -->
-<script src="../plugins/chart.js/Chart.min.js"></script>
-<script>
-    // $('#myTable').DataTable(responsive: true)
-  $(function () {
-    $("#myTable").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-    });
-    
-  });
-</script>
+<?php include "../includes/footer2.php"; ?>
 </body>
 </html>

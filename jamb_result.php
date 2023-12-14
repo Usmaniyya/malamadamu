@@ -99,7 +99,7 @@ if (isset($_SESSION['email'])) {
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <div style="background:white;padding: 10px;"></div>
+        <div style="background:white;padding: 10px;">
         <form method="POST" action="update_jamb_result">
           <div class="row mb-2">
               <div class="col-6">
@@ -156,6 +156,7 @@ if (isset($_SESSION['email'])) {
                   </div>
                   </div>
               </form>
+      </div>
       </div><!--/. container-fluid -->
     </section>
     <!-- /.content -->

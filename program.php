@@ -58,7 +58,6 @@ if (isset($_POST["program"])) {
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
-
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
@@ -71,7 +70,7 @@ if (isset($_POST["program"])) {
     <!-- Brand Logo -->
     <a href="dashboard" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">M.A FOUNDATION</span>
+      <span class="brand-text text-warning">M.A FOUNDATION</span>
     </a>
 
     <!-- Sidebar -->
@@ -93,7 +92,7 @@ if (isset($_POST["program"])) {
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+              <li class="breadcrumb-item"><a href="#" class="text-warning">Dashboard</a></li>
               <li class="breadcrumb-item active">Program</li>
             </ol>
           </div><!-- /.col -->
@@ -174,13 +173,7 @@ if (isset($_POST["program"])) {
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
-  <footer class="main-footer">
-    <strong> &copy; 2023 <a href="https://malamadamufoundation.edu.ng"><?=$system_name?></a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Founded</b> 2023.
-    </div>
-  </footer>
+  <?php include "includes/footer_content.php"; ?>
 </div>
 <!-- ./wrapper -->
 <?php include "includes/footer.php"; ?>

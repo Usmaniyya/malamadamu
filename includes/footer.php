@@ -10,8 +10,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-responsive-bs4/2.5.0/responsive.bootstrap4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables-buttons/2.4.2/js/dataTables.buttons.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-buttons-bs4/2.4.2/buttons.bootstrap4.min.js"></script>
-
-
 <!-- <script src="plugins/datatables/jquery.dataTables.min.js"></script> -->
 <!-- <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script> -->
 <!-- Bootstrap -->

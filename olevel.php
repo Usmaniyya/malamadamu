@@ -49,7 +49,7 @@ if (isset($_SESSION['email'])) {
     <!-- Brand Logo -->
     <a href="dashboard" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">M.A FOUNDATION</span>
+      <span class="brand-text text-warning">M.A FOUNDATION</span>
     </a>
 
     <!-- Sidebar -->
@@ -71,7 +71,7 @@ if (isset($_SESSION['email'])) {
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#" class="text-warning">Dashboard</a></li>
               <li class="breadcrumb-item active">O'Level</li>
             </ol>
           </div><!-- /.col -->
@@ -109,9 +109,15 @@ if (isset($_SESSION['email'])) {
                      <label for="year" class="form-label">Year</label>
         <select class="form-control" name="year[]">
             <option value="<?= $user_data[ 'year'] ?? '' ?>"><?= $user_data[ 'year'] ?? '' ?></option>
+             <option value='2017'>2015</option>
+            <option value='2018'>2016</option>
+            <option value='2017'>2017</option>
+            <option value='2018'>2018</option>
+            <option value='2019'>2019</option>
+            <option value='2020'>2020</option>
+             <option value='2021'>2021</option>
+            <option value='2022'>2022</option>
             <option value='2023'>2023</option>
-            <option value='2024'>2024</option>
-            <option value='2025'>2025</option>
             <!-- <option value='2023-11-29'>2023-11-29</option> -->
         </select>
                 </div>
@@ -444,13 +450,7 @@ if (isset($_SESSION['email'])) {
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
-  <footer class="main-footer">
-    <strong> &copy; 2023 <a href="https://malamadamufoundation.edu.ng"><?=$system_name?></a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Founded</b> 2023.
-    </div>
-  </footer>
+  <?php include "includes/footer_content.php"; ?>
 </div>
 <!-- ./wrapper -->
 <?php include "includes/footer.php"; ?>

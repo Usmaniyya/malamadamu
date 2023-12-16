@@ -291,13 +291,7 @@ if (!$result) {
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
-  <footer class="main-footer">
-    <strong> &copy; 2023 <a href="https://malamadamufoundation.edu.ng"><?=$system_name?></a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Founded</b> 2023.
-    </div>
-  </footer>
+  <?php include "../includes/footer_content.php"; ?>
 </div>
 <!-- ./wrapper -->
 <?php include "../includes/footer2.php"; ?>

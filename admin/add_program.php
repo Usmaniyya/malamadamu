@@ -157,16 +157,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
-  <footer class="main-footer">
-    <strong> &copy; 2023 <a href="https://malamadamufoundation.edu.ng"><?=$system_name?></a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Founded</b> 2023.
-    </div>
-  </footer>
+  
 </div>
 <!-- ./wrapper -->
 <?php include "../includes/footer2.php"; ?>
+<?php include "../includes/footer_content.php"; ?>
 <?=mysqli_close($conn);// Close the database connection ?>
 
 </body>

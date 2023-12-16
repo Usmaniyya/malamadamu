@@ -35,13 +35,19 @@ if (
             $_SESSION['id'] .
             "'";
         if (mysqli_query($conn, $updateQuery)) {
-            echo 'Password updated successfully.';
+            $message = 'Password updated successfully.';
         } else {
-            echo 'Password update failed.';
+            $errorMessage = 'Password update failed.';
         }
     } else {
-        echo 'Invalid old password or new passwords do not match.';
+        $errorMessage = 'Invalid old password or new passwords do not match.';
     }
+}
+function getMessage($message){
+  echo $message;
+}
+function getErrorMessage($errorMessage){
+  echo $errorMessage;
 }
 
 // SQL query to fetch profile data
@@ -194,4 +200,13 @@ if ($row = mysqli_fetch_assoc($result)) { ?>
 <?php include "../includes/footer2.php"; ?>
 </body>
 </html>
-<?php } else {echo 'No user profile found.';}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+Swal.fire({
+  title: "<?=isset($message) ? 'Updated ' : 'Error'?>",
+  text: "<?=isset($message) ? getMessage($message) : getErrorMessage($errorMessage)?>",
+  icon: "<?=isset($message) ? 'success' : 'error'?>"
+});
+
+</script>
+<?php } else {$errorMessage = 'No user profile found.';}

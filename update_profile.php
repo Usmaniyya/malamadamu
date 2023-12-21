@@ -62,7 +62,7 @@ if (isset($_POST['update'])) {
 
     if (mysqli_stmt_execute($stmt)) {
         $successMessage = "Data Saved successfully!";
-       //header("refresh:2; url='olevel'"); // Redirect to the dashboard
+       header("refresh:2; url='olevel'"); // Redirect to the dashboard
     } else {
         $errorMessage = "Error: " . mysqli_error($conn);
     }

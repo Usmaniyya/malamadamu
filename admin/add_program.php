@@ -76,7 +76,7 @@ include "../includes/swal_functions.php";
     <!-- Brand Logo -->
     <a href="" class="brand-link">
       <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">M.A FOUNDATION</span>
+      <span class="brand-text text-warning">M.A FOUNDATION</span>
     </a>
 
     <!-- Sidebar -->
@@ -153,16 +153,11 @@ include "../includes/swal_functions.php";
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
-  <footer class="main-footer">
-    <strong> &copy; 2023 <a href="https://malamadamufoundation.edu.ng"><?=$system_name?></a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Founded</b> 2023.
-    </div>
-  </footer>
+  
 </div>
 <!-- ./wrapper -->
 <?php include "../includes/footer2.php"; ?>
+<?php include "../includes/footer_content.php"; ?>
 <?=mysqli_close($conn);// Close the database connection ?>
 
 </body>

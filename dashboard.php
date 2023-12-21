@@ -32,7 +32,7 @@ include 'admin/fetch_data.php';
     <!-- Brand Logo -->
     <a href="dashboard" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">M.A FOUNDATION</span>
+      <span class="brand-text text-warning">M.A FOUNDATION</span>
     </a>
 
     <!-- Sidebar -->
@@ -54,7 +54,7 @@ include 'admin/fetch_data.php';
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#" class="text-warning">Home</a></li>
               <li class="breadcrumb-item active">Dashboard</li>
             </ol>
           </div><!-- /.col -->
@@ -81,13 +81,7 @@ include 'admin/fetch_data.php';
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
-  <footer class="main-footer">
-    <strong> &copy; 2023 <a href="https://malamadamufoundation.edu.ng"><?=$system_name?></a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Founded</b> 2023.
-    </div>
-  </footer>
+  <?php include "includes/footer_content.php"; ?>
 </div>
 <!-- ./wrapper -->
 <?php include "includes/footer.php"; ?>

@@ -47,7 +47,7 @@ if (isset($_POST["submit"])) {
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">M.A FOUNDATION</span>
+      <span class="brand-text text-warning">M.A FOUNDATION</span>
     </a>
 
     <!-- Sidebar -->
@@ -131,13 +131,7 @@ if (isset($_POST["submit"])) {
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
-  <footer class="main-footer">
-    <strong> &copy; 2023 <a href="https://malamadamufoundation.edu.ng"><?=$system_name?></a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Founded</b> 2023.
-    </div>
-  </footer>
+  <?php include "../includes/footer_content.php"; ?>
 </div>
 <!-- ./wrapper -->
 <?php include "../includes/footer2.php"; ?>

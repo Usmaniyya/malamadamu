@@ -35,15 +35,14 @@ if (isset($_SESSION['email'])) {
   <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
   </div>
-
+<!--  -->
 <?php include "includes/navbars.php"; ?>
-
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar bgColor elevation-4">
     <!-- Brand Logo -->
     <a href="dashboard" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">M.A FOUNDATION</span>
+      <span class="brand-text text-warning">M.A FOUNDATION</span>
     </a>
 
     <!-- Sidebar -->
@@ -65,7 +64,7 @@ if (isset($_SESSION['email'])) {
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+              <li class="breadcrumb-item"><a href="#" class="text-warning">Dashboard</a></li>
               <li class="breadcrumb-item active">MyPayment</li>
             </ol>
           </div><!-- /.col -->
@@ -73,7 +72,6 @@ if (isset($_SESSION['email'])) {
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -116,8 +114,8 @@ if (isset($_SESSION['email'])) {
           <div class="row mb-2">
           <div class="col-12">
             <label for="amount" class="form-label">Amount to Pay</label>
-              <input type="tel" class="form-control"  value="4500" required readonly="yes" />
-              <input type="hidden" id="amount" value="4500" required readonly="yes" />
+              <input type="tel" class="form-control"  value="2500" required readonly="yes" />
+              <input type="hidden" id="amount" value="2500" required readonly="yes" />
           </div>
           </div>
           <div class="row">
@@ -142,13 +140,7 @@ if (isset($_SESSION['email'])) {
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
-  <footer class="main-footer">
-    <strong> &copy; 2023 <a href="https://malamadamufoundation.edu.ng"><?=$system_name?></a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Founded</b> 2023.
-    </div>
-  </footer>
+  <?php include "includes/footer_content.php"; ?>
 </div>
 <!-- ./wrapper -->
 <?php include "includes/footer.php"; ?>

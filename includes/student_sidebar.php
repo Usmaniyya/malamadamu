@@ -1,11 +1,9 @@
-
-
  <!-- Sidebar Menu -->
  <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
             <a href="dashboard" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt text-warning"></i>
+              <i class="nav-icon bi bi-speedometer mr-1 text-warning"></i>
               <p>
                 Dashboard
               </p>
@@ -13,56 +11,55 @@
           </li>
           <li class="nav-item">
             <a href="student_profile" class="nav-link">
-              <i class="bi bi-person text-warning"></i>
+              <i class="bi bi-person mr-1 text-warning"></i>
               <p>
                 MyProfile
               </p>
             </a>
           </li>
-          
           <li class="nav-item">
             <a href="olevel" class="nav-link">
-              <i class="bi bi-gear text-warning"></i>
+              <i class="bi bi-mortarboard mr-1 text-warning"></i>
               <p>
-              olevel
+              O'Level
               </p>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="jamb_result">
-              <i class="bi bi-list-check text-warning"></i>
+              <i class="bi bi-book mr-1 text-warning"></i>
               <p>
-              jamb_result
+              JAMB
               </p>
             </a>
           </li>
           <li class="nav-item">
             <a href="program" class="nav-link">
-              <i class="bi bi-building-check text-warning"></i>
+              <i class="bi bi-list-check mr-1 text-warning"></i>
               <p>
-              program
+              Program
               </p>
             </a>
           </li>
           <li class="nav-item">
             <a href="payment" class="nav-link">
-              <i class="bi bi-building-x text-warning"></i>
+              <i class="bi bi-credit-card mr-1 text-warning"></i>
               <p>
-              payment
+              Payment
               </p>
             </a>
           </li>
           <li class="nav-item">
             <a href="acknowledgment_slip" class="nav-link">
-              <i class="bi bi-building-exclamation text-warning"></i>
+              <i class="bi bi-file-earmark-check mr-1 text-warning"></i>
               <p>
-              acknowledgment_slip 
+              Acknowledgement Slip
               </p>
             </a>
           </li>
           <li class="nav-item">
             <a href="logout" class="nav-link">
-              <i class="bi bi-person-circle text-warning"></i>
+              <i class="bi bi-person-circle mr-1 text-warning"></i>
               <p>
                 Logout
               </p>

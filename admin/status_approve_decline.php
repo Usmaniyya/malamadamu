@@ -1,5 +1,8 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<p></p>
 <?php 
 include "../includes/config.php"; // Include your database configuration
+include "../includes/header.php";
 // Check if the decision has been made
 if (isset($_GET['aid'])) {
     // Approve the applicant
@@ -8,10 +11,10 @@ if (isset($_GET['aid'])) {
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "i", $applicantId);
     if (mysqli_stmt_execute($stmt)) {
-        echo "Applicant approved successfully.";
+        $message = "Applicant approved successfully.";
         header("refresh:2; url='applications'");
     } else {
-        echo "Failed to approve the applicant.";
+        $errorMessage = "Failed to approve the applicant.";
         header("refresh:2; url='applications'");
     }
 } elseif (isset($_GET['did'])) {
@@ -21,10 +24,13 @@ if (isset($_GET['aid'])) {
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "i", $applicantId);
     if (mysqli_stmt_execute($stmt)) {
-        echo "Applicant rejected successfully.";
+        $message = "Applicant rejected successfully.";
         header("refresh:2; url='applications'");
     } else {
-        echo "Failed to reject the applicant.";
+        $errorMessage = "Failed to reject the applicant.";
         header("refresh:2; url='applications'");
     }
 }
+
+include "../includes/swal_functions.php";
+include "../includes/swal_script.html"; 

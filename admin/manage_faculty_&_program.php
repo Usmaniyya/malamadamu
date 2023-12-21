@@ -1,4 +1,5 @@
 <?php
+include "../includes/header.php";
 // Include database configuration
 include "../includes/config.php";
 include 'fetch_data.php';

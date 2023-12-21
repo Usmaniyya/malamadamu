@@ -5,9 +5,9 @@ if (!$_SESSION['id']) {
     header('location: ../login');
 }
 // Perform the query
-$query = "SELECT a.id, a.student_id AS applicant_id, a.phone, a.dob, a.state, a.lga, a.address, a.next_of_kin, a.nok_address, a.nok_email, a.relation, a.passport_path, s.id AS signup_id, s.first_name, s.last_name, s.email, s.rank, s.status, s.created_at, s.updated_at
+$query = "SELECT s.status, a.id, a.student_id AS applicant_id, a.phone, a.dob, a.state, a.lga, a.address, a.next_of_kin, a.nok_address, a.nok_email, a.relation, a.passport_path, s.id AS signup_id, s.first_name, s.last_name, s.email, s.rank, s.status, s.created_at, s.updated_at
 FROM applicants a
-INNER JOIN signup s ON a.student_id = s.id";
+INNER JOIN signup s ON a.student_id = s.id WHERE s.status != 1";
 
 $result = mysqli_query($conn, $query);
 ?>    
@@ -56,7 +56,7 @@ $result = mysqli_query($conn, $query);
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
               <li class="breadcrumb-item active">Applications</li>
             </ol>
           </div><!-- /.col -->

@@ -5,7 +5,7 @@ if (!$_SESSION['id']) {
     header('location: ../login');
 }
 // Initialize the message variable
-$message = "";
+//$message = "";
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_stmt_close($checkStmt);
 
         if ($count > 0) {
-            $message = "<script>swal('Error!', 'Program Already exist!', 'error')</script>";
+            $errorMessage = "Program Already exist!";
         } else {
             // Prepare and execute the SQL query to insert into the programs table
             $insertQuery = "INSERT INTO programs (faculty_id, name) VALUES (?, ?)";
@@ -36,20 +36,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $result = mysqli_stmt_execute($insertStmt);
 
                 if ($result) {
-                    $message = "<script>swal('Done!', 'Program Added!', 'success')</script>";
+                    $message = "Program Added Successfully!";
                 } else {
-                    $message = "<small class='error'>Error: " . mysqli_error($conn).'</small>';
+                    $errorMessage = "Error: " . mysqli_error($conn).'';
                 }
 
                 mysqli_stmt_close($insertStmt);
             } else {
-                $message = "<small class='error'>Error in preparing the statement: " . mysqli_error($conn).'</small>';
+                $errorMessage = "Error in preparing the statement: " . mysqli_error($conn).'';
             }
         }
     } else {
-        $message = "<small class='error'>Error in preparing the check statement: " . mysqli_error($conn).'</small>';
+        $errorMessage = "Error in preparing the check statement: " . mysqli_error($conn).'';
     }
 }
+include "../includes/swal_functions.php";
 ?>
 
 <!DOCTYPE html>
@@ -58,10 +59,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?=$system_name?></title>
-  <style>
-        .error{color:red;}
-        .success{color:green;}
-    </style>
 <?php include "../includes/header.php"; ?>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -77,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar bgColor elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="" class="brand-link">
       <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">M.A FOUNDATION</span>
     </a>
@@ -101,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
               <li class="breadcrumb-item active">Add Program</li>
             </ol>
           </div><!-- /.col -->
@@ -135,7 +132,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="col-6">
             <label for="program" class="form-label">Enter Program Name</label>
             <input type="text" name="program" class="form-control" required />
-            <?php if(isset($message)){echo $message;} ?><!-- Display the message within the form -->
         </div>
     </div>
     <div class="row">
@@ -171,3 +167,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </body>
 </html>
+<?php include "../includes/swal_script.html"; ?>

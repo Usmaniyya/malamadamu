@@ -55,7 +55,7 @@ if (isset($_SESSION['email'])) {
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
@@ -93,24 +93,27 @@ if (isset($_SESSION['email'])) {
       'passport_path'
   ] ?? '' ?>"><!-- accept="image/*" -->
 </div>
-<div class="row mb-2">
-    <div class="col-4"><label for="first_name" class="form-label">First Name</label>
-        <input type="text" name="first_name" class="form-control" value="<?= $user_data[
-            'first_name'
-        ] ?? '' ?>" required>
-        </div>
-<div class="col-4">
-<label for="last_name" class="form-label">Last Name</label>
-        <input type="text" class="form-control" name="last_name" value="<?= $user_data[
-            'last_name'
-        ] ?? '' ?>" required>
 </div>
-<div class="col-4">
- <label for="other_name"  class="form-label">Other Name</label>
-        <input type="text" class="form-control" name="other_name" value="<?= $user_data[
-            'other_name'
-        ] ?? '' ?>">
-    </div>
+</div>
+<div class="row mb-2">
+  <div class="col-4">
+        <label for="first_name" class="form-label">First Name</label>
+          <input type="text" name="first_name" class="form-control" value="<?= $user_data[
+              'first_name'
+          ] ?? '' ?>" required>
+  </div>
+  <div class="col-4">
+      <label for="last_name" class="form-label">Last Name</label>
+          <input type="text" class="form-control" name="last_name" value="<?= $user_data[
+              'last_name'
+          ] ?? '' ?>" required>
+  </div>
+  <div class="col-4">
+      <label for="other_name"  class="form-label">Other Name</label>
+          <input type="text" class="form-control" name="other_name" value="<?= $user_data[
+              'other_name'
+          ] ?? '' ?>">
+  </div>
 </div>
 <div class="row mb-2">
     <div class="col-6">
@@ -136,7 +139,7 @@ if (isset($_SESSION['email'])) {
         </div>
         <div class="col-4">
               <label for="" class="form-label">State</label>
-        <select placeholder="<?= $user_data['state'] ?? 'Select State' ?>" autocomplete="off" name="state" id="state" class="select">
+          <select placeholder="<?= $user_data['state'] ?? 'Select State' ?>" autocomplete="off" name="state" id="state" class="select">
             <option value=""></option>
             <option value="Abia">Abia</option>
             <option value="Adamawa">Adamawa</option>
@@ -197,8 +200,8 @@ if (isset($_SESSION['email'])) {
             'nok_address'
         ] ?? '' ?></textarea>
 </div>
-        </div>
-        <div class="row mb-2">
+</div>
+<div class="row mb-2">
 <div class="col-4">
 <label for="next_of_kin" class="form-label">Next of Kin</label>
         <input type="text" class="form-control" name="next_of_kin" value="<?= $user_data[

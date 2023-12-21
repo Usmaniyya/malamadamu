@@ -1,5 +1,7 @@
 <?php
 require_once("includes/config.php");// Database connection
+include "includes/header.php";
+
 if (!$_SESSION['id']){
     header("location: login");
 }
@@ -15,7 +17,10 @@ if (isset($_POST['update'])) {
     $nok_address = mysqli_real_escape_string($conn, $_POST['nok_address']);
     $nok_email = mysqli_real_escape_string($conn, $_POST['nok_email']);
     $relation = mysqli_real_escape_string($conn, $_POST['relation']);
-
+    
+    if ($phone && $dob && $state && $lga && $address && $next_of_kin && $nok_address && $nok_email && $relation) {
+        $errorMessage = "*All fields are required";
+    }
     // File upload for passport
     $passport_path = ''; // Initialize to an empty string
 
@@ -56,14 +61,16 @@ if (isset($_POST['update'])) {
     }
 
     if (mysqli_stmt_execute($stmt)) {
-        echo "Data Saved successfully!";
-       header("refresh:2; url='olevel'"); // Redirect to the dashboard
+        $successMessage = "Data Saved successfully!";
+       //header("refresh:2; url='olevel'"); // Redirect to the dashboard
     } else {
-        echo "Error: " . mysqli_error($conn);
+        $errorMessage = "Error: " . mysqli_error($conn);
     }
 
     // Close the database connection
     mysqli_close($conn);
-}
-
+}  
+include "includes/student_swal_functions.php";
 ?>
+
+<?php include "includes/student_swal_script.html"; ?>

@@ -28,7 +28,7 @@ if (isset($_POST['signup'])) {
         mysqli_stmt_close($checkStmt);
 
         if ($count > 0) {
-            $message = '<small class="error">Email already exists. Please use a different email address.</small>';
+            $errorMessage = 'Email already exists. Please use a different email address.';
         } else {
             // Proceed with the registration
             $query =
@@ -46,19 +46,20 @@ if (isset($_POST['signup'])) {
             );
 
             if (mysqli_stmt_execute($stmt)) {
-                $message = '<small class="success">Admin registered successfully!</small>';
+                $message = 'Admin registered successfully!';
                 // Redirect to login.php
                 header("refresh:2; url='dashboard'");
             } else {
-                $message = '<small class="error">Registration failed. Please try again.</small>';
+                $errorMessage = 'Registration failed. Please try again.';
             }
 
             mysqli_stmt_close($stmt);
         }
     } else {
-        $message = '<small class="error">Error in preparing the check statement: ' . mysqli_error($conn).'</small>';
+        $errorMessage = 'Error in preparing the check statement: ' . mysqli_error($conn).'';
     }
 }
+include "../includes/swal_functions.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,10 +68,6 @@ if (isset($_POST['signup'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?=$system_name?> || Add - Admin</title>
 <?php include "../includes/header.php"; ?>
-<Style>
-        .error{color:red;}
-        .success{color:green;}
-    </Style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -109,7 +106,7 @@ if (isset($_POST['signup'])) {
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
               <li class="breadcrumb-item active">Create Admin</li>
             </ol>
           </div><!-- /.col -->
@@ -188,3 +185,4 @@ if (isset($_POST['signup'])) {
 <?php include "../includes/footer2.php";     mysqli_close($conn);?>
 </body>
 </html>
+<?php include "../includes/swal_script.html"; ?>

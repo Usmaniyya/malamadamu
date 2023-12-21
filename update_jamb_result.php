@@ -1,5 +1,6 @@
 <?php
 require_once("includes/config.php"); // Database connection
+include "includes/header_student.php";
 
 if (!$_SESSION['id']) {
     header("location: login");
@@ -42,10 +43,10 @@ if (isset($_POST['update'])) {
         mysqli_stmt_bind_param($update_stmt, "sssssssssi", $jamb_reg_no, $english, $english_score, $subject1, $subject1_score, $subject2, $subject2_score, $subject3, $subject3_score, $student_id);
 
         if (mysqli_stmt_execute($update_stmt)) {
-            echo "Data updated successfully!";
+            $successMessage =  "Data updated successfully!";
             header("refresh:2; url='program'");
         } else {
-            echo "Error: " . mysqli_error($conn);
+            $errorMessage =  "Error: " . mysqli_error($conn);
         }
     } else {
         // Record does not exist, perform an insert
@@ -55,14 +56,18 @@ if (isset($_POST['update'])) {
         mysqli_stmt_bind_param($insert_stmt, "isssssssss", $student_id, $jamb_reg_no, $english, $english_score, $subject1, $subject1_score, $subject2, $subject2_score, $subject3, $subject3_score);
 
         if (mysqli_stmt_execute($insert_stmt)) {
-            echo "Data inserted successfully!";
+            $successMessage = "Data inserted successfully!";
             header("refresh:2; url='program'");
         } else {
-            echo "Error: " . mysqli_error($conn);
+            $errorMessage =  "Error: " . mysqli_error($conn);
         }
     }
 
     // Close the database connection
     mysqli_close($conn);
 }
+include "includes/student_swal_functions.php";
 ?>
+<body></body>
+
+<?php include "includes/student_swal_script.html"; ?>

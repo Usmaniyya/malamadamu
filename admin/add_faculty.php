@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_stmt_close($checkStmt);
 
         if ($count > 0) {
-            $message = "<script>swal('Error!', 'Faculty Already exist!', 'error')</script>";
+            $errorMessage = "Faculty Already exist!";
         } else {
             // Prepare and execute the SQL query to insert into the faculty table
             $insertQuery = "INSERT INTO faculty (name) VALUES (?)";
@@ -33,21 +33,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $result = mysqli_stmt_execute($insertStmt);
 
                 if ($result) {
-                    $message = "<script>swal('Done!', 'Faculty Added!', 'success')</script>";
+                    $message = "Faculty Added!";
                 } else {
-                    $message = "<small class='error'>Error: " . mysqli_error($conn)."</small>";
+                    $errorMessage = "Error: " . mysqli_error($conn)."";
                 }
 
                 mysqli_stmt_close($insertStmt);
             } else {
-                $message = "<small class='error'>Error in preparing the statement: " . mysqli_error($conn)."</small>";
+                $errorMessage = "Error in preparing the statement: " . mysqli_error($conn)."";
             }
         }
     } else {
-        $message = "<small class='error'>Error in preparing the check statement: " . mysqli_error($conn)."</small>";
+        $errorMessage = "Error in preparing the check statement: " . mysqli_error($conn)."";
     }
 }
-
+include "../includes/swal_functions.php";
 // Close the database connection
 mysqli_close($conn);
 ?>
@@ -101,7 +101,7 @@ mysqli_close($conn);
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
               <li class="breadcrumb-item active">Add Faculty</li>
             </ol>
           </div><!-- /.col -->
@@ -153,3 +153,4 @@ mysqli_close($conn);
 <?php include "../includes/footer2.php"; ?>
 </body>
 </html>
+<?php include "../includes/swal_script.html"; ?>

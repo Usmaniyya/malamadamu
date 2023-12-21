@@ -1,5 +1,6 @@
 <?php
 include 'includes/config.php'; // Database connection
+include "includes/header_student.php";
 if (!$_SESSION['id']) {
     header('location: login');
 }
@@ -24,9 +25,9 @@ if (isset($_POST["program"])) {
       mysqli_stmt_bind_param($updateStmt, "iii", $faculty, $program, $applicant_id);
 
       if (mysqli_stmt_execute($updateStmt)) {
-          $message = "<script>swal('Done!', 'Program Updated Successfully!', 'success')</script>";
+          $successMessage = "Program Updated Successfully!";
       } else {
-          $message = "<script>swal('Error!', 'Error updating program!', 'error')</script>";
+          $errorMessage = "Error updating program!";
       }
 
       // Close the statement
@@ -38,15 +39,16 @@ if (isset($_POST["program"])) {
       mysqli_stmt_bind_param($insertStmt, "iii", $applicant_id, $faculty, $program);
 
       if (mysqli_stmt_execute($insertStmt)) {
-          $message = "<script>swal('Done!', 'Program Saved Successfully!', 'success')</script>";
+          $successMessage = "Program Saved Successfully!";
       } else {
-          $message = "<script>swal('Error!', 'Error saving program!', 'error')</script>";
+          $errorMessage = "Error saving program!";
       }
 
       // Close the statement
       mysqli_stmt_close($insertStmt);
   }
 }
+include "includes/student_swal_functions.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -125,9 +127,6 @@ if (isset($_POST["program"])) {
             <h4>Select the program you want to study</h4>
             <form method="POST">
                 <div class="row mb-2">
-              <?php $default_message = "<script>swal('Done!', 'Program Selected Successfully!', 'success')</script>";?>
-                    <?php $message = isset($user_data["program"])? $default_message : ''?>
-                    <?=$message?>
                     <div class="col-6">
                         <label for="faculty" class="form-label">Faculty</label>
                         <select name="faculty" class="form-control" onchange="fetchFaculty(this.value)">
@@ -199,4 +198,11 @@ if (isset($_POST["program"])) {
     })
   }
 </script>
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script> -->
+
+<?php include "includes/student_swal_script.html"; ?>
+
+
+ <!-- $default_message = "Program Selected Successfully!";
+ $message = isset($user_data["program"])? $default_message : ''
+$message -->

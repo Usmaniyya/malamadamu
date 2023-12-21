@@ -1,3 +1,4 @@
+<p> </p>
 <?php
 // Include database configuration
 include "../includes/config.php";
@@ -15,15 +16,18 @@ if (isset($_GET['id'])) {
     mysqli_stmt_execute($stmt);
 
     if (mysqli_affected_rows($conn) > 0) {
-        echo "Faculty deleted successfully.";
+        $message = "Faculty deleted successfully.";
         header("location:manage_faculty_&_program");
     } else {
-        echo "Faculty not found or deletion failed.";
+        $errorMessage = "Faculty not found or deletion failed.";
     }
 } else {
-    echo "ID parameter is missing.";
+    $errorMessage = "ID parameter is missing.";
 }
 
+include "../includes/swal_functions.php";
 // Close the database connection
 mysqli_close($conn);
 ?>
+
+<?php include "../includes/swal_script.html"; ?>

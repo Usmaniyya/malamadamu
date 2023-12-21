@@ -54,7 +54,9 @@ if (isset($_POST['update'])) {
             mysqli_stmt_bind_param($updateStmt, $updateBindString, ...$updateBindParams);
             
             if (!mysqli_stmt_execute($updateStmt)) {
-                echo "Error updating record: " . mysqli_error($conn);
+                $errorMessage = "Error updating record: " . mysqli_error($conn);
+            }else {
+                $successMessage = "Successfully Saved";
             }
         } else {
             // Insert a new record
@@ -67,10 +69,13 @@ if (isset($_POST['update'])) {
             mysqli_stmt_bind_param($insertStmt, $insertBindString, ...$insertBindParams);
             
             if (!mysqli_stmt_execute($insertStmt)) {
-                echo "Error inserting record: " . mysqli_error($conn);
+                $errorMessage = "Error inserting record: " . mysqli_error($conn);
+            }else {
+                $successMessage = "Successfully Saved";
             }
         }
     }
+    
 
     // Redirect after all iterations are complete
     header("location: olevel");
@@ -78,4 +83,7 @@ if (isset($_POST['update'])) {
     // Close the database connection
     mysqli_close($conn);
 }
+include "includes/student_swal_functions.php";
 ?>
+
+<?php include "includes/student_swal_script.html"; ?>

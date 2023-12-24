@@ -124,31 +124,31 @@ include "../includes/swal_functions.php";
         <hr>
     <form method="post">
         <div class="row mb-2">
-            <div class="col-4">
+            <div class="col-sm-4 col-6">
         <label for="first_name" class="form-label">First Name</label>
         <input type="text" class="form-control" name="first_name" required>
             </div>
-             <div class="col-4">
+             <div class="col-sm-4 col-6">
                 <label for="last_name" class="form-label">Last Name</label>
         <input type="text" class="form-control" name="last_name" required>
             </div>
-             <div class="col-4">
+             <div class="col-sm-4 col-8">
         <label for="email" class="form-label">Email</label>
         <input type="text" class="form-control" name="email" required>
             </div>
         </div>
         <div class="row mb-2">
-            <div class="col-4">
+            <div class="col-sm-4 col-6">
         <label for="rank" class="form-label">Rank</label>
         <input type="text" class="form-control" name="rank" required>
             </div>
-            <div class="col-4">
+            <div class="col-sm-4 col-6">
         <label for="status" class="form-label">Status</label>
         <select type="text" class="form-control" name="status" readonly required>
           <option value="1">Admin</option>
         </select>
             </div>
-            <div class="col-4">
+            <div class="col-sm-4 col-8">
         <label for="password" class="form-label">Password</label>
         <input type="password" class="form-control" name="password" required>
             </div>

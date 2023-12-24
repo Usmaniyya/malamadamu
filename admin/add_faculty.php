@@ -116,7 +116,7 @@ mysqli_close($conn);
       <div style="background:white;padding: 10px;">
       <form method="POST">
         <div class="row mt-3 mb-2">
-            <div class="col-6">
+            <div class="col-sm-6 col-12">
             <label for="faculty" class="form-label">Enter Faculty Name</label>
             <input type="text" name="faculty" class="form-control" >
             <?php if(isset($message)){echo $message;} ?>

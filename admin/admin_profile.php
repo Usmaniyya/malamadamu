@@ -118,7 +118,7 @@ if ($row = mysqli_fetch_assoc($result)) { ?>
       <div class="container-fluid">
       <div style="background:white;padding: 10px;">
       <div class="row">
-        <div class="col-6">
+        <div class="col-sm-6 col-12">
       <table class="table">
         <tr>
             <td><b>First Name: </b></td>
@@ -150,7 +150,7 @@ if ($row = mysqli_fetch_assoc($result)) { ?>
         </tr>
     </table>
 </div>
-<div class="col-6">
+<div class="col-sm-6 col-12">
 <h3 class="mt-3">Change Password</h3>
   <form method="post">
       <div class="row mb-2">
@@ -163,7 +163,7 @@ if ($row = mysqli_fetch_assoc($result)) { ?>
       <input type="password" class="form-control" name="new_password" required>
       </div>
       <div class="col-6">
-  <label for="confirm_password" class="form-label">Confirm New Password</label>
+  <label for="confirm_password" class="form-label">Confirm Password</label>
       <input type="password" class="form-control"  name="confirm_password" required>
   </div>
       </div>

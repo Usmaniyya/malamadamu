@@ -73,7 +73,7 @@ $programsResult = mysqli_query($conn, $programsQuery);
       <div class="container-fluid">
       <div style="background:white;padding: 10px;">
       <div class="row mt-3 mb-2">
-    <div class="col-6">
+    <div class="col-sm-6 col-12 mb-3">
         <table class="table myTable">
             <thead>
                 <tr>
@@ -99,7 +99,7 @@ $programsResult = mysqli_query($conn, $programsQuery);
         </table>
     </div>
 
-    <div class="col-6">
+    <div class="col-sm-6 col-12">
         <!-- <h2>Programs Table</h2> -->
         <table class="table myTable">
             <thead>

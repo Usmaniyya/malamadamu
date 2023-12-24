@@ -47,7 +47,7 @@ if (isset($_POST['signup'])) {
     <?php elseif (isset($error)): ?>
     <p><?= $error ?></p>
     <?php endif; ?>
-<section class="py-3 py-md-5 py-xl-8">
+<section class="py-3 py-md-5 py-xl-8 m-3">
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -92,7 +92,7 @@ if (isset($_POST['signup'])) {
                 </div>
                 <div class="col-12 mb-2">
                   <div class="d-grid">
-                    <button class="btn btn-warning btn-lg" type="submit" name="signup">Register</button>
+                    <button class="btn btn-warning" type="submit" name="signup">Register</button>
                   </div>
                 </div>
               </div>

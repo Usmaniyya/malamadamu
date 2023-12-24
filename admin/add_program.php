@@ -113,7 +113,7 @@ include "../includes/swal_functions.php";
       <div style="background:white;padding: 10px;">
       <form method="post" action="">
     <div class="row mt-3 mb-2">
-        <div class="col-6">
+        <div class="col-sm-6 col-12">
             <label for="faculty" class="form-label">Select Faculty Name</label>
             <select name="faculty" class="form-control">
                 <option></option>
@@ -129,7 +129,7 @@ include "../includes/swal_functions.php";
                 ?>
             </select>
         </div>
-        <div class="col-6">
+        <div class="col-sm-6 col-12">
             <label for="program" class="form-label">Enter Program Name</label>
             <input type="text" name="program" class="form-control" required />
         </div>

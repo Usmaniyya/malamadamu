@@ -65,12 +65,12 @@ if (isset($_POST["submit"])) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Edit Faculty</h1>
+            <h1 class="m-0">Edit Program</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-              <li class="breadcrumb-item active">Edit Faculty</li>
+              <li class="breadcrumb-item active">Edit Program</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -83,7 +83,7 @@ if (isset($_POST["submit"])) {
       <div class="container-fluid">
         <div style="background:white;padding: 10px;">
         <div class="row">
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5">
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <?php
             // Check if ID parameter is provided
             if (isset($_GET['id'])) {
@@ -100,8 +100,8 @@ if (isset($_POST["submit"])) {
                     // Display a form to edit program
                     echo "<form method='post'>";
                     echo "<div class='row'>";
-                    echo "<div class='col-6'>";
-                    echo "Name: <input type='hidden' class='form-control' name='program_id' value='" . htmlspecialchars($row['id']) . "'>";
+                    echo "<div class='col-sm-6 col-12'>";
+                    echo "Faculty <input type='hidden' class='form-control' name='program_id' value='" . htmlspecialchars($row['id']) . "'>";
                     echo '<select name="faculty_id" class="form-control">';
                     $query_faculty_data = "SELECT * FROM `faculty` ";
                     $query_faculty = mysqli_query($conn, $query_faculty_data);
@@ -114,10 +114,10 @@ if (isset($_POST["submit"])) {
                     }
                     echo '</select>';
                     echo "</div>";
-                    echo "<div class='col-6'>";
-                    echo "Name: <input type='text' class='form-control' name='name' value='" . htmlspecialchars($row['name']) . "'>";
+                    echo "<div class='col-sm-6 col-12'>";
+                    echo "Program <input type='text' class='form-control' name='name' value='" . htmlspecialchars($row['name']) . "'>";
                     echo "</div>";
-                    echo "<div class='col-4'>";
+                    echo "<div class='col-6'>";
                     echo "<input class='mt-3 form-control bg-warning' type='submit' name='submit' value='Update'>";
                     echo "</div>";
                         echo "</div>";

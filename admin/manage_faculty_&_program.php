@@ -69,11 +69,10 @@ $programsResult = mysqli_query($conn, $programsQuery);
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-      <div style="background:white;padding: 10px;">
-      <div class="row mt-3 mb-2">
-    <div class="col-sm-6 col-12 mb-3">
+  <section class="content">
+    <div class="container">
+      <div class="row mt-3 bg-white py-4">
+       <div class="col-sm-6 col-12 mb-3">
         <table class="table myTable">
             <thead>
                 <tr>
@@ -97,14 +96,14 @@ $programsResult = mysqli_query($conn, $programsQuery);
             ?>
             </tbody>
         </table>
-    </div>
-
-    <div class="col-sm-6 col-12">
+    </div> 
+    <hr>
+      <div class="col-sm-6 col-12 mb-3">
         <!-- <h2>Programs Table</h2> -->
         <table class="table myTable">
             <thead>
-                <tr class="bg-warning">
-                    <th>Faculty ID</th>
+                <tr>
+                    <th>ID</th>
                     <th>Programs</th>
                     <th>Action</th>
                 </tr>
@@ -125,22 +124,20 @@ $programsResult = mysqli_query($conn, $programsQuery);
             </tbody>
         </table>
     </div>
-</div>
-      </div><!--/. container-fluid -->
+    </div>
+   </div>
     </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-
+</div>
+</div>
   <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
+  <!-- <aside class="control-sidebar control-sidebar-dark"> -->
     <!-- Control sidebar content goes here -->
-  </aside>
+  <!-- </aside> -->
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
   <?php include "../includes/footer_content.php"; ?>
-</div>
+
 <!-- ./wrapper -->
 <?php include "../includes/footer2.php"; ?>
 </body>

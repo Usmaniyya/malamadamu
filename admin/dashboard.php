@@ -195,7 +195,7 @@ if (!$result) {
               <!-- /.card-header -->
               <div class="card-body">
                 <div class="row">
-                  <div class="col-md-8">
+                  <div class="col-md-8 mb-3">
                   <!-- <h2>JAMB Total Scores</h2> -->
                     <table id="myTable" class="table table-striped table-bordered" cellpadding="1" cellspacing="1" width="100%">
                     <thead>

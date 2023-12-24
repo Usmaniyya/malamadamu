@@ -132,7 +132,7 @@ include "../includes/swal_functions.php";
                 <label for="last_name" class="form-label">Last Name</label>
         <input type="text" class="form-control" name="last_name" required>
             </div>
-             <div class="col-sm-4 col-8">
+             <div class="col-sm-4 col-12">
         <label for="email" class="form-label">Email</label>
         <input type="text" class="form-control" name="email" required>
             </div>
@@ -148,7 +148,7 @@ include "../includes/swal_functions.php";
           <option value="1">Admin</option>
         </select>
             </div>
-            <div class="col-sm-4 col-8">
+            <div class="col-sm-4 col-12">
         <label for="password" class="form-label">Password</label>
         <input type="password" class="form-control" name="password" required>
             </div>

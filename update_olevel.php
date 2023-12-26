@@ -1,5 +1,6 @@
 <?php
 include("includes/config.php"); // Database connection
+include "includes/header.php";
 if (!$_SESSION['id']) {
     header("location: login");
 }
@@ -85,5 +86,5 @@ if (isset($_POST['update'])) {
 }
 include "includes/student_swal_functions.php";
 ?>
-
+<body></body>
 <?php include "includes/student_swal_script.html"; ?>

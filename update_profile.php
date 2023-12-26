@@ -18,7 +18,7 @@ if (isset($_POST['update'])) {
     $nok_email = mysqli_real_escape_string($conn, $_POST['nok_email']);
     $relation = mysqli_real_escape_string($conn, $_POST['relation']);
     
-    if ($phone && $dob && $state && $lga && $address && $next_of_kin && $nok_address && $nok_email && $relation) {
+    if (!($phone && $dob && $state && $lga && $address && $next_of_kin && $nok_address && $nok_email && $relation)) {
         $errorMessage = "*All fields are required";
     }
     // File upload for passport

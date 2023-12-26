@@ -31,6 +31,9 @@ if (isset($_SESSION['email'])) {
     -webkit-appearance: none; 
       margin: 0; 
     }
+    .text-color{
+        color: #adddb6;
+    }
   </style>
 <?php include "includes/header_student.php"; ?>
 </head>
@@ -65,7 +68,7 @@ if (isset($_SESSION['email'])) {
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
-        <div class="row mb-2">
+        <div class="row mb-3">
           <div class="col-sm-6">
             <h1 class="m-0">O'Level</h1>
           </div><!-- /.col -->
@@ -84,14 +87,14 @@ if (isset($_SESSION['email'])) {
     <section class="content">
       <div class="container-fluid">
         <div style="background:white;padding: 10px;">
-        <div class="row">
-        <div class="col-sm-6 col-12 border border-warning">
-            <h3>First Sitting</h3>
+        <div class="row p-3">
+        <div class="col-sm-6 col-12 border border-[#f3f3f3] p-2">
+            <h4 class="m-2 text-uppercase text-color font-weight-bold">First Sitting</h4>
         <form method="post" action="update_olevel">
         <!-- Row 1: Exam Information -->     
        <hr>
             <div class="row">
-                <div class="col-6">
+                <div class="col-4">
         <label for="exam_type" class="form-label">Exam Type</label>
         <select class="form-control" name="exam_type[]" required>
             <option value="WAEC">WAEC</option>
@@ -99,16 +102,16 @@ if (isset($_SESSION['email'])) {
             <option value="NABTEB">NABTEB</option>
         </select>
                 </div>
-                  <div class="col-6">
+                  <div class="col-8">
                      <label for="exam_no" class="form-label">Exam Number</label>
         <input type="text" class="form-control" name="exam_no[]" value="<?= $user_data[
             'exam_no'
         ] ?? '' ?>" required>
                 </div>
-                  <div class="col-6">
+                  <div class="col-4">
                      <label for="year" class="form-label">Year</label>
         <select class="form-control" name="year[]">
-            <option value="<?= $user_data[ 'year'] ?? '' ?>"><?= $user_data[ 'year'] ?? '' ?></option>
+            <option value="<?= $user_data[ 'year'] ?? '' ?>"><?= $user_data[ 'year'] ?? 'Not Selected' ?></option>
              <option value='2017'>2015</option>
             <option value='2018'>2016</option>
             <option value='2017'>2017</option>
@@ -121,7 +124,7 @@ if (isset($_SESSION['email'])) {
             <!-- <option value='2023-11-29'>2023-11-29</option> -->
         </select>
                 </div>
-                  <div class="col-6">     
+                  <div class="col-8">     
         <label for="exam_center" class="form-label">Exam Center</label>
         <input type="text" class="form-control" name="exam_center[]" value="<?= $user_data[
             'exam_center'
@@ -129,7 +132,16 @@ if (isset($_SESSION['email'])) {
                 </div>
             </div>
         <hr>
-        <div class="row mb-2">
+        <div class="row m-2">
+                    <div class="col-8">
+                        <p class="text-uppercase">Subject</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="text-uppercase">Grade</p>
+                    </div>
+                </div>
+                <hr>
+        <div class="row mb-3">
                  <!-- Row 2: English Grade -->
             <div class="col-8">
  <input type="text" class="form-control" name="english[]" placeholder="English" readonly value="<?= $user_data[
@@ -139,19 +151,11 @@ if (isset($_SESSION['email'])) {
  <div class="col-4">
     <select class="form-control" name="english_grade[]" required>
             <option><?= $user_data['english_grade'] ?? 'Grade' ?></option>
-            <option value="A1">A1</option>
-            <option value="B2">B2</option>
-            <option value="B3">B3</option>
-            <option value="C4">C4</option>
-            <option value="C5">C5</option>
-            <option value="C6">C6</option>
-            <option value="D7">D7</option>
-            <option value="E8">E8</option>
-            <option value="F9">F9</option>
+            <?php include "grades_options.php"; ?>
         </select>
  </div>
                     </div>
-                    <div class="row mb-2">
+                    <div class="row mb-3">
 <div class="col-8">
                  <!-- Row 3: Math Grade -->
         <input type="text" class="form-control" name="maths[]" placeholder="Mathematics" readonly value="<?= $user_data[
@@ -161,307 +165,131 @@ if (isset($_SESSION['email'])) {
         <div class="col-4">
  <select class="form-control" name="maths_grade[]" required>
             <option><?= $user_data['maths_grade'] ?? 'Grade' ?></option>
-            <option value="A1">A1</option>
-            <option value="B2">B2</option>
-            <option value="B3">B3</option>
-            <option value="C4">C4</option>
-            <option value="C5">C5</option>
-            <option value="C6">C6</option>
-            <option value="D7">D7</option>
-            <option value="E8">E8</option>
-            <option value="F9">F9</option>
+            <?php include "grades_options.php"; ?>
         </select>
         </div>
             </div>
-    <div class="row mb-2">
+    <div class="row mb-3">
 <div class="col-8">
  <!-- Row 4: Subject1 Grade -->
         <!-- <label for="subject1">Subject1:</label> -->
         <select type="text" class="form-control" name="subject1[]">
             <option><?= $user_data['subject1'] ?? 'Select Subject' ?></option>
-            <option value="Further Mathematics">Further Mathematics</option>
-            <option value="Literature-in-English">Literature-in-English</option>
-            <option value="Hausa">Hausa</option>
-            <option value="Igbo">Igbo</option>
-            <option value="Yoruba">Yoruba</option>
-            <option value="Biology">Biology</option>
-            <option value="Chemistry">Chemistry</option>
-            <option value="Physics">Physics</option>
-            <option value="Agricultural Science">Agricultural Science</option>
-            <option value="Government">Government</option>
-            <option value="Economics">Economics</option>
-            <option value="Geography">Geography</option>
-            <option value="Civic Education">Civic Education</option>
-            <option value="Christian Religious Studies">Christian Religious Studies</option>
-            <option value="Islamic Studies">Islamic Studies</option>
-            <option value="Financial Accounting">Financial Accounting</option>
-            <option value="Commerce">Commerce</option>
+            <?php include "subjects_options.php"; ?>
         </select>
 </div>
 <div class="col-4">
     <select class="form-control" name="subject1_grade[]" required>
             <option><?= $user_data['subject1_grade'] ?? 'Grade' ?></option>
-            <option value="A1">A1</option>
-            <option value="B2">B2</option>
-            <option value="B3">B3</option>
-            <option value="C4">C4</option>
-            <option value="C5">C5</option>
-            <option value="C6">C6</option>
-            <option value="D7">D7</option>
-            <option value="E8">E8</option>
-            <option value="F9">F9</option>
+            <?php include "grades_options.php"; ?>
         </select>
 </div>
     </div>
-    <div class="row mb-2">
+    <div class="row mb-3">
 <div class="col-8">
         <!-- Row 5: Subject2 Grade -->
         <!-- <label for="subject2">Subject2:</label> -->
         <select type="text" class="form-control" name="subject2[]" required>
             <option><?= $user_data['subject2'] ?? 'Select Subject' ?></option>
-            <option value="Further Mathematics">Further Mathematics</option>
-            <option value="Literature-in-English">Literature-in-English</option>
-            <option value="Hausa">Hausa</option>
-            <option value="Igbo">Igbo</option>
-            <option value="Yoruba">Yoruba</option>
-            <option value="Biology">Biology</option>
-            <option value="Chemistry">Chemistry</option>
-            <option value="Physics">Physics</option>
-            <option value="Agricultural Science">Agricultural Science</option>
-            <option value="Government">Government</option>
-            <option value="Economics">Economics</option>
-            <option value="Geography">Geography</option>
-            <option value="Civic Education">Civic Education</option>
-            <option value="Christian Religious Studies">Christian Religious Studies</option>
-            <option value="Islamic Studies">Islamic Studies</option>
-            <option value="Financial Accounting">Financial Accounting</option>
-            <option value="Commerce">Commerce</option>
+            <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
 <select class="form-control" name="subject2_grade[]" required>
         <option><?= $user_data['subject2_grade'] ?? 'Grade' ?></option>
-           <option value="A1">A1</option>
-            <option value="B2">B2</option>
-            <option value="B3">B3</option>
-            <option value="C4">C4</option>
-            <option value="C5">C5</option>
-            <option value="C6">C6</option>
-            <option value="D7">D7</option>
-            <option value="E8">E8</option>
-            <option value="F9">F9</option>
+           <?php include "grades_options.php"; ?>
         </select>
         </div>
 </div>
-<div class="row mb-2">
+<div class="row mb-3">
     <div class="col-8">
         <!-- Row 6: Subject3 Grade -->
         <!-- <label for="subject3">Subject3:</label> -->
         <select type="text" class="form-control" name="subject3[]" required>
             <option><?= $user_data['subject3'] ?? 'Select Subject' ?></option>
-            <option value="Further Mathematics">Further Mathematics</option>
-            <option value="Literature-in-English">Literature-in-English</option>
-            <option value="Hausa">Hausa</option>
-            <option value="Igbo">Igbo</option>
-            <option value="Yoruba">Yoruba</option>
-            <option value="Biology">Biology</option>
-            <option value="Chemistry">Chemistry</option>
-            <option value="Physics">Physics</option>
-            <option value="Agricultural Science">Agricultural Science</option>
-            <option value="Government">Government</option>
-            <option value="Economics">Economics</option>
-            <option value="Geography">Geography</option>
-            <option value="Civic Education">Civic Education</option>
-            <option value="Christian Religious Studies">Christian Religious Studies</option>
-            <option value="Islamic Studies">Islamic Studies</option>
-            <option value="Financial Accounting">Financial Accounting</option>
-            <option value="Commerce">Commerce</option>
+            <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
 <select class="form-control" name="subject3_grade[]" required>
             <option><?= $user_data['subject3_grade'] ?? 'Grade' ?></option>
-            <option value="A1">A1</option>
-            <option value="B2">B2</option>
-            <option value="B3">B3</option>
-            <option value="C4">C4</option>
-            <option value="C5">C5</option>
-            <option value="C6">C6</option>
-            <option value="D7">D7</option>
-            <option value="E8">E8</option>
-            <option value="F9">F9</option>
+            <?php include "grades_options.php"; ?>
         </select>
         </div>
     </div>
-    <div class="row mb-2">
+    <div class="row mb-3">
 <div class="col-8">
  <!-- Row 7: Subject4 Grade -->
         <!-- <label for="subject4">Subject4:</label> -->
         <select class="form-control" type="text" name="subject4[]" required>
             <option><?= $user_data['subject4'] ?? 'Select Subject' ?></option>
-            <option value="Further Mathematics">Further Mathematics</option>
-            <option value="Literature-in-English">Literature-in-English</option>
-            <option value="Hausa">Hausa</option>
-            <option value="Igbo">Igbo</option>
-            <option value="Yoruba">Yoruba</option>
-            <option value="Biology">Biology</option>
-            <option value="Chemistry">Chemistry</option>
-            <option value="Physics">Physics</option>
-            <option value="Agricultural Science">Agricultural Science</option>
-            <option value="Government">Government</option>
-            <option value="Economics">Economics</option>
-            <option value="Geography">Geography</option>
-            <option value="Civic Education">Civic Education</option>
-            <option value="Christian Religious Studies">Christian Religious Studies</option>
-            <option value="Islamic Studies">Islamic Studies</option>
-            <option value="Financial Accounting">Financial Accounting</option>
-            <option value="Commerce">Commerce</option>
+            <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
         <select class="form-control" name="subject4_grade[]" required>
             <option><?= $user_data['subject4_grade'] ?? 'Grade' ?></option>
-            <option value="A1">A1</option>
-            <option value="B2">B2</option>
-            <option value="B3">B3</option>
-            <option value="C4">C4</option>
-            <option value="C5">C5</option>
-            <option value="C6">C6</option>
-            <option value="D7">D7</option>
-            <option value="E8">E8</option>
-            <option value="F9">F9</option>
+            <?php include "grades_options.php"; ?>
         </select>
         </div>
     </div>
-<div class="row mb-2">
+<div class="row mb-3">
     <div class="col-8">
  <!-- Row 8: Subject4 Grade -->
         <!-- <label for="subject4">Subject4:</label> -->
         <select type="text" class="form-control" name="subject3[]" required>
             <option><?= $user_data['subject3'] ?? 'Select Subject' ?></option>
-            <option value="Further Mathematics">Further Mathematics</option>
-            <option value="Literature-in-English">Literature-in-English</option>
-            <option value="Hausa">Hausa</option>
-            <option value="Igbo">Igbo</option>
-            <option value="Yoruba">Yoruba</option>
-            <option value="Biology">Biology</option>
-            <option value="Chemistry">Chemistry</option>
-            <option value="Physics">Physics</option>
-            <option value="Agricultural Science">Agricultural Science</option>
-            <option value="Government">Government</option>
-            <option value="Economics">Economics</option>
-            <option value="Geography">Geography</option>
-            <option value="Civic Education">Civic Education</option>
-            <option value="Christian Religious Studies">Christian Religious Studies</option>
-            <option value="Islamic Studies">Islamic Studies</option>
-            <option value="Financial Accounting">Financial Accounting</option>
-            <option value="Commerce">Commerce</option>
+            <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
 <select class="form-control" name="subject4_grade[]" required>
             <option><?= $user_data['subject4_grade'] ?? 'Grade' ?></option>
-            <option value="A1">A1</option>
-            <option value="B2">B2</option>
-            <option value="B3">B3</option>
-            <option value="C4">C4</option>
-            <option value="C5">C5</option>
-            <option value="C6">C6</option>
-            <option value="D7">D7</option>
-            <option value="E8">E8</option>
-            <option value="F9">F9</option>
+            <?php include "grades_options.php"; ?>
         </select>
         </div>
     </div>
-    <div class="row mb-2">
+    <div class="row mb-3">
 <div class="col-8">
  <!-- Row 7: Subject4 Grade -->
         <!-- <label for="subject4">Subject4:</label> -->
        <select type="text" class="form-control" name="subject3[]" required>
             <option><?= $user_data['subject3'] ?? 'Select Subject' ?></option>
-            <option value="Further Mathematics">Further Mathematics</option>
-            <option value="Literature-in-English">Literature-in-English</option>
-            <option value="Hausa">Hausa</option>
-            <option value="Igbo">Igbo</option>
-            <option value="Yoruba">Yoruba</option>
-            <option value="Biology">Biology</option>
-            <option value="Chemistry">Chemistry</option>
-            <option value="Physics">Physics</option>
-            <option value="Agricultural Science">Agricultural Science</option>
-            <option value="Government">Government</option>
-            <option value="Economics">Economics</option>
-            <option value="Geography">Geography</option>
-            <option value="Civic Education">Civic Education</option>
-            <option value="Christian Religious Studies">Christian Religious Studies</option>
-            <option value="Islamic Studies">Islamic Studies</option>
-            <option value="Financial Accounting">Financial Accounting</option>
-            <option value="Commerce">Commerce</option>
+            <?php include "subjects_options.php"; ?>
         </select>
     </div>
     <div class="col-4">
 <select class="form-control" name="subject4_grade[]" required>
             <option><?= $user_data['subject4_grade'] ?? 'Grade' ?></option>
-            <option value="A1">A1</option>
-            <option value="B2">B2</option>
-            <option value="B3">B3</option>
-            <option value="C4">C4</option>
-            <option value="C5">C5</option>
-            <option value="C6">C6</option>
-            <option value="D7">D7</option>
-            <option value="E8">E8</option>
-            <option value="F9">F9</option>
+            <?php include "grades_options.php"; ?>
         </select>
     </div>
     </div>
-<div class="row mb-2">
+<div class="row mb-3">
     <div class="col-8">
          <!-- Row 8: Subject4 Grade -->
         <!-- <label for="subject4">Subject4:</label> -->
        <select type="text" class="form-control" name="subject3[]" required>
             <option><?= $user_data['subject3'] ?? 'Select Subject' ?></option>
-            <option value="Further Mathematics">Further Mathematics</option>
-            <option value="Literature-in-English">Literature-in-English</option>
-            <option value="Hausa">Hausa</option>
-            <option value="Igbo">Igbo</option>
-            <option value="Yoruba">Yoruba</option>
-            <option value="Biology">Biology</option>
-            <option value="Chemistry">Chemistry</option>
-            <option value="Physics">Physics</option>
-            <option value="Agricultural Science">Agricultural Science</option>
-            <option value="Government">Government</option>
-            <option value="Economics">Economics</option>
-            <option value="Geography">Geography</option>
-            <option value="Civic Education">Civic Education</option>
-            <option value="Christian Religious Studies">Christian Religious Studies</option>
-            <option value="Islamic Studies">Islamic Studies</option>
-            <option value="Financial Accounting">Financial Accounting</option>
-            <option value="Commerce">Commerce</option>
+            <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
 <select class="form-control" name="subject4_grade[]" required>
             <option><?= $user_data['subject4_grade'] ?? 'Grade' ?></option>
-            <option value="A1">A1</option>
-            <option value="B2">B2</option>
-            <option value="B3">B3</option>
-            <option value="C4">C4</option>
-            <option value="C5">C5</option>
-            <option value="C6">C6</option>
-            <option value="D7">D7</option>
-            <option value="E8">E8</option>
-            <option value="F9">F9</option>
+            <?php include "grades_options.php"; ?>
         </select>
         </div>
     </div>
 </div>
 </form>
-            <div class="col-sm-6 col-12 border">
-                <h3>Second Sitting</h3>
+            <div class="col-sm-6 col-12 border border-left-0 border-[#f3f3f3] p-2">
+                <h4 class="m-2 text-uppercase text-color font-weight-bold">Second Sitting</h4>
  <form method="post" action="update_olevel">
         <!-- Row 1: Exam Information -->     
        <hr>
             <div class="row">
-                <div class="col-6">
+                <div class="col-4">
         <label for="exam_type" class="form-label">Exam Type</label>
         <select class="form-control" name="exam_type[]" required>
             <option value="WAEC">WAEC</option>
@@ -469,13 +297,13 @@ if (isset($_SESSION['email'])) {
             <option value="NABTEB">NABTEB</option>
         </select>
                 </div>
-                  <div class="col-6">
+                  <div class="col-8">
                      <label for="exam_no" class="form-label">Exam Number</label>
         <input type="text" class="form-control" name="exam_no[]" value="<?= $user_data[
             'exam_no'
         ] ?? '' ?>" required>
                 </div>
-                  <div class="col-6">
+                  <div class="col-4">
                      <label for="year" class="form-label">Year</label>
         <select class="form-control" name="year[]">
             <option value="<?= $user_data[ 'year'] ?? '' ?>"><?= $user_data[ 'year'] ?? '' ?></option>
@@ -491,7 +319,7 @@ if (isset($_SESSION['email'])) {
             <!-- <option value='2023-11-29'>2023-11-29</option> -->
         </select>
                 </div>
-                  <div class="col-6">     
+                  <div class="col-8">     
         <label for="exam_center" class="form-label">Exam Center</label>
         <input type="text" class="form-control" name="exam_center[]" value="<?= $user_data[
             'exam_center'
@@ -499,7 +327,16 @@ if (isset($_SESSION['email'])) {
                 </div>
             </div>
         <hr>
-        <div class="row mb-2">
+        <div class="row m-2">
+                    <div class="col-8">
+                        <p class="text-uppercase">Subject</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="text-uppercase">Grade</p>
+                    </div>
+                </div>
+                <hr>
+        <div class="row mb-3">
                  <!-- Row 2: English Grade -->
             <div class="col-8">
  <input type="text" class="form-control" name="english[]" placeholder="English" readonly value="<?= $user_data[
@@ -509,19 +346,11 @@ if (isset($_SESSION['email'])) {
  <div class="col-4">
     <select class="form-control" name="english_grade[]" required>
             <option><?= $user_data['english_grade'] ?? 'Grade' ?></option>
-            <option value="A1">A1</option>
-            <option value="B2">B2</option>
-            <option value="B3">B3</option>
-            <option value="C4">C4</option>
-            <option value="C5">C5</option>
-            <option value="C6">C6</option>
-            <option value="D7">D7</option>
-            <option value="E8">E8</option>
-            <option value="F9">F9</option>
+            <?php include "grades_options.php"; ?>
         </select>
  </div>
                     </div>
-                    <div class="row mb-2">
+                    <div class="row mb-3">
 <div class="col-8">
                  <!-- Row 3: Math Grade -->
         <input type="text" class="form-control" name="maths[]" placeholder="Mathematics" readonly value="<?= $user_data[
@@ -531,295 +360,119 @@ if (isset($_SESSION['email'])) {
         <div class="col-4">
  <select class="form-control" name="maths_grade[]" required>
             <option><?= $user_data['maths_grade'] ?? 'Grade' ?></option>
-            <option value="A1">A1</option>
-            <option value="B2">B2</option>
-            <option value="B3">B3</option>
-            <option value="C4">C4</option>
-            <option value="C5">C5</option>
-            <option value="C6">C6</option>
-            <option value="D7">D7</option>
-            <option value="E8">E8</option>
-            <option value="F9">F9</option>
+            <?php include "grades_options.php"; ?>
         </select>
         </div>
             </div>
-    <div class="row mb-2">
+    <div class="row mb-3">
 <div class="col-8">
  <!-- Row 4: Subject1 Grade -->
         <!-- <label for="subject1">Subject1:</label> -->
         <select type="text" class="form-control" name="subject1[]">
             <option><?= $user_data['subject1'] ?? 'Select Subject' ?></option>
-            <option value="Further Mathematics">Further Mathematics</option>
-            <option value="Literature-in-English">Literature-in-English</option>
-            <option value="Hausa">Hausa</option>
-            <option value="Igbo">Igbo</option>
-            <option value="Yoruba">Yoruba</option>
-            <option value="Biology">Biology</option>
-            <option value="Chemistry">Chemistry</option>
-            <option value="Physics">Physics</option>
-            <option value="Agricultural Science">Agricultural Science</option>
-            <option value="Government">Government</option>
-            <option value="Economics">Economics</option>
-            <option value="Geography">Geography</option>
-            <option value="Civic Education">Civic Education</option>
-            <option value="Christian Religious Studies">Christian Religious Studies</option>
-            <option value="Islamic Studies">Islamic Studies</option>
-            <option value="Financial Accounting">Financial Accounting</option>
-            <option value="Commerce">Commerce</option>
+            <?php include "subjects_options.php"; ?>
         </select>
 </div>
 <div class="col-4">
     <select class="form-control" name="subject1_grade[]" required>
             <option><?= $user_data['subject1_grade'] ?? 'Grade' ?></option>
-            <option value="A1">A1</option>
-            <option value="B2">B2</option>
-            <option value="B3">B3</option>
-            <option value="C4">C4</option>
-            <option value="C5">C5</option>
-            <option value="C6">C6</option>
-            <option value="D7">D7</option>
-            <option value="E8">E8</option>
-            <option value="F9">F9</option>
+            <?php include "grades_options.php"; ?>
         </select>
 </div>
     </div>
-    <div class="row mb-2">
+    <div class="row mb-3">
 <div class="col-8">
         <!-- Row 5: Subject2 Grade -->
         <!-- <label for="subject2">Subject2:</label> -->
         <select type="text" class="form-control" name="subject2[]" required>
             <option><?= $user_data['subject2'] ?? 'Select Subject' ?></option>
-            <option value="Further Mathematics">Further Mathematics</option>
-            <option value="Literature-in-English">Literature-in-English</option>
-            <option value="Hausa">Hausa</option>
-            <option value="Igbo">Igbo</option>
-            <option value="Yoruba">Yoruba</option>
-            <option value="Biology">Biology</option>
-            <option value="Chemistry">Chemistry</option>
-            <option value="Physics">Physics</option>
-            <option value="Agricultural Science">Agricultural Science</option>
-            <option value="Government">Government</option>
-            <option value="Economics">Economics</option>
-            <option value="Geography">Geography</option>
-            <option value="Civic Education">Civic Education</option>
-            <option value="Christian Religious Studies">Christian Religious Studies</option>
-            <option value="Islamic Studies">Islamic Studies</option>
-            <option value="Financial Accounting">Financial Accounting</option>
-            <option value="Commerce">Commerce</option>
+            <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
 <select class="form-control" name="subject2_grade[]" required>
         <option><?= $user_data['subject2_grade'] ?? 'Grade' ?></option>
-           <option value="A1">A1</option>
-            <option value="B2">B2</option>
-            <option value="B3">B3</option>
-            <option value="C4">C4</option>
-            <option value="C5">C5</option>
-            <option value="C6">C6</option>
-            <option value="D7">D7</option>
-            <option value="E8">E8</option>
-            <option value="F9">F9</option>
+           <?php include "grades_options.php"; ?>
         </select>
         </div>
 </div>
-<div class="row mb-2">
+<div class="row mb-3">
     <div class="col-8">
         <!-- Row 6: Subject3 Grade -->
         <!-- <label for="subject3">Subject3:</label> -->
         <select type="text" class="form-control" name="subject3[]" required>
             <option><?= $user_data['subject3'] ?? 'Select Subject' ?></option>
-            <option value="Further Mathematics">Further Mathematics</option>
-            <option value="Literature-in-English">Literature-in-English</option>
-            <option value="Hausa">Hausa</option>
-            <option value="Igbo">Igbo</option>
-            <option value="Yoruba">Yoruba</option>
-            <option value="Biology">Biology</option>
-            <option value="Chemistry">Chemistry</option>
-            <option value="Physics">Physics</option>
-            <option value="Agricultural Science">Agricultural Science</option>
-            <option value="Government">Government</option>
-            <option value="Economics">Economics</option>
-            <option value="Geography">Geography</option>
-            <option value="Civic Education">Civic Education</option>
-            <option value="Christian Religious Studies">Christian Religious Studies</option>
-            <option value="Islamic Studies">Islamic Studies</option>
-            <option value="Financial Accounting">Financial Accounting</option>
-            <option value="Commerce">Commerce</option>
+            <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
 <select class="form-control" name="subject3_grade[]" required>
             <option><?= $user_data['subject3_grade'] ?? 'Grade' ?></option>
-            <option value="A1">A1</option>
-            <option value="B2">B2</option>
-            <option value="B3">B3</option>
-            <option value="C4">C4</option>
-            <option value="C5">C5</option>
-            <option value="C6">C6</option>
-            <option value="D7">D7</option>
-            <option value="E8">E8</option>
-            <option value="F9">F9</option>
+            <?php include "grades_options.php"; ?>
         </select>
         </div>
     </div>
-    <div class="row mb-2">
+    <div class="row mb-3">
 <div class="col-8">
  <!-- Row 7: Subject4 Grade -->
         <!-- <label for="subject4">Subject4:</label> -->
         <select class="form-control" type="text" name="subject4[]" required>
             <option><?= $user_data['subject4'] ?? 'Select Subject' ?></option>
-            <option value="Further Mathematics">Further Mathematics</option>
-            <option value="Literature-in-English">Literature-in-English</option>
-            <option value="Hausa">Hausa</option>
-            <option value="Igbo">Igbo</option>
-            <option value="Yoruba">Yoruba</option>
-            <option value="Biology">Biology</option>
-            <option value="Chemistry">Chemistry</option>
-            <option value="Physics">Physics</option>
-            <option value="Agricultural Science">Agricultural Science</option>
-            <option value="Government">Government</option>
-            <option value="Economics">Economics</option>
-            <option value="Geography">Geography</option>
-            <option value="Civic Education">Civic Education</option>
-            <option value="Christian Religious Studies">Christian Religious Studies</option>
-            <option value="Islamic Studies">Islamic Studies</option>
-            <option value="Financial Accounting">Financial Accounting</option>
-            <option value="Commerce">Commerce</option>
+            <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
         <select class="form-control" name="subject4_grade[]" required>
             <option><?= $user_data['subject4_grade'] ?? 'Grade' ?></option>
-            <option value="A1">A1</option>
-            <option value="B2">B2</option>
-            <option value="B3">B3</option>
-            <option value="C4">C4</option>
-            <option value="C5">C5</option>
-            <option value="C6">C6</option>
-            <option value="D7">D7</option>
-            <option value="E8">E8</option>
-            <option value="F9">F9</option>
+            <?php include "grades_options.php"; ?>
         </select>
         </div>
     </div>
-<div class="row mb-2">
+<div class="row mb-3">
     <div class="col-8">
  <!-- Row 8: Subject4 Grade -->
         <!-- <label for="subject4">Subject4:</label> -->
         <select type="text" class="form-control" name="subject3[]" required>
             <option><?= $user_data['subject3'] ?? 'Select Subject' ?></option>
-            <option value="Further Mathematics">Further Mathematics</option>
-            <option value="Literature-in-English">Literature-in-English</option>
-            <option value="Hausa">Hausa</option>
-            <option value="Igbo">Igbo</option>
-            <option value="Yoruba">Yoruba</option>
-            <option value="Biology">Biology</option>
-            <option value="Chemistry">Chemistry</option>
-            <option value="Physics">Physics</option>
-            <option value="Agricultural Science">Agricultural Science</option>
-            <option value="Government">Government</option>
-            <option value="Economics">Economics</option>
-            <option value="Geography">Geography</option>
-            <option value="Civic Education">Civic Education</option>
-            <option value="Christian Religious Studies">Christian Religious Studies</option>
-            <option value="Islamic Studies">Islamic Studies</option>
-            <option value="Financial Accounting">Financial Accounting</option>
-            <option value="Commerce">Commerce</option>
+            <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
 <select class="form-control" name="subject4_grade[]" required>
             <option><?= $user_data['subject4_grade'] ?? 'Grade' ?></option>
-            <option value="A1">A1</option>
-            <option value="B2">B2</option>
-            <option value="B3">B3</option>
-            <option value="C4">C4</option>
-            <option value="C5">C5</option>
-            <option value="C6">C6</option>
-            <option value="D7">D7</option>
-            <option value="E8">E8</option>
-            <option value="F9">F9</option>
+            <?php include "grades_options.php"; ?>
         </select>
         </div>
     </div>
-    <div class="row mb-2">
+    <div class="row mb-3">
 <div class="col-8">
  <!-- Row 7: Subject4 Grade -->
         <!-- <label for="subject4">Subject4:</label> -->
        <select type="text" class="form-control" name="subject3[]" required>
             <option><?= $user_data['subject3'] ?? 'Select Subject' ?></option>
-            <option value="Further Mathematics">Further Mathematics</option>
-            <option value="Literature-in-English">Literature-in-English</option>
-            <option value="Hausa">Hausa</option>
-            <option value="Igbo">Igbo</option>
-            <option value="Yoruba">Yoruba</option>
-            <option value="Biology">Biology</option>
-            <option value="Chemistry">Chemistry</option>
-            <option value="Physics">Physics</option>
-            <option value="Agricultural Science">Agricultural Science</option>
-            <option value="Government">Government</option>
-            <option value="Economics">Economics</option>
-            <option value="Geography">Geography</option>
-            <option value="Civic Education">Civic Education</option>
-            <option value="Christian Religious Studies">Christian Religious Studies</option>
-            <option value="Islamic Studies">Islamic Studies</option>
-            <option value="Financial Accounting">Financial Accounting</option>
-            <option value="Commerce">Commerce</option>
+            <?php include "subjects_options.php"; ?>
         </select>
     </div>
     <div class="col-4">
 <select class="form-control" name="subject4_grade[]" required>
             <option><?= $user_data['subject4_grade'] ?? 'Grade' ?></option>
-            <option value="A1">A1</option>
-            <option value="B2">B2</option>
-            <option value="B3">B3</option>
-            <option value="C4">C4</option>
-            <option value="C5">C5</option>
-            <option value="C6">C6</option>
-            <option value="D7">D7</option>
-            <option value="E8">E8</option>
-            <option value="F9">F9</option>
+            <?php include "grades_options.php"; ?>
         </select>
     </div>
     </div>
-<div class="row mb-2">
+<div class="row mb-3">
     <div class="col-8">
          <!-- Row 8: Subject4 Grade -->
         <!-- <label for="subject4">Subject4:</label> -->
        <select type="text" class="form-control" name="subject3[]" required>
             <option><?= $user_data['subject3'] ?? 'Select Subject' ?></option>
-            <option value="Further Mathematics">Further Mathematics</option>
-            <option value="Literature-in-English">Literature-in-English</option>
-            <option value="Hausa">Hausa</option>
-            <option value="Igbo">Igbo</option>
-            <option value="Yoruba">Yoruba</option>
-            <option value="Biology">Biology</option>
-            <option value="Chemistry">Chemistry</option>
-            <option value="Physics">Physics</option>
-            <option value="Agricultural Science">Agricultural Science</option>
-            <option value="Government">Government</option>
-            <option value="Economics">Economics</option>
-            <option value="Geography">Geography</option>
-            <option value="Civic Education">Civic Education</option>
-            <option value="Christian Religious Studies">Christian Religious Studies</option>
-            <option value="Islamic Studies">Islamic Studies</option>
-            <option value="Financial Accounting">Financial Accounting</option>
-            <option value="Commerce">Commerce</option>
+            <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
 <select class="form-control" name="subject4_grade[]" required>
             <option><?= $user_data['subject4_grade'] ?? 'Grade' ?></option>
-            <option value="A1">A1</option>
-            <option value="B2">B2</option>
-            <option value="B3">B3</option>
-            <option value="C4">C4</option>
-            <option value="C5">C5</option>
-            <option value="C6">C6</option>
-            <option value="D7">D7</option>
-            <option value="E8">E8</option>
-            <option value="F9">F9</option>
+            <?php include "grades_options.php"; ?>
         </select>
         </div>
     </div>

@@ -58,8 +58,8 @@ if (isset($_POST['login'])) {
   </head>
 <body>
     <!-- Login -->
-<section class="py-3 py-md-5 py-xl-8">
-  <div class="container">
+<section class="py-3 py-md-5 py-xl-8 m-5">
+  <div class="containerW">
     <div class="row">
       <div class="col-12">
         <div class="mb-3">
@@ -95,7 +95,7 @@ if (isset($_POST['login'])) {
                 </div>
                 <div class="col-12 mb-3">
                   <div class="d-grid">
-                    <button class="btn btn-warning btn-lg" type="submit" name="login">Log in</button>
+                    <button class="btn btn-warning" type="submit" name="login">Log in</button>
                   </div>
                 </div>
               </div>

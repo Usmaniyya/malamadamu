@@ -86,7 +86,7 @@ if (isset($_SESSION['email'])) {
                 'passport_path'
             ] ?>" alt="Passport Image" style="max-width: 100px;">
         <?php } ?>
-        <div class="col-6 mb-2">
+        <div class="col-sm-6 col-8 mb-2">
   <label for="formFile" class="form-label">Upload Passport</label>
   <input class="form-control border-warning" type="file" name="passport" accept=".jpg, .jpeg, .png" id="formFile" value="<?= $user_data[
       'passport_path'
@@ -96,19 +96,19 @@ if (isset($_SESSION['email'])) {
 </div>
 </div>
 <div class="row mb-2">
-  <div class="col-4">
+  <div class="col-sm-4 col-6">
         <label for="first_name" class="form-label">First Name</label>
           <input type="text" name="first_name" class="form-control" value="<?= $user_data[
               'first_name'
           ] ?? '' ?>" required>
   </div>
-  <div class="col-4">
+  <div class="col-sm-4 col-6">
       <label for="last_name" class="form-label">Last Name</label>
           <input type="text" class="form-control" name="last_name" value="<?= $user_data[
               'last_name'
           ] ?? '' ?>" required>
   </div>
-  <div class="col-4">
+  <div class="col-sm-4 col-6">
       <label for="other_name"  class="form-label">Other Name</label>
           <input type="text" class="form-control" name="other_name" value="<?= $user_data[
               'other_name'
@@ -116,20 +116,19 @@ if (isset($_SESSION['email'])) {
   </div>
 </div>
 <div class="row mb-2">
-    <div class="col-4">
+    <div class="col-sm-4 col-6">
  <label for="email" class="form-label">Email</label>
         <input type="email" class="form-control" name="email" value="<?= $user_data[
             'email'
         ] ?? '' ?>" required>
     </div>
-<div class="col-4">
+<div class="col-sm-4 col-6">
              <label for="phone" class="form-label">Phone</label>
         <input type="text" name="phone" class="form-control" value="<?= $user_data[
             'phone'
         ] ?? '' ?>">
-
         </div>
-        <div class="col-4">
+        <div class="col-sm-4 col-6">
 <label for="dob" class="form-label">Date of Birth</label>
         <input type="date" name="dob" class="form-control" value="<?= $user_data[
             'dob'
@@ -137,7 +136,7 @@ if (isset($_SESSION['email'])) {
         </div>
 </div>
     <div class="row mb-2">
-        <div class="col-6">
+        <div class="col-sm-4 col-6">
               <label for="" class="form-label">State</label>
           <select name="state" id="state" placeholder="<?= $user_data['state'] ?? 'Select State' ?>" autocomplete="off" class="select">
             <option value=""></option>
@@ -180,7 +179,7 @@ if (isset($_SESSION['email'])) {
             <option value="Zamfara">Zamafara</option>
         </select>
         </div>
-        <div class="col-6">
+        <div class="col-sm-4 col-6">
               <label for="lga" class="form-label">Local Government</label>
         <select name="lga" id="lga" placeholder="<?= $user_data['lga'] ?? 'Select Local Government' ?>" autocomplete="off" class="lga">
             <option value=""></option>
@@ -188,13 +187,13 @@ if (isset($_SESSION['email'])) {
         </div>
     </div>
     <div class="row mb-2">
-<div class="col-6">
+<div class="col-sm-4 col-6">
 <label for="address" class="form-label">Address</label>
         <textarea name="address" class="form-control" rows="4" cols="50"><?= $user_data[
             'address'
         ] ?? '' ?></textarea>
 </div>
-<div class="col-6">
+<div class="col-sm-4 col-6">
 <label for="nok_address" class="form-label">Next of Kin Address</label>
         <textarea name="nok_address" class="form-control" rows="4" cols="50"><?= $user_data[
             'nok_address'
@@ -202,19 +201,19 @@ if (isset($_SESSION['email'])) {
 </div>
 </div>
 <div class="row mb-2">
-<div class="col-4">
+<div class="col-sm-4 col-6">
 <label for="next_of_kin" class="form-label">Next of Kin</label>
         <input type="text" class="form-control" name="next_of_kin" value="<?= $user_data[
             'next_of_kin'
         ] ?? '' ?>">
 </div>
-<div class="col-4">
+<div class="col-sm-4 col-6">
     <label for="nok_email" class="form-label">Next of Kin Email</label>
         <input type="email" class="form-control" name="nok_email" value="<?= $user_data[
             'nok_email'
         ] ?? '' ?>">
 </div>
-<div class="col-4">
+<div class="col-sm-4 col-12">
 <label for="relation" class="form-label">Relationship</label>
         <input type="text" class="form-control" name="relation" value="<?= $user_data[
             'relation'
@@ -223,7 +222,7 @@ if (isset($_SESSION['email'])) {
     </div>
     <div class="row mb-2">
 <div class="col-12">
- <button type="submit" name="update" class="btn btn-warning">Update</button>
+ <button type="submit" name="update" class="btn btn-warning px-3">Update</button>
 </div>
     </div>       
         </div>

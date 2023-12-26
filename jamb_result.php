@@ -117,6 +117,7 @@ if (isset($_SESSION['email'])) {
                       'english_score'
                   ] ?? '' ?>" oninput="calculateTotalScore()">
                           </div>
+                          
                           <div class="col-6">
            <input type="text" class="form-control mb-2" name="subject1" placeholder="Enter Subject" value="<?= $user_data[
                'subject1'

@@ -126,7 +126,7 @@ include "includes/student_swal_functions.php";
             <h4>Select the program you want to study</h4>
             <form method="POST">
                 <div class="row mb-2">
-                    <div class="col-6">
+                    <div class="col-sm-6 col-12">
                         <label for="faculty" class="form-label">Faculty</label>
                         <select name="faculty" class="form-control" onchange="fetchFaculty(this.value)">
                         <option><?=$user_data["faculty"]?? 'Select Faculty...'?></option>
@@ -143,7 +143,7 @@ include "includes/student_swal_functions.php";
                       </select>
                       
                     </div>
-                    <div class="col-6">
+                    <div class="col-sm-6 col-12">
                         <label for="program" class="form-label">Program</label>
                         <select id="faculty-data" class="form-control" name="program">
                         <option><?=$user_data["program"]?? ''?></option>
@@ -152,7 +152,7 @@ include "includes/student_swal_functions.php";
                     </div>
                 </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-sm-6 col-10">
                     <button type="submit" name="submit" class="btn btn-warning">Save</button>
                 </div>
             </div>

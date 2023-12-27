@@ -558,15 +558,15 @@ if (isset($_SESSION['email'])) {
             data: formData,
             success: function(response) {
                 Swal.fire({
-                title: "Updated ",
-                text: "Successfully Updated!",
+                title: "Saved ",
+                text: "Successfully Saved!",
                 icon: "success"
                 });
             },
             error: function(error) {
                 Swal.fire({
                 title: "error ",
-                text: "Data not Updated!",
+                text: "Data not Saved!",
                 icon: "error"
                 });
             }
@@ -590,15 +590,15 @@ if (isset($_SESSION['email'])) {
             data: Data,
             success: function(response) {
                 Swal.fire({
-                title: "Updated ",
-                text: "Successfully Updated!",
+                title: "Saved ",
+                text: "Successfully Saved!",
                 icon: "success"
                 });
             },
             error: function(error) {
                 Swal.fire({
                 title: "error ",
-                text: "Data not Updated!",
+                text: "Data not Saved!",
                 icon: "error"
                 });
             }

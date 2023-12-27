@@ -5,18 +5,17 @@ if (!$_SESSION['id']) {
 }
 include 'admin/fetch_data.php';
 if (isset($_SESSION['email'])) {
-  $user_id = $_SESSION['id'];
+  $student_id = $_SESSION['id'];
 
   // Fetch all fields for the user with the specific ID
-  $query = 'SELECT * FROM `olevel` WHERE student_id = ?';
+  $query = 'SELECT * FROM `olevel` WHERE student_id = ? AND form_flag = 1';
 
   $stmt = mysqli_prepare($conn, $query);
-  mysqli_stmt_bind_param($stmt, 'i', $user_id);
+  mysqli_stmt_bind_param($stmt, 'i', $student_id);
   mysqli_stmt_execute($stmt);
   $result = mysqli_stmt_get_result($stmt);
   $user_data = mysqli_fetch_assoc($result);
-  // Close the database connection
-  mysqli_close($conn);
+
 }
 ?>
 <!DOCTYPE html>
@@ -90,13 +89,14 @@ if (isset($_SESSION['email'])) {
         <div class="row p-3">
         <div class="col-sm-6 col-12 border border-[#f3f3f3] p-2">
             <h4 class="m-2 text-uppercase text-color font-weight-bold">First Sitting</h4>
-        <form method="post" action="update_olevel">
+        <form id='dataForm'>
         <!-- Row 1: Exam Information -->     
        <hr>
             <div class="row">
                 <div class="col-4">
         <label for="exam_type" class="form-label">Exam Type</label>
-        <select class="form-control" name="exam_type[]" required>
+        <select class="form-control" name="exam_type" required>
+            <option value="<?= $user_data[ 'exam_type'] ?? '' ?>"><?= $user_data[ 'exam_type'] ?? 'Not Selected' ?></option>
             <option value="WAEC">WAEC</option>
             <option value="NECO">NECO</option>
             <option value="NABTEB">NABTEB</option>
@@ -104,13 +104,13 @@ if (isset($_SESSION['email'])) {
                 </div>
                   <div class="col-8">
                      <label for="exam_no" class="form-label">Exam Number</label>
-        <input type="text" class="form-control" name="exam_no[]" value="<?= $user_data[
+        <input type="text" class="form-control" name="exam_no" value="<?= $user_data[
             'exam_no'
         ] ?? '' ?>" required>
                 </div>
                   <div class="col-4">
                      <label for="year" class="form-label">Year</label>
-        <select class="form-control" name="year[]">
+        <select class="form-control" name="year">
             <option value="<?= $user_data[ 'year'] ?? '' ?>"><?= $user_data[ 'year'] ?? 'Not Selected' ?></option>
              <option value='2017'>2015</option>
             <option value='2018'>2016</option>
@@ -126,7 +126,7 @@ if (isset($_SESSION['email'])) {
                 </div>
                   <div class="col-8">     
         <label for="exam_center" class="form-label">Exam Center</label>
-        <input type="text" class="form-control" name="exam_center[]" value="<?= $user_data[
+        <input type="text" class="form-control" name="exam_center" value="<?= $user_data[
             'exam_center'
         ] ?? '' ?>" required>
                 </div>
@@ -144,12 +144,12 @@ if (isset($_SESSION['email'])) {
         <div class="row mb-3">
                  <!-- Row 2: English Grade -->
             <div class="col-8">
- <input type="text" class="form-control" name="english[]" placeholder="English" readonly value="<?= $user_data[
+ <input type="text" class="form-control" name="english" placeholder="English" readonly value="<?= $user_data[
      'english'
  ] ?? '' ?>" required>
  </div>
  <div class="col-4">
-    <select class="form-control" name="english_grade[]" required>
+    <select class="form-control" name="english_grade" required>
             <option><?= $user_data['english_grade'] ?? 'Grade' ?></option>
             <?php include "grades_options.php"; ?>
         </select>
@@ -158,12 +158,12 @@ if (isset($_SESSION['email'])) {
                     <div class="row mb-3">
 <div class="col-8">
                  <!-- Row 3: Math Grade -->
-        <input type="text" class="form-control" name="maths[]" placeholder="Mathematics" readonly value="<?= $user_data[
+        <input type="text" class="form-control" name="maths" placeholder="Mathematics" readonly value="<?= $user_data[
             'maths'
         ] ?? '' ?>" required>
         </div>
         <div class="col-4">
- <select class="form-control" name="maths_grade[]" required>
+ <select class="form-control" name="maths_grade" required>
             <option><?= $user_data['maths_grade'] ?? 'Grade' ?></option>
             <?php include "grades_options.php"; ?>
         </select>
@@ -173,13 +173,13 @@ if (isset($_SESSION['email'])) {
 <div class="col-8">
  <!-- Row 4: Subject1 Grade -->
         <!-- <label for="subject1">Subject1:</label> -->
-        <select type="text" class="form-control" name="subject1[]">
-            <option><?= $user_data['subject1'] ?? 'Select Subject' ?></option>
+        <select type="text" class="form-control" name="subject1">
+            <option><?= $user_data['subject1'] ?? 'Not Selected' ?></option>
             <?php include "subjects_options.php"; ?>
         </select>
 </div>
 <div class="col-4">
-    <select class="form-control" name="subject1_grade[]" required>
+    <select class="form-control" name="subject1_grade" required>
             <option><?= $user_data['subject1_grade'] ?? 'Grade' ?></option>
             <?php include "grades_options.php"; ?>
         </select>
@@ -189,13 +189,13 @@ if (isset($_SESSION['email'])) {
 <div class="col-8">
         <!-- Row 5: Subject2 Grade -->
         <!-- <label for="subject2">Subject2:</label> -->
-        <select type="text" class="form-control" name="subject2[]" required>
-            <option><?= $user_data['subject2'] ?? 'Select Subject' ?></option>
+        <select type="text" class="form-control" name="subject2" required>
+            <option><?= $user_data['subject2'] ?? 'Not Selected' ?></option>
             <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
-<select class="form-control" name="subject2_grade[]" required>
+<select class="form-control" name="subject2_grade" required>
         <option><?= $user_data['subject2_grade'] ?? 'Grade' ?></option>
            <?php include "grades_options.php"; ?>
         </select>
@@ -205,13 +205,13 @@ if (isset($_SESSION['email'])) {
     <div class="col-8">
         <!-- Row 6: Subject3 Grade -->
         <!-- <label for="subject3">Subject3:</label> -->
-        <select type="text" class="form-control" name="subject3[]" required>
-            <option><?= $user_data['subject3'] ?? 'Select Subject' ?></option>
+        <select type="text" class="form-control" name="subject3" required>
+            <option><?= $user_data['subject3'] ?? 'Not Selected' ?></option>
             <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
-<select class="form-control" name="subject3_grade[]" required>
+<select class="form-control" name="subject3_grade" required>
             <option><?= $user_data['subject3_grade'] ?? 'Grade' ?></option>
             <?php include "grades_options.php"; ?>
         </select>
@@ -221,30 +221,30 @@ if (isset($_SESSION['email'])) {
 <div class="col-8">
  <!-- Row 7: Subject4 Grade -->
         <!-- <label for="subject4">Subject4:</label> -->
-        <select class="form-control" type="text" name="subject4[]" required>
-            <option><?= $user_data['subject4'] ?? 'Select Subject' ?></option>
+        <select class="form-control" type="text" name="subject4" required>
+            <option><?= $user_data['subject4'] ?? 'Not Selected' ?></option>
             <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
-        <select class="form-control" name="subject4_grade[]" required>
+        <select class="form-control" name="subject4_grade" required>
             <option><?= $user_data['subject4_grade'] ?? 'Grade' ?></option>
             <?php include "grades_options.php"; ?>
         </select>
         </div>
     </div>
 <div class="row mb-3">
-    <div class="col-8">
+<div class="col-8">
  <!-- Row 8: Subject4 Grade -->
         <!-- <label for="subject4">Subject4:</label> -->
-        <select type="text" class="form-control" name="subject3[]" required>
-            <option><?= $user_data['subject3'] ?? 'Select Subject' ?></option>
+        <select type="text" class="form-control" name="subject5" required>
+            <option><?= $user_data['subject5'] ?? 'Not Selected' ?></option>
             <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
-<select class="form-control" name="subject4_grade[]" required>
-            <option><?= $user_data['subject4_grade'] ?? 'Grade' ?></option>
+<select class="form-control" name="subject5_grade" required>
+            <option><?= $user_data['subject5_grade'] ?? 'Grade' ?></option>
             <?php include "grades_options.php"; ?>
         </select>
         </div>
@@ -253,14 +253,14 @@ if (isset($_SESSION['email'])) {
 <div class="col-8">
  <!-- Row 7: Subject4 Grade -->
         <!-- <label for="subject4">Subject4:</label> -->
-       <select type="text" class="form-control" name="subject3[]" required>
-            <option><?= $user_data['subject3'] ?? 'Select Subject' ?></option>
+       <select type="text" class="form-control" name="subject6" required>
+            <option><?= $user_data['subject6'] ?? 'Not Selected' ?></option>
             <?php include "subjects_options.php"; ?>
         </select>
     </div>
     <div class="col-4">
-<select class="form-control" name="subject4_grade[]" required>
-            <option><?= $user_data['subject4_grade'] ?? 'Grade' ?></option>
+<select class="form-control" name="subject6_grade" required>
+            <option><?= $user_data['subject6_grade'] ?? 'Grade' ?></option>
             <?php include "grades_options.php"; ?>
         </select>
     </div>
@@ -269,29 +269,58 @@ if (isset($_SESSION['email'])) {
     <div class="col-8">
          <!-- Row 8: Subject4 Grade -->
         <!-- <label for="subject4">Subject4:</label> -->
-       <select type="text" class="form-control" name="subject3[]" required>
-            <option><?= $user_data['subject3'] ?? 'Select Subject' ?></option>
+       <select type="text" class="form-control" name="subject7" required>
+            <option><?= $user_data['subject7'] ?? 'Not Selected' ?></option>
             <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
-<select class="form-control" name="subject4_grade[]" required>
-            <option><?= $user_data['subject4_grade'] ?? 'Grade' ?></option>
+        <select class="form-control" name="subject7_grade" required>
+            <option><?= $user_data['subject7_grade'] ?? 'Grade' ?></option>
             <?php include "grades_options.php"; ?>
         </select>
         </div>
     </div>
+<div class="row mt-2">
+    <div class="col-4">
+        
+    </div>
+    <div class="col-4">
+        <button type="submit" class="btn btn-warning px-3" name="update" onclick="submitForm()">Save</button>
+    </div>
+    <div class="col-4">
+        
+    </div>
+</div>
 </div>
 </form>
+
+<?php
+if (isset($_SESSION['email'])) {
+  $student_id = $_SESSION['id'];
+
+  // Fetch all fields for the user with the specific ID
+  $query_form_2 = 'SELECT * FROM `olevel` WHERE student_id = ? AND form_flag = 2';
+
+  $stmt = mysqli_prepare($conn, $query_form_2);
+  mysqli_stmt_bind_param($stmt, 'i', $student_id);
+  mysqli_stmt_execute($stmt);
+  $result = mysqli_stmt_get_result($stmt);
+  $form_2_user_data = mysqli_fetch_assoc($result);
+  // Close the database connection
+  mysqli_close($conn);
+}
+?>
             <div class="col-sm-6 col-12 border border-left-0 border-[#f3f3f3] p-2">
                 <h4 class="m-2 text-uppercase text-color font-weight-bold">Second Sitting</h4>
- <form method="post" action="update_olevel">
+ <form id="dataForm2">
         <!-- Row 1: Exam Information -->     
        <hr>
             <div class="row">
                 <div class="col-4">
         <label for="exam_type" class="form-label">Exam Type</label>
-        <select class="form-control" name="exam_type[]" required>
+        <select class="form-control" name="exam_type" required>
+            <option value="<?= $form_2_user_data[ 'exam_type'] ?? '' ?>"><?= $form_2_user_data[ 'exam_type'] ?? 'Not Selected' ?></option>
             <option value="WAEC">WAEC</option>
             <option value="NECO">NECO</option>
             <option value="NABTEB">NABTEB</option>
@@ -299,14 +328,14 @@ if (isset($_SESSION['email'])) {
                 </div>
                   <div class="col-8">
                      <label for="exam_no" class="form-label">Exam Number</label>
-        <input type="text" class="form-control" name="exam_no[]" value="<?= $user_data[
+        <input type="text" class="form-control" name="exam_no" value="<?= $form_2_user_data[
             'exam_no'
         ] ?? '' ?>" required>
                 </div>
                   <div class="col-4">
                      <label for="year" class="form-label">Year</label>
-        <select class="form-control" name="year[]">
-            <option value="<?= $user_data[ 'year'] ?? '' ?>"><?= $user_data[ 'year'] ?? '' ?></option>
+        <select class="form-control" name="year">
+            <option value="<?= $form_2_user_data[ 'year'] ?? '' ?>"><?= $form_2_user_data[ 'year'] ?? 'Not Selected' ?></option>
              <option value='2017'>2015</option>
             <option value='2018'>2016</option>
             <option value='2017'>2017</option>
@@ -321,7 +350,7 @@ if (isset($_SESSION['email'])) {
                 </div>
                   <div class="col-8">     
         <label for="exam_center" class="form-label">Exam Center</label>
-        <input type="text" class="form-control" name="exam_center[]" value="<?= $user_data[
+        <input type="text" class="form-control" name="exam_center" value="<?= $form_2_user_data[
             'exam_center'
         ] ?? '' ?>" required>
                 </div>
@@ -339,13 +368,13 @@ if (isset($_SESSION['email'])) {
         <div class="row mb-3">
                  <!-- Row 2: English Grade -->
             <div class="col-8">
- <input type="text" class="form-control" name="english[]" placeholder="English" readonly value="<?= $user_data[
+ <input type="text" class="form-control" name="english" placeholder="English" readonly value="<?= $form_2_user_data[
      'english'
- ] ?? '' ?>" required>
+ ] ?? 'English' ?>" required>
  </div>
  <div class="col-4">
-    <select class="form-control" name="english_grade[]" required>
-            <option><?= $user_data['english_grade'] ?? 'Grade' ?></option>
+    <select class="form-control" name="english_grade" required>
+            <option><?= $form_2_user_data['english_grade'] ?? 'Grade' ?></option>
             <?php include "grades_options.php"; ?>
         </select>
  </div>
@@ -353,13 +382,13 @@ if (isset($_SESSION['email'])) {
                     <div class="row mb-3">
 <div class="col-8">
                  <!-- Row 3: Math Grade -->
-        <input type="text" class="form-control" name="maths[]" placeholder="Mathematics" readonly value="<?= $user_data[
+        <input type="text" class="form-control" name="maths" placeholder="Mathematics" readonly value="<?= $form_2_user_data[
             'maths'
-        ] ?? '' ?>" required>
+        ] ?? 'Maths' ?>" required>
         </div>
         <div class="col-4">
- <select class="form-control" name="maths_grade[]" required>
-            <option><?= $user_data['maths_grade'] ?? 'Grade' ?></option>
+ <select class="form-control" name="maths_grade" required>
+            <option><?= $form_2_user_data['maths_grade'] ?? 'Grade' ?></option>
             <?php include "grades_options.php"; ?>
         </select>
         </div>
@@ -368,14 +397,14 @@ if (isset($_SESSION['email'])) {
 <div class="col-8">
  <!-- Row 4: Subject1 Grade -->
         <!-- <label for="subject1">Subject1:</label> -->
-        <select type="text" class="form-control" name="subject1[]">
-            <option><?= $user_data['subject1'] ?? 'Select Subject' ?></option>
+        <select type="text" class="form-control" name="subject1">
+            <option><?= $form_2_user_data['subject1'] ?? 'Not Selected' ?></option>
             <?php include "subjects_options.php"; ?>
         </select>
 </div>
 <div class="col-4">
-    <select class="form-control" name="subject1_grade[]" required>
-            <option><?= $user_data['subject1_grade'] ?? 'Grade' ?></option>
+    <select class="form-control" name="subject1_grade" required>
+            <option><?= $form_2_user_data['subject1_grade'] ?? 'Grade' ?></option>
             <?php include "grades_options.php"; ?>
         </select>
 </div>
@@ -384,14 +413,14 @@ if (isset($_SESSION['email'])) {
 <div class="col-8">
         <!-- Row 5: Subject2 Grade -->
         <!-- <label for="subject2">Subject2:</label> -->
-        <select type="text" class="form-control" name="subject2[]" required>
-            <option><?= $user_data['subject2'] ?? 'Select Subject' ?></option>
+        <select type="text" class="form-control" name="subject2" required>
+            <option><?= $form_2_user_data['subject2'] ?? 'Not Selected' ?></option>
             <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
-<select class="form-control" name="subject2_grade[]" required>
-        <option><?= $user_data['subject2_grade'] ?? 'Grade' ?></option>
+<select class="form-control" name="subject2_grade" required>
+        <option><?= $form_2_user_data['subject2_grade'] ?? 'Grade' ?></option>
            <?php include "grades_options.php"; ?>
         </select>
         </div>
@@ -400,14 +429,14 @@ if (isset($_SESSION['email'])) {
     <div class="col-8">
         <!-- Row 6: Subject3 Grade -->
         <!-- <label for="subject3">Subject3:</label> -->
-        <select type="text" class="form-control" name="subject3[]" required>
-            <option><?= $user_data['subject3'] ?? 'Select Subject' ?></option>
+        <select type="text" class="form-control" name="subject3" required>
+            <option><?= $form_2_user_data['subject3'] ?? 'Not Selected' ?></option>
             <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
-<select class="form-control" name="subject3_grade[]" required>
-            <option><?= $user_data['subject3_grade'] ?? 'Grade' ?></option>
+<select class="form-control" name="subject3_grade" required>
+            <option><?= $form_2_user_data['subject3_grade'] ?? 'Grade' ?></option>
             <?php include "grades_options.php"; ?>
         </select>
         </div>
@@ -416,14 +445,14 @@ if (isset($_SESSION['email'])) {
 <div class="col-8">
  <!-- Row 7: Subject4 Grade -->
         <!-- <label for="subject4">Subject4:</label> -->
-        <select class="form-control" type="text" name="subject4[]" required>
-            <option><?= $user_data['subject4'] ?? 'Select Subject' ?></option>
+        <select class="form-control" type="text" name="subject4" required>
+            <option><?= $form_2_user_data['subject4'] ?? 'Not Selected' ?></option>
             <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
-        <select class="form-control" name="subject4_grade[]" required>
-            <option><?= $user_data['subject4_grade'] ?? 'Grade' ?></option>
+        <select class="form-control" name="subject4_grade" required>
+            <option><?= $form_2_user_data['subject4_grade'] ?? 'Grade' ?></option>
             <?php include "grades_options.php"; ?>
         </select>
         </div>
@@ -432,14 +461,14 @@ if (isset($_SESSION['email'])) {
     <div class="col-8">
  <!-- Row 8: Subject4 Grade -->
         <!-- <label for="subject4">Subject4:</label> -->
-        <select type="text" class="form-control" name="subject3[]" required>
-            <option><?= $user_data['subject3'] ?? 'Select Subject' ?></option>
+        <select type="text" class="form-control" name="subject5" required>
+            <option><?= $form_2_user_data['subject5'] ?? 'Not Selected' ?></option>
             <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
-<select class="form-control" name="subject4_grade[]" required>
-            <option><?= $user_data['subject4_grade'] ?? 'Grade' ?></option>
+<select class="form-control" name="subject5_grade" required>
+            <option><?= $form_2_user_data['subject5_grade'] ?? 'Grade' ?></option>
             <?php include "grades_options.php"; ?>
         </select>
         </div>
@@ -448,14 +477,14 @@ if (isset($_SESSION['email'])) {
 <div class="col-8">
  <!-- Row 7: Subject4 Grade -->
         <!-- <label for="subject4">Subject4:</label> -->
-       <select type="text" class="form-control" name="subject3[]" required>
-            <option><?= $user_data['subject3'] ?? 'Select Subject' ?></option>
+       <select type="text" class="form-control" name="subject6" required>
+            <option><?= $form_2_user_data['subject6'] ?? 'Not Selected' ?></option>
             <?php include "subjects_options.php"; ?>
         </select>
     </div>
     <div class="col-4">
-<select class="form-control" name="subject4_grade[]" required>
-            <option><?= $user_data['subject4_grade'] ?? 'Grade' ?></option>
+<select class="form-control" name="subject6_grade" required>
+            <option><?= $form_2_user_data['subject6_grade'] ?? 'Grade' ?></option>
             <?php include "grades_options.php"; ?>
         </select>
     </div>
@@ -464,27 +493,33 @@ if (isset($_SESSION['email'])) {
     <div class="col-8">
          <!-- Row 8: Subject4 Grade -->
         <!-- <label for="subject4">Subject4:</label> -->
-       <select type="text" class="form-control" name="subject3[]" required>
-            <option><?= $user_data['subject3'] ?? 'Select Subject' ?></option>
+       <select type="text" class="form-control" name="subject7" required>
+            <option><?= $form_2_user_data['subject7'] ?? 'Not Selected' ?></option>
             <?php include "subjects_options.php"; ?>
         </select>
         </div>
         <div class="col-4">
-<select class="form-control" name="subject4_grade[]" required>
-            <option><?= $user_data['subject4_grade'] ?? 'Grade' ?></option>
+        <select class="form-control" name="subject7_grade" required>
+            <option><?= $form_2_user_data['subject7_grade'] ?? 'Grade' ?></option>
             <?php include "grades_options.php"; ?>
         </select>
         </div>
     </div>
+<div class="row mt-2">
+    <div class="col-4">
+        
+    </div>
+    <div class="col-4">
+        <button type="submit" class="btn btn-warning px-3" name="update" onclick="submitForm2()">Save</button>
+    </div>
+    <div class="col-4">
+        
+    </div>
+</div>
 </div>
 </form>        
 </div>
-<div class="row mt-2">
-            <!-- Update Button -->
-    <div class="col-6">
-        <button type="submit" class="btn btn-warning px-3" name="update">Save</button>
-    </div>
-</div>
+
 
             </div>
 
@@ -508,3 +543,77 @@ if (isset($_SESSION['email'])) {
 <?php include "includes/footer.php"; ?>
 </body>
 </html>
+
+<!-- Include jQuery library -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    // script to handle form submission
+    function submitForm() {
+        var formData = $('#dataForm').serialize();
+        $.ajax({
+            type: 'POST',
+            url: 'update_olevel',
+            data: formData,
+            success: function(response) {
+                Swal.fire({
+                title: "Updated ",
+                text: "Successfully Updated!",
+                icon: "success"
+                });
+            },
+            error: function(error) {
+                Swal.fire({
+                title: "error ",
+                text: "Data not Updated!",
+                icon: "error"
+                });
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $('#dataForm').submit(function(e) {
+            e.preventDefault();
+            submitForm();
+        });
+    });
+
+
+    // script to handle form submission
+    function submitForm2() {
+        var Data = $('#dataForm2').serialize();
+        $.ajax({
+            type: 'POST',
+            url: 'update_olevel_form2',
+            data: Data,
+            success: function(response) {
+                Swal.fire({
+                title: "Updated ",
+                text: "Successfully Updated!",
+                icon: "success"
+                });
+            },
+            error: function(error) {
+                Swal.fire({
+                title: "error ",
+                text: "Data not Updated!",
+                icon: "error"
+                });
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $('#dataForm2').submit(function(e) {
+            e.preventDefault();
+            submitForm2();
+        });
+    });
+</script>
+
+
+
+<?php include "includes/student_swal_functions.php";
+include "includes/student_swal_script.html"; ?>

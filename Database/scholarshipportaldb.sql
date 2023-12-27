@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2023 at 07:16 AM
+-- Generation Time: Dec 27, 2023 at 02:55 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -48,9 +48,11 @@ CREATE TABLE `applicants` (
 --
 
 INSERT INTO `applicants` (`id`, `student_id`, `phone`, `dob`, `state`, `lga`, `address`, `next_of_kin`, `nok_address`, `nok_email`, `relation`, `passport_path`, `status`) VALUES
-(3, 1, '09160163113', '2023-10-26', 'Jigawa', 'Gwaram', 'Just Testing to see if it works!', 'Kunne', 'Gida-Dubu', 'kunne@gmail.com', 'brother', 'uploads/IMG_2399.jpg', 2),
+(3, 1, '09160163113', '2023-10-26', '', '', 'Just Testing to see if it works!', 'Kunne', 'Gida-Dubu', 'kunne@gmail.com', 'brother', 'uploads/1599864585669.jpg', 1),
 (4, 2, '09160163113', '2023-10-26', '', '', 'See if it works!', 'Sallau', 'Gida-Dubu', 'sallau@gmail.com', 'Senior brother', 'uploads/u.jpg', 0),
-(5, 7, '', '0000-00-00', '', '', '', '', '', '', '', '', 0);
+(5, 7, '+23499887766', '2023-12-28', '', '', 'Unguwar yan kaji', 'Testcode', 'Unguwar yan kaji', 'testcode@gmail.com', 'testing', 'uploads/IMG-20231128-WA0003.jpg', 2),
+(6, 8, '09040306788', '2023-11-27', 'Jigawa', 'Gumel', 'yola, yola.', 'abubakar', 'same as the last one', 'umar@gmail.com', 'Father', 'uploads/u.jpg', 1),
+(7, 6, '09160163113', '2023-10-26', '', '', 'Just Testing to see if it works!', 'Kunne', 'Gida-Dubu', 'kunne@gmail.com', 'brother', 'uploads/1599864585669.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -70,9 +72,9 @@ CREATE TABLE `choice_of_study` (
 --
 
 INSERT INTO `choice_of_study` (`id`, `applicant_id`, `faculty`, `program`) VALUES
-(1, 1, 1, 1),
-(2, 1, 1, 1),
-(3, 1, 1, 1);
+(1, 1, 3, 3),
+(2, 8, 2, 2),
+(3, 7, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -90,9 +92,9 @@ CREATE TABLE `faculty` (
 --
 
 INSERT INTO `faculty` (`id`, `name`) VALUES
-(1, 'Faculty of Social and Management Sciences'),
-(2, 'Faculty of Basic Medical Science'),
-(3, 'Faculty of Science & Computing');
+(1, 'Social and Management Sciences'),
+(2, 'Basic Medical Sciences'),
+(3, 'Science & Computing');
 
 -- --------------------------------------------------------
 
@@ -119,7 +121,9 @@ CREATE TABLE `jamb_results` (
 --
 
 INSERT INTO `jamb_results` (`id`, `student_id`, `jamb_reg_no`, `english`, `english_score`, `subject1`, `subject1_score`, `subject2`, `subject2_score`, `subject3`, `subject3_score`) VALUES
-(1, 1, '87572011', 'English', 20, 'Mathematics', 20, 'Chemistry', 50, 'Hausa', 70);
+(1, 1, '87572011DH', 'English', 40, 'Mathematics', 20, 'Chemistry', 50, 'Hausa', 70),
+(3, 8, '22344CD', 'English', 20, 'Mathematics', 30, 'Chemistry', 40, 'Hausa', 79),
+(9, 7, '40306788GI', 'English', 58, 'Maths', 67, 'Biology', 31, 'Economics', 40);
 
 -- --------------------------------------------------------
 
@@ -129,35 +133,42 @@ INSERT INTO `jamb_results` (`id`, `student_id`, `jamb_reg_no`, `english`, `engli
 
 CREATE TABLE `olevel` (
   `id` int(11) NOT NULL,
+  `form_flag` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
   `exam_type` varchar(50) NOT NULL,
-  `exam_no` varchar(50) NOT NULL,
-  `year` date NOT NULL,
-  `exam_center` varchar(100) NOT NULL,
+  `exam_no` varchar(20) NOT NULL,
+  `year` int(11) DEFAULT NULL,
+  `exam_center` varchar(100) DEFAULT NULL,
   `english` varchar(50) NOT NULL,
-  `english_grade` varchar(5) NOT NULL,
+  `english_grade` varchar(10) NOT NULL,
   `maths` varchar(50) NOT NULL,
-  `maths_grade` varchar(5) NOT NULL,
+  `maths_grade` varchar(10) NOT NULL,
   `subject1` varchar(50) NOT NULL,
-  `subject1_grade` varchar(5) NOT NULL,
+  `subject1_grade` varchar(10) NOT NULL,
   `subject2` varchar(50) NOT NULL,
-  `subject2_grade` varchar(5) NOT NULL,
+  `subject2_grade` varchar(10) NOT NULL,
   `subject3` varchar(50) NOT NULL,
-  `subject3_grade` varchar(5) NOT NULL,
+  `subject3_grade` varchar(10) NOT NULL,
   `subject4` varchar(50) NOT NULL,
-  `subject4_grade` varchar(5) NOT NULL,
+  `subject4_grade` varchar(10) NOT NULL,
+  `subject5` varchar(50) DEFAULT NULL,
+  `subject5_grade` varchar(10) DEFAULT NULL,
+  `subject6` varchar(50) DEFAULT NULL,
+  `subject6_grade` varchar(10) DEFAULT NULL,
+  `subject7` varchar(50) DEFAULT NULL,
+  `subject7_grade` varchar(10) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `olevel`
 --
 
-INSERT INTO `olevel` (`id`, `student_id`, `exam_type`, `exam_no`, `year`, `exam_center`, `english`, `english_grade`, `maths`, `maths_grade`, `subject1`, `subject1_grade`, `subject2`, `subject2_grade`, `subject3`, `subject3_grade`, `subject4`, `subject4_grade`, `created_at`, `updated_at`) VALUES
-(4, 2, 'Waec', '424244', '2023-10-24', 'Fagoji', 'English', 'B1', 'Mathematics', 'A1', 'Islamic Studies', 'B2', 'Hausa', 'C1', 'Social Studies', 'C1', 'Computer', 'B3', '2023-10-29 10:59:43', '0000-00-00 00:00:00'),
-(7, 1, 'WAEC', '3000044', '2023-10-06', 'Fagoji', 'English', 'F9', 'Mathematics', 'F9', 'Islamic Studies', 'C2', 'Hausa', 'C6', 'Social Studies', 'C2', 'Computer', 'B2', '2023-11-02 15:39:58', '0000-00-00 00:00:00'),
-(8, 1, 'NECO', '30000', '2024-01-02', 'Majia', 'English', 'A1', 'Mathematics', 'A1', 'Islamic Studies', 'C2', 'Hausa', 'C6', 'Social Studies', 'C2', 'Computer', 'B2', '2023-11-02 15:39:59', '0000-00-00 00:00:00');
+INSERT INTO `olevel` (`id`, `form_flag`, `student_id`, `exam_type`, `exam_no`, `year`, `exam_center`, `english`, `english_grade`, `maths`, `maths_grade`, `subject1`, `subject1_grade`, `subject2`, `subject2_grade`, `subject3`, `subject3_grade`, `subject4`, `subject4_grade`, `subject5`, `subject5_grade`, `subject6`, `subject6_grade`, `subject7`, `subject7_grade`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'WAEC', '2222222', 2018, 'Capital', '', 'B3', '', 'F9', 'ISLAMIC STUDIES', 'C6', 'CHEMISTRY', 'C6', 'YORUBA', 'C6', 'ENGLISH LANGUAGE', 'C5', 'ISLAMIC STUDIES', 'B3', 'BIOLOGY', 'B2', 'HAUSA', 'D7', '2023-12-27 13:14:07', '2023-12-27 13:14:07'),
+(2, 2, 1, 'NECO', '127001', 2018, 'Fagoji', 'English', 'C4', 'Maths', 'F9', 'IGBO', 'C6', 'HAUSA', 'C4', 'GENERAL MATHEMATICS', 'E8', 'CHEMISTRY', 'C5', 'CIVIC EDUCATION', 'B2', 'AGRICULTURAL SCIENCE', 'F9', 'FURTHER MATHEMATICS', 'B2', '2023-12-27 13:16:00', '2023-12-27 13:16:00'),
+(3, 1, 2, 'NABTEB', '2229991', 2020, 'Fatima Private', '', 'B2', '', 'B3', 'FINANCIAL ACCOUNTING', 'C4', 'GEOGRAPHY', 'C5', 'COMMERCE', 'A1', 'GOVERNMENT', 'C4', 'ISLAMIC STUDIES', 'C6', 'ECONOMICS', 'D7', 'CIVIC EDUCATION', 'B3', '2023-12-27 13:44:21', '2023-12-27 13:44:21');
 
 -- --------------------------------------------------------
 
@@ -185,9 +196,7 @@ CREATE TABLE `payments` (
 INSERT INTO `payments` (`id`, `student_id`, `message`, `status`, `reference`, `amount`, `paid_at`, `channel`, `currency`, `ip_address`) VALUES
 (1, 1, 'Verification successful', 'success', 'maf379034954', '400000.00', '2023-10-28 02:41:12', 'card', 'NGN', '102.91.71.105'),
 (2, 2, 'Verification successful', 'success', 'maf818786361', '400000.00', '2023-10-28 09:54:21', 'card', 'NGN', '197.210.52.222'),
-(3, 2, 'Verification successful', 'success', 'maf248319054', '400000.00', '2023-10-28 00:32:41', 'card', 'NGN', '102.91.72.31'),
-(4, 2, 'Verification successful', 'success', 'maf611393606', '400000.00', '2023-10-30 17:54:05', 'card', 'NGN', '197.210.53.97'),
-(5, 2, 'Verification successful', 'success', 'maf822088939', '400000.00', '2023-10-30 17:55:03', 'card', 'NGN', '197.210.53.97');
+(6, 8, 'Verification successful', 'success', 'MAF8203171', '400000.00', '2023-12-05 01:04:54', 'card', 'NGN', '197.210.53.79');
 
 -- --------------------------------------------------------
 
@@ -196,6 +205,7 @@ INSERT INTO `payments` (`id`, `student_id`, `message`, `status`, `reference`, `a
 --
 
 CREATE TABLE `programs` (
+  `id` int(11) NOT NULL,
   `faculty_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -204,9 +214,10 @@ CREATE TABLE `programs` (
 -- Dumping data for table `programs`
 --
 
-INSERT INTO `programs` (`faculty_id`, `name`) VALUES
-(1, 'BSc Accounting'),
-(2, 'BSc Enterpreneurship');
+INSERT INTO `programs` (`id`, `faculty_id`, `name`) VALUES
+(1, 1, 'BSc Accounting'),
+(2, 3, 'INFORMATION TECHNOLOGY'),
+(3, 2, 'Food Science');
 
 -- --------------------------------------------------------
 
@@ -218,25 +229,48 @@ CREATE TABLE `signup` (
   `id` int(11) NOT NULL,
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
+  `other_name` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `rank` varchar(20) NOT NULL,
   `status` int(1) NOT NULL,
   `password` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `signup`
 --
 
-INSERT INTO `signup` (`id`, `first_name`, `last_name`, `email`, `rank`, `status`, `password`, `created_at`, `updated_at`) VALUES
-(1, 'Usman', 'Shehu', 'iamusmanshehu@gmail.com', '', 0, '$2y$10$bRPKUauL/iLIlpsApyEqsuSKRnI7Wg1P.Zk0kB8JjeRXO/yrdJjbS', '2023-10-25 00:35:39', '0000-00-00 00:00:00'),
-(2, 'Usman', 'Yahaya', 'usmanyahaya@yahoo.com', '', 0, '$2y$10$WcJb5JtSnE3yAmmdSWQSzuZPeuxKrcmsnMw7xRbfPxOH048eLz2RS', '2023-10-25 00:49:12', '0000-00-00 00:00:00'),
-(3, 'Testing', 'Yahaya', 'dev.test@yahoo.com', '', 0, '$2y$10$kaq1DpcX2MSsVaExWdNnwubkHEHC0wsGJd/.pneG0JN0Pfi/5UEiu', '2023-10-25 00:51:48', '0000-00-00 00:00:00'),
-(4, 'Testing', 'Shehu', 'dev.test@gmail.com', '', 0, '$2y$10$uhlWPYsXyAx0ZVjZjylSHO8T6gvJpk7tPOyXZvisfHv.9ufM5qSnG', '2023-10-25 00:53:42', '0000-00-00 00:00:00'),
-(6, 'Musbahu', 'Makama', 'musbahu@gmail.com', 'Admission Officer', 1, '$2y$10$wm40QfC6HoQPy8qSmVt2tOkZwB0H4FWc1.X0.n1psPnGY8DHvzIpu', '2023-11-03 11:58:02', '2023-11-04 21:37:22'),
-(7, 'Lazy', 'Developer', 'lazy@gmail.com', '', 0, '$2y$10$8Bf.f4mdWkYcVFzzQf1e/OkHHWt/MvLMIoMQIpQpYUmOwq15Q333O', '2023-11-20 04:49:26', '0000-00-00 00:00:00');
+INSERT INTO `signup` (`id`, `first_name`, `last_name`, `other_name`, `email`, `rank`, `status`, `password`, `created_at`, `updated_at`) VALUES
+(1, 'Usman', 'Shehu', '', 'iamusmanshehu@gmail.com', '', 0, '$2y$10$bRPKUauL/iLIlpsApyEqsuSKRnI7Wg1P.Zk0kB8JjeRXO/yrdJjbS', '2023-10-25 00:35:39', '2023-12-27 11:26:02'),
+(2, 'Usman', 'Yahaya', '', 'usmanyahaya@yahoo.com', '', 0, '$2y$10$WcJb5JtSnE3yAmmdSWQSzuZPeuxKrcmsnMw7xRbfPxOH048eLz2RS', '2023-10-25 00:49:12', '2023-12-27 11:26:02'),
+(3, 'Testing', 'Yahaya', '', 'dev.test@yahoo.com', '', 0, '$2y$10$kaq1DpcX2MSsVaExWdNnwubkHEHC0wsGJd/.pneG0JN0Pfi/5UEiu', '2023-10-25 00:51:48', '2023-12-27 11:26:02'),
+(4, 'Testing', 'Shehu', '', 'dev.test@gmail.com', '', 0, '$2y$10$uhlWPYsXyAx0ZVjZjylSHO8T6gvJpk7tPOyXZvisfHv.9ufM5qSnG', '2023-10-25 00:53:42', '2023-12-27 11:26:02'),
+(6, 'Musbahu', 'Makama', '', 'musbahu@gmail.com', 'Admission Officer', 1, '$2y$10$S4IfYMhV8dbbho70bTF/qeB.mEhQ4H.vB75/hD67GpjTV4y6i2TqO', '2023-11-03 11:58:02', '2023-12-27 11:26:02'),
+(7, 'Lazy', 'Developer', '', 'lazy@gmail.com', '', 0, '$2y$10$8Bf.f4mdWkYcVFzzQf1e/OkHHWt/MvLMIoMQIpQpYUmOwq15Q333O', '2023-11-20 04:49:26', '2023-12-27 11:26:02'),
+(8, 'Umar', 'Abubakar', '', 'umar@gmail.com', '', 0, '$2y$10$LXii4VZHjJlRRsBFWM54AOJ2EyQDcA6H4Q8nYCbT8768fmxg.Av16', '2023-11-28 01:04:43', '2023-12-27 11:26:02'),
+(9, 'Sallau', 'Sulaiman', '', 'sallau@pdp.apc', 'Party chairman', 1, '$2y$10$RBNEuTg1iuY8ph.Qo8CGkuog/QsdMKqFvHdSuOBvOTKqEDHc2TuvW', '2023-12-19 17:22:26', '2023-12-27 11:26:02'),
+(10, 'Over', 'Over', '', 'over@gmail.com', 'Zindi Staff', 1, '$2y$10$Bi.1Yry9EC8LltbHm20aGeDv3GL4vH74ukoCiciZABppXwkqYq09y', '2023-12-19 17:27:42', '2023-12-27 11:26:02'),
+(11, 'Die', 'Minute', '', 'die@gmail.com', 'Dreem Coder', 1, '$2y$10$.3/NR0uJTRGEbtU4ZydPuuvi4UkSD3zkFygh8UCRH6T8N8D91JkCi', '2023-12-19 17:43:09', '2023-12-27 11:26:02');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `system`
+--
+
+CREATE TABLE `system` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `system`
+--
+
+INSERT INTO `system` (`id`, `name`) VALUES
+(1, 'MAF Scholarship');
 
 --
 -- Indexes for dumped tables
@@ -284,9 +318,21 @@ ALTER TABLE `payments`
   ADD KEY `student_id` (`student_id`);
 
 --
+-- Indexes for table `programs`
+--
+ALTER TABLE `programs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `signup`
 --
 ALTER TABLE `signup`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `system`
+--
+ALTER TABLE `system`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -297,43 +343,55 @@ ALTER TABLE `signup`
 -- AUTO_INCREMENT for table `applicants`
 --
 ALTER TABLE `applicants`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `choice_of_study`
 --
 ALTER TABLE `choice_of_study`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `faculty`
 --
 ALTER TABLE `faculty`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `jamb_results`
 --
 ALTER TABLE `jamb_results`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `olevel`
 --
 ALTER TABLE `olevel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `programs`
+--
+ALTER TABLE `programs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `signup`
 --
 ALTER TABLE `signup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `system`
+--
+ALTER TABLE `system`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -361,7 +419,7 @@ ALTER TABLE `jamb_results`
 -- Constraints for table `olevel`
 --
 ALTER TABLE `olevel`
-  ADD CONSTRAINT `olevel_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `signup` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `olevel_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `signup` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `payments`

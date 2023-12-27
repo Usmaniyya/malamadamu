@@ -79,7 +79,7 @@ if (isset($_SESSION['email'])) {
         <div style="background:white;padding: 10px;">
         <hr>
 <div class="container">
-    <form method="post" action="update_profile" enctype="multipart/form-data">
+    <form method="post" id="dataForm" enctype="multipart/form-data">
         <div class="row mb-2">
         <?php if (!empty($user_data['passport_path'])) { ?>
             <img src="<?= $user_data[
@@ -222,7 +222,7 @@ if (isset($_SESSION['email'])) {
     </div>
     <div class="row mb-2">
 <div class="col-12">
- <button type="submit" name="update" class="btn btn-warning px-3">Update</button>
+ <button type="submit" name="update" class="btn btn-warning px-3" onclick="submitForm()">Save</button>
 </div>
     </div>       
         </div>
@@ -250,6 +250,37 @@ if (isset($_SESSION['email'])) {
         $('#state').selectize();
         $('#lga').selectize();
     });
+
+    function submitForm() {
+        var formData = $('#dataForm').serialize();
+        $.ajax({
+            type: 'POST',
+            url: 'update_profile',
+            data: formData,
+            success: function(response) {
+                Swal.fire({
+                title: "Updated ",
+                text: "Successfully Updated!",
+                icon: "success"
+                });
+            },
+            error: function(error) {
+                Swal.fire({
+                title: "error ",
+                text: "Data not Updated!",
+                icon: "error"
+                });
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $('#dataForm').submit(function(e) {
+            e.preventDefault();
+            submitForm();
+        });
+    });
+
 </script>
 <script src="lga.js"></script>
       

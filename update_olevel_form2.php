@@ -6,7 +6,7 @@ if (!$_SESSION['id']) {
 include 'admin/fetch_data.php';
 
 // Get data from the AJAX request
-$form_flag = 1;
+$form_flag = 2;
 $student_id = $_SESSION['id'];  
 $examType = $_POST['exam_type'];
 $examNumber = $_POST['exam_no'];
@@ -32,7 +32,7 @@ $subject7 = $_POST['subject7'];
 $subject7Grade = $_POST['subject7_grade'];
 
 // Check if the record exists
-$checkQuery = "SELECT * FROM olevel WHERE student_id = ? AND exam_type = ? AND form_flag = 1";
+$checkQuery = "SELECT * FROM olevel WHERE student_id = ? AND exam_type = ? AND form_flag = 2";
 $checkStmt = $conn->prepare($checkQuery);
 $checkStmt->bind_param("is", $student_id, $examType);
 $checkStmt->execute();
@@ -61,7 +61,7 @@ if ($checkResult->num_rows > 0) {
     subject6_grade = ?,
     subject7 = ?,
     subject7_grade = ?
-    WHERE student_id = ? AND exam_type = ? AND form_flag = 1";
+    WHERE student_id = ? AND exam_type = ? AND form_flag = 2";
 
 $updateStmt = $conn->prepare($updateQuery);
 $updateStmt->bind_param("ssssssssssssssssssssssi", 

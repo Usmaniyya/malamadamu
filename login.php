@@ -26,14 +26,12 @@ if (isset($_POST['login'])) {
         if ($row['status'] == 1) {
             // User is an admin, redirect to the admin dashboard
             $success =
-                '<span class="alert alert-success">Login successful.</span>' .
-                $_SESSION['first_name'];
+                '<span class="alert alert-success">Login successful.</span>';
             header("refresh:2; url='admin/dashboard'");
         } else {
             // User is a regular user, redirect to the regular user dashboard
             $success =
-                '<span class="alert alert-success">Login successful.</span>' .
-                $_SESSION['first_name'];
+                '<span class="alert alert-success">Login successful.</span>';
             header('refresh:2; url=dashboard');
         }
         // exit; // Terminate the script after redirection

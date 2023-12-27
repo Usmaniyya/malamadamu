@@ -16,6 +16,11 @@ include 'admin/fetch_data.php';
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?=$system_name?></title>
 <?php include "includes/header_student.php"; ?>
+<style>
+  .myborder {
+    border-width: 10px;
+  }
+</style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -26,7 +31,6 @@ include 'admin/fetch_data.php';
   </div>
 
 <?php include "includes/navbars.php"; ?>
-
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar bgColor elevation-4">
     <!-- Brand Logo -->
@@ -66,8 +70,28 @@ include 'admin/fetch_data.php';
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <div style="background:white;padding: 10px;"></div>
-
+        <div class="border-top border-width-3 border-warning mb-5" style="background:white;padding: 16px;">
+        <h2 class="mb-3">Welcome to Malam Adamu Foundation Scholarship Portal</h2>
+      </div>
+       <div class="container">
+          <div class="row mt-2">
+            <div class="col-6">
+              <h4 class="text-underline">Eligibility</h4>
+              <ol>
+                <li>Candidates must have <mark>scored 130</mark> and above in the JAMB examination.</li>
+                <li>JAMB must be <mark>between 2022</mark> to date.</li>
+                <li>Candidates must have atleast <mark>5 credits</mark> in their O'level results. </li>
+                <li>Every O'level results to be submitted must have been written <mark>from 2015</mark> to date.</li>
+              </ol>
+            </div>
+            <div class="col-6">
+              <h4>Guidelines</h4>
+              <ul>
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div><!--/. container-fluid -->
     </section>
     <!-- /.content -->

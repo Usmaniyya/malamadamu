@@ -66,18 +66,17 @@ if ($user_data) {
     $updateSignupStmt = mysqli_prepare($conn, $updateSignupQuery);
     mysqli_stmt_bind_param(
         $updateSignupStmt,
-        'ssssi',
+        'ssss',
         $first_name,
         $last_name,
         $other_name,
-        $email,
-        $student_id
+        $email
     );
 
     $updateApplicantsStmt = mysqli_prepare($conn, $updateApplicantsQuery);
     mysqli_stmt_bind_param(
         $updateApplicantsStmt,
-        'sssssssssi',
+        'sssssssss',
         $state,
         $lga,
         $address,
@@ -86,8 +85,7 @@ if ($user_data) {
         $nok_email,
         $relation,
         $phone,
-        $dob,
-        $student_id
+        $dob
     );
 
     if (mysqli_stmt_execute($updateSignupStmt) && mysqli_stmt_execute($updateApplicantsStmt)) {

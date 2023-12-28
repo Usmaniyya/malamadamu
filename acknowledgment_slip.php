@@ -35,76 +35,58 @@ if (empty($user_data['reference']) || empty($user_data['status'])) {
 <!DOCTYPE html>
 <html>
 <head>
+    <?php include "includes/header_student.php"; ?>
     <title>Acknowledgment Slip</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .container {
-            width: 80%;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            background: #fff;
-        }
-
-        .header {
-            text-align: center;
-        }
-
-        .content {
-            padding: 20px;
-        }
-
-        .footer {
-            /*text-align: center;*/
-        }
-
-        .button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .return-button {
-            background-color: #3498db;
-            color: #fff;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
+        .text-underline{
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>MALAM ADAMU FOUNDATION</h1>
-            <h2>Acknowledgment Slip</h2>
-            <?php if (!empty($user_data['passport_path'])) { ?>
-             <img src="<?= $user_data['passport_path'] ?>" alt="Passport Image" style="max-width: 100px;">
-            <?php } ?>
-        </div>
-        <div class="content">
-            <font style="font-size: 14px;">We have received your application and will process it shortly. If you have any questions or need further assistance, please don't hesitate to contact the Foundation.</font>
-
-            <p><strong>Name:</strong> <?= $user_data['first_name'].' '.$user_data['last_name'] ?? '' ?></p>
-            <p><strong>Application ID:</strong> <?= $user_data['reference'] ?? '' ?></p>
-            <p><strong>Faculty:</strong><?= $user_data['faculty'] ?? '' ?></p>
-            <p><strong>Applyed Program:</strong><?= $user_data['program'] ?? '' ?></p>
-            <p><strong>Applyed On:</strong> <?= $user_data['paid_at'] ?? '' ?></p>
-            <p><strong>Amount:</strong> &#8358;<?= $amount ?? '' ?></p>
-            <p><strong>Paid Via:</strong> <?= $user_data['channel'] ?? '' ?></p>
-            <p><strong>Status:</strong> <?= $user_data['status'] ?? '' ?></p>
-            
-
-        </div>
-        <div class="footer">
-        </div>
-        <div class="button-container">
-            <a href="#" class="return-button" onclick="print()" >Print</a>
-        </div>
+    <div class="container mt-5">
+       <div class="d-flex justify-content-center align-items-center">
+         <img style="width: 170px; height: 100px" src="./dist/img/MAFLogo2.png" alt="MAF Logo" />
+       </div>
+            <div>
+                <h1 class="text-center text-bold">MALAM ADAMU FOUNDATION</h1>
+                <h3 class="text-center text-bold">2023/2024 MALAM ADAMU FOUNDATION SCHOLARSHIP PROGRAM</h3>
+            <h4 class="text-center text-bold text-underline mt-3">Acknowledgment Slip</h4>
+            </div>
+            <div class="d-flex justify-content-between mt-2">
+                <div class="mt-3">
+                 <p class="text-bold"><?= $user_data['first_name'].' '.$user_data['last_name'] ?? '' ?></p>
+            <p class="text-bold"><?= $user_data['program'] ?? '' ?></p>
+            <p class="text-bold">Faculty of <?= $user_data['faculty'] ?? '' ?></p>
+                </div>
+                <div class="">
+                 <?php if (!empty($user_data['passport_path'])) { ?>
+             <img src="<?= $user_data['passport_path'] ?>" alt="Passport Image" style="max-width: 120px;">
+               <?php } ?>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+            <h5 class="text-bold"><==================== O' Level ====================></h5>
+            </div>
+              <div class="text-center mt-3">
+            <h5 class="text-bold"><==================== JAMB ====================></h5>
+            </div>
+            <div>
+                <p class="text-bold">
+                    Successfull applicants will be contacted for screening and must present the following documents: 
+                </p>
+                <ol>
+                    <li>Acknowledgement Slip</li>
+                    <li>JAMB Result</li>
+                    <li>WAEC/NECO/NABTEB</li>
+                    <li>Two Passport Photograph</li>
+                    <li>Certificate of Indigeneship</li>
+                </ol>
+            </div>
     </div>
+    <!-- <div class="button-container">
+            <a href="#" class="return-button" onclick="print()" >Print</a>
+        </div> -->
 </body>
 </html>
 <?php } ?>

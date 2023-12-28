@@ -70,15 +70,15 @@ include 'admin/fetch_data.php';
     <section class="content">
       <div class="container-fluid">
         <div class="border-top border-width-3 border-warning mb-2" style="background:white;padding: 16px;">
-        <h2 class="mb-1">Welcome to Malam Adamu Foundation Scholarship Portal</h2>
+        <h2 class="mb-1">Welcome to MALAM ADAMU FOUNDATION Scholarship Portal</h2>
       </div>
-       <div class="container">
+       <div class="container bg-sm-none bg-white p-3">
         <div class="mb-2">
           <h4 class="text-danger">Note:</h4>
           <p>If you have <mark>5 credits</mark> including <mark>English and Mathematics</mark> in <mark>First Sitting</mark> (WAEC/NECO/NABTEB) you don't have to fill <mark>Second Sitting</mark>, otherwise you have to fill it.</p>
         </div>
           <div class="row mt-2">
-            <div class="col-6">
+            <div class="col-sm-6 col-12">
               <h4 class="text-underline">Eligibility</h4>
               <ol>
                 <li>Candidates must have <mark>scored 130</mark> and above in the JAMB examination.</li>
@@ -87,7 +87,7 @@ include 'admin/fetch_data.php';
                 <li>Every O'level results to be submitted must have been written <mark>from 2015</mark> to date.</li>
               </ol>
             </div>
-            <div class="col-6">
+            <div class="col-sm-6 col-12">
               <h4>Guidelines</h4>
               <ul>
                 <li>Update Profile</li>

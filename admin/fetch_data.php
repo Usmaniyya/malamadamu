@@ -39,14 +39,14 @@ $total_amount = $row['total_amount'];
 $total_amount = number_format($total_amount/100, 2);
 
 
-$query_programs = mysqli_prepare($conn, "SELECT COUNT(id) AS 'total_programs' FROM `applicants`");
+$query_programs = mysqli_prepare($conn, "SELECT COUNT(id) AS 'total_programs' FROM `programs`");
 mysqli_stmt_execute($query_programs);
 $data = mysqli_stmt_get_result($query_programs);
 $row = mysqli_fetch_assoc($data);
 $total_programs = $row['total_programs'];
 
 
-$query_faculty = mysqli_prepare($conn, "SELECT COUNT(id) AS 'total_faculty' FROM `applicants`");
+$query_faculty = mysqli_prepare($conn, "SELECT COUNT(id) AS 'total_faculty' FROM `faculty`");
 mysqli_stmt_execute($query_faculty);
 $data = mysqli_stmt_get_result($query_faculty);
 $row = mysqli_fetch_assoc($data);

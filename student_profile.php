@@ -243,6 +243,10 @@ if (isset($_SESSION['email'])) {
 </div>
 <!-- ./wrapper -->
 <?php include "includes/footer.php"; ?>
+
+<!-- Include jQuery library -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     function fetch_LGAs(id){
     $('#lga').html('');
@@ -263,15 +267,15 @@ if (isset($_SESSION['email'])) {
             data: formData,
             success: function(response) {
                 Swal.fire({
-                title: "Updated ",
-                text: "Successfully Updated!",
+                title: "Saved ",
+                text: "Successfully Saved!",
                 icon: "success"
                 });
             },
             error: function(error) {
                 Swal.fire({
                 title: "error ",
-                text: "Data not Updated!",
+                text: "Data not Saved!",
                 icon: "error"
                 });
             }

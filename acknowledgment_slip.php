@@ -23,7 +23,7 @@ if (isset($_SESSION['email'])) {
     $result = mysqli_stmt_get_result($stmt);
     $user_data = mysqli_fetch_assoc($result);
     $amount_data = $user_data['amount']?? '0';
-    $amount =number_format($amount_data / 100, 2);
+    $amount = number_format($amount_data / 100, 2);
     // Close the database connection
     mysqli_close($conn);
 }

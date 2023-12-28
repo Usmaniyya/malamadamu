@@ -6,6 +6,5 @@ $query_program = mysqli_query($conn, $query_program_data);
 while($row = mysqli_fetch_assoc($query_program)) {
 $id = $row['faculty_id'];
 $program = $row['name'];
-echo '<option>Select Program...</option>';
 echo '<option value="'.$id.'">'.$program.'</option>';
 }

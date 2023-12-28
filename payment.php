@@ -47,7 +47,6 @@ if (isset($_SESSION['email'])) {
 
     <!-- Sidebar -->
     <div class="sidebar">
-
      <?php include "includes/student_sidebar.php"; ?>
     </div>
     <!-- /.sidebar -->
@@ -75,10 +74,10 @@ if (isset($_SESSION['email'])) {
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <div >
-          <!-- <hr> -->
-          <div class="container d-flex justify-content-center">
-          <form id="paymentForm" class="mt-5"style="background:white;padding: 10px;">
+   
+          <hr>
+          <div class="container d-flex justify-content-center align-items-center p-2">
+          <form id="paymentForm" class="border border-info" style="background:white;padding: 12px;">
             <div class="row">
               <div class="col-12 d-flex justify-content-center">
                 <h3>Secured with</h3>
@@ -120,14 +119,15 @@ if (isset($_SESSION['email'])) {
           </div>
           <div class="row">
             <div class="col-12">
-          <button type="submit" class="btn btn-warning w-100" onclick="payWithPaystack()"> Pay </button>
+          <button type="submit" class="btn btn-info w-100" onclick="payWithPaystack()"> Pay Now </button>
             </div>
           </div>
           </form>
           </div>
-          <script src="https://js.paystack.co/v1/inline.js"></script>
 
-      </div><!--/. container-fluid -->
+          <script src="https://js.paystack.co/v1/inline.js"></script>
+</div>
+      </div>
     </section>
     <!-- /.content -->
   </div>

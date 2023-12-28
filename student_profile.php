@@ -5,19 +5,39 @@ if (!$_SESSION['id']) {
 }
 include 'admin/fetch_data.php';
 if (isset($_SESSION['email'])) {
-    $user_id = $_SESSION['id'];
+    $student_id = $_SESSION['id'];
 
     // Fetch all fields for the user with the specific ID
     $query =
-        'SELECT * FROM `signup` JOIN applicants ON signup.id = applicants.student_id WHERE applicants.student_id = ?';
+        'SELECT 
+        states.name AS "states",
+        lga.name AS "lga",
+        applicants.passport_path,
+        signup.first_name,
+        signup.last_name,
+        signup.other_name,
+        signup.email,
+        applicants.phone,
+        applicants.dob,
+        applicants.address,
+        applicants.next_of_kin,
+        applicants.nok_address,
+        applicants.nok_email,
+        applicants.relation
+
+        FROM `signup` 
+        JOIN applicants ON signup.id = applicants.student_id
+        JOIN states ON applicants.state = states.id
+        JOIN lga ON applicants.lga = lga.id
+         WHERE applicants.student_id = ?';
 
     $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, 'i', $user_id);
+    mysqli_stmt_bind_param($stmt, 'i', $student_id);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     $user_data = mysqli_fetch_assoc($result);
     // Close the database connection
-    mysqli_close($conn);
+    // mysqli_close($conn);
 }
 ?>
 <!DOCTYPE html>
@@ -140,51 +160,24 @@ if (isset($_SESSION['email'])) {
     <div class="row mb-2">
         <div class="col-sm-4 col-6">
               <label for="" class="form-label">State</label>
-          <select name="state" id="state" placeholder="<?= $user_data['state'] ?? 'Select State' ?>" autocomplete="off" class="select">
-            <option value=""></option>
-            <option value="Abia">Abia</option>
-            <option value="Adamawa">Adamawa</option>
-            <option value="AkwaIbom">AkwaIbom</option>
-            <option value="Anambra">Anambra</option>
-            <option value="Bauchi">Bauchi</option>
-            <option value="Bayelsa">Bayelsa</option>
-            <option value="Benue">Benue</option>
-            <option value="Borno">Borno</option>
-            <option value="Cross River">Cross River</option>
-            <option value="Delta">Delta</option>
-            <option value="Ebonyi">Ebonyi</option>
-            <option value="Edo">Edo</option>
-            <option value="Ekiti">Ekiti</option>
-            <option value="Enugu">Enugu</option>
-            <option value="FCT">FCT</option>
-            <option value="Gombe">Gombe</option>
-            <option value="Imo">Imo</option>
-            <option value="Jigawa">Jigawa</option>
-            <option value="Kaduna">Kaduna</option>
-            <option value="Kano">Kano</option>
-            <option value="Katsina">Katsina</option>
-            <option value="Kebbi">Kebbi</option>
-            <option value="Kogi">Kogi</option>
-            <option value="Kwara">Kwara</option>
-            <option value="Lagos">Lagos</option>
-            <option value="Nasarawa">Nasarawa</option>
-            <option value="Niger">Niger</option>
-            <option value="Ogun">Ogun</option>
-            <option value="Ondo">Ondo</option>
-            <option value="Osun">Osun</option>
-            <option value="Oyo">Oyo</option>
-            <option value="Plateau">Plateau</option>
-            <option value="Rivers">Rivers</option>
-            <option value="Sokoto">Sokoto</option>
-            <option value="Taraba">Taraba</option>
-            <option value="Yobe">Yobe</option>
-            <option value="Zamfara">Zamafara</option>
+          <select name="state" id="state" onchange="fetch_LGAs(this.value)" class="form-control" autocomplete="off" class="select">
+          <option><?=$user_data["states"]?? 'Select States...'?></option>
+          <?php
+                $query_states_data = "SELECT * FROM `states` ";
+                $query_states = mysqli_query($conn, $query_states_data);
+                while($row = mysqli_fetch_assoc($query_states)) {
+                $id = $row['id'];
+                $states = $row['name'];
+
+                echo '<option value="'.$id.'">'.$states.'</option>';
+                }
+            ?>
         </select>
         </div>
         <div class="col-sm-4 col-6">
               <label for="lga" class="form-label">Local Government</label>
-        <select name="lga" id="lga" placeholder="<?= $user_data['lga'] ?? 'Select Local Government' ?>" autocomplete="off" class="lga">
-            <option value=""></option>
+        <select name="lga" id="lga" class="form-control" autocomplete="off" class="lga">
+          <option><?=$user_data['lga']?? 'Select Program...'?></option>
         </select>
         </div>
     </div>
@@ -227,7 +220,7 @@ if (isset($_SESSION['email'])) {
     <hr>
     <div class="row mb-2">
 <div class="col-12">
- <button type="submit" name="update" class="btn btn-warning px-3" onclick="submitForm()">Save</button>
+ <button type="submit" name="update" class="btn btn-warning px-3">Save</button>
 </div>
     </div>       
         </div>
@@ -251,11 +244,17 @@ if (isset($_SESSION['email'])) {
 <!-- ./wrapper -->
 <?php include "includes/footer.php"; ?>
 <script>
-    $( document ).ready(function() {
-        $('#state').selectize();
-        $('#lga').selectize();
-    });
-
+    function fetch_LGAs(id){
+    $('#lga').html('');
+    $.ajax({
+      type:"POST",
+      url:'lga',
+      data: {state_id:id},
+      success: function(data){
+        $('#lga').html(data);
+      }
+    })
+  }
     function submitForm() {
         var formData = $('#dataForm').serialize();
         $.ajax({
@@ -287,7 +286,6 @@ if (isset($_SESSION['email'])) {
     });
 
 </script>
-<script src="lga.js"></script>
       
 </body>
 </html>

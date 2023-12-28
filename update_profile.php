@@ -1,6 +1,5 @@
 <?php
 include 'includes/config.php'; // Database connection
-session_start();
 
 if (!isset($_SESSION['id'])) {
     header('location: login');
@@ -22,7 +21,7 @@ if (isset($_SESSION['email'])) {
     $user_data = mysqli_fetch_assoc($result);
 
     // Close the database connection
-    mysqli_close($conn);
+    // mysqli_close($conn);
 }
 
 // Get form data
@@ -33,59 +32,31 @@ $other_name = $_POST['other_name'];
 $email = $_POST['email'];
 $phone = $_POST['phone'];
 $dob = $_POST['dob'];
-$state = "Jigawa";
-$lga = "Gwaram";
+$state = $_POST['state'];
+$lga = $_POST['lga'];
 $address = $_POST['address'];
 $nok_address = $_POST['nok_address'];
 $next_of_kin = $_POST['next_of_kin'];
 $nok_email = $_POST['nok_email'];
 $relation = $_POST['relation'];
 
+// echo "<script> alert(".$user_data['relation'].")</script>";
 // Check if the record exists
 if ($user_data) {
     // Update the existing records
-    $updateSignupQuery = "UPDATE `signup` SET
-        first_name = ?,
-        last_name = ?,
-        other_name = ?,
-        email = ?
-        WHERE id = ?";
-
-    $updateApplicantsQuery = "UPDATE `applicants` SET
-        state = ?,
-        lga = ?,
-        address = ?,
-        nok_address = ?,
-        next_of_kin = ?,
-        nok_email = ?,
-        relation = ?,
-        phone = ?,
-        dob = ?
-        WHERE student_id = ?";
+    $updateSignupQuery = "UPDATE `signup` SET first_name = ?, last_name = ?, other_name = ?, email = ? WHERE id = ?";
 
     $updateSignupStmt = mysqli_prepare($conn, $updateSignupQuery);
     mysqli_stmt_bind_param(
-        $updateSignupStmt,
-        'ssss',
-        $first_name,
-        $last_name,
-        $other_name,
-        $email
+        $updateSignupStmt, 'ssssi', $first_name, $last_name, $other_name, $email, $student_id
     );
+
+    $updateApplicantsQuery = "UPDATE `applicants` SET
+        state = ?, lga = ?, address = ?, nok_address = ?, next_of_kin = ?, nok_email = ?, relation = ?, phone = ?, dob = ? WHERE student_id = ?";
 
     $updateApplicantsStmt = mysqli_prepare($conn, $updateApplicantsQuery);
     mysqli_stmt_bind_param(
-        $updateApplicantsStmt,
-        'sssssssss',
-        $state,
-        $lga,
-        $address,
-        $nok_address,
-        $next_of_kin,
-        $nok_email,
-        $relation,
-        $phone,
-        $dob
+        $updateApplicantsStmt, 'sssssssssi', $state, $lga, $address, $nok_address, $next_of_kin, $nok_email, $relation, $phone, $dob, $student_id
     );
 
     if (mysqli_stmt_execute($updateSignupStmt) && mysqli_stmt_execute($updateApplicantsStmt)) {
@@ -101,33 +72,17 @@ if ($user_data) {
     $insertSignupQuery = "INSERT INTO `signup` (first_name, last_name, other_name, email)
         VALUES (?, ?, ?, ?)";
 
+    $insertSignupStmt = mysqli_prepare($conn, $insertSignupQuery);
+    mysqli_stmt_bind_param(
+        $insertSignupStmt, 'ssss', $first_name, $last_name, $other_name, $email
+    );
+
     $insertApplicantsQuery = "INSERT INTO `applicants` (student_id, state, lga, address, nok_address, next_of_kin, nok_email, relation, phone, dob)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    $insertSignupStmt = mysqli_prepare($conn, $insertSignupQuery);
-    mysqli_stmt_bind_param(
-        $insertSignupStmt,
-        'ssss',
-        $first_name,
-        $last_name,
-        $other_name,
-        $email
-    );
-
     $insertApplicantsStmt = mysqli_prepare($conn, $insertApplicantsQuery);
     mysqli_stmt_bind_param(
-        $insertApplicantsStmt,
-        'isssssssss',
-        $student_id,
-        $state,
-        $lga,
-        $address,
-        $nok_address,
-        $next_of_kin,
-        $nok_email,
-        $relation,
-        $phone,
-        $dob
+        $insertApplicantsStmt,'isssssssss', $student_id, $state, $lga, $address, $nok_address, $next_of_kin, $nok_email, $relation, $phone, $dob
     );
 
     if (mysqli_stmt_execute($insertSignupStmt) && mysqli_stmt_execute($insertApplicantsStmt)) {

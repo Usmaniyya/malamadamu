@@ -64,13 +64,12 @@ if (isset($_SESSION['email'])) {
   <aside class="main-sidebar bgColor elevation-4">
     <!-- Brand Logo -->
     <a href="dashboard" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text text-warning">M.A FOUNDATION</span>
+      <img src="dist/img/AdminLTELogo.png" alt="MAF Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text text-warning font-weight-bold">M.A FOUNDATION</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
-
      <?php include "includes/student_sidebar.php"; ?>
     </div>
     <!-- /.sidebar -->

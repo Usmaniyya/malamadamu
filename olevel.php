@@ -88,7 +88,7 @@ if (isset($_SESSION['email'])) {
         <div style="background:white;padding: 10px;">
         <div class="row p-3">
         <div class="col-sm-6 col-12 border border-[#f3f3f3] p-2">
-            <h4 class="m-2 text-uppercase text-color font-weight-bold">First Sitting</h4>
+            <h4 class="m-2 text-uppercase text-info font-weight-bold">First Sitting</h4>
         <form id='dataForm'>
         <!-- Row 1: Exam Information -->     
        <hr>
@@ -132,12 +132,12 @@ if (isset($_SESSION['email'])) {
                 </div>
             </div>
         <hr>
-        <div class="row m-2">
+        <div class="row d-flex justify-content-between">
                     <div class="col-8">
-                        <p class="text-uppercase">Subject</p>
+                        <p class="text-uppercase text-bold text-info">Subject</p>
                     </div>
                     <div class="col-4">
-                        <p class="text-uppercase">Grade</p>
+                        <p class="text-uppercase text-bold text-info">Grade</p>
                     </div>
                 </div>
                 <hr>
@@ -312,7 +312,7 @@ if (isset($_SESSION['email'])) {
 }
 ?>
             <div class="col-sm-6 col-12 border border-left-0 border-[#f3f3f3] p-2">
-                <h4 class="m-2 text-uppercase text-color font-weight-bold">Second Sitting</h4>
+                <h4 class="m-2 text-uppercase text-info font-weight-bold">Second Sitting</h4>
  <form id="dataForm2">
         <!-- Row 1: Exam Information -->     
        <hr>
@@ -358,10 +358,10 @@ if (isset($_SESSION['email'])) {
         <hr>
         <div class="row m-2">
                     <div class="col-8">
-                        <p class="text-uppercase">Subject</p>
+                        <p class="text-uppercase text-bold text-info">Subject</p>
                     </div>
                     <div class="col-4">
-                        <p class="text-uppercase">Grade</p>
+                        <p class="text-uppercase text-bold text-info">Grade</p>
                     </div>
                 </div>
                 <hr>

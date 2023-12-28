@@ -50,7 +50,7 @@ if (empty($user_data['reference']) || empty($user_data['status'])) {
        </div>
             <div>
                 <h1 class="text-center text-bold">MALAM ADAMU FOUNDATION</h1>
-                <h3 class="text-center text-bold">2023/2024 MALAM ADAMU FOUNDATION SCHOLARSHIP PROGRAM</h3>
+                <h3 class="text-center text-bold">2023/2024 SCHOLARSHIP PROGRAM</h3>
             <h4 class="text-center text-bold text-underline mt-3">Acknowledgment Slip</h4>
             </div>
             <div class="d-flex justify-content-between mt-2">

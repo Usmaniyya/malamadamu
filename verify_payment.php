@@ -47,7 +47,7 @@ if (!$_SESSION['id']){
     $channel = $response["data"]['channel'];
     $currency = $response["data"]['currency'];
     $ip_address = $response["data"]['ip_address'];
-    $fixed_amount = 4500;
+    $fixed_amount = 2500;
  if (($amount / 100) == $fixed_amount ) {
              
     // Prepare the SQL query

@@ -75,8 +75,8 @@ if (isset($_SESSION['email'])) {
 
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid">
-        <div style="background:white;padding: 10px;">
+      <div class="container-fluid m-1" style="background:white;padding: 10px;">
+        <div >
         <hr>
 <div class="container">
     <form method="post" id="dataForm" enctype="multipart/form-data">
@@ -115,6 +115,7 @@ if (isset($_SESSION['email'])) {
           ] ?? '' ?>">
   </div>
 </div>
+<hr>
 <div class="row mb-2">
     <div class="col-sm-4 col-6">
  <label for="email" class="form-label">Email</label>
@@ -135,6 +136,7 @@ if (isset($_SESSION['email'])) {
         ] ?? '' ?>">
         </div>
 </div>
+<hr>
     <div class="row mb-2">
         <div class="col-sm-4 col-6">
               <label for="" class="form-label">State</label>
@@ -186,6 +188,7 @@ if (isset($_SESSION['email'])) {
         </select>
         </div>
     </div>
+    <hr>
     <div class="row mb-2">
 <div class="col-sm-4 col-6">
 <label for="address" class="form-label">Address</label>
@@ -200,6 +203,7 @@ if (isset($_SESSION['email'])) {
         ] ?? '' ?></textarea>
 </div>
 </div>
+<hr>
 <div class="row mb-2">
 <div class="col-sm-4 col-6">
 <label for="next_of_kin" class="form-label">Next of Kin</label>
@@ -220,6 +224,7 @@ if (isset($_SESSION['email'])) {
         ] ?? '' ?>">
 </div>
     </div>
+    <hr>
     <div class="row mb-2">
 <div class="col-12">
  <button type="submit" name="update" class="btn btn-warning px-3" onclick="submitForm()">Save</button>

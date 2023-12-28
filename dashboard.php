@@ -70,13 +70,13 @@ include 'admin/fetch_data.php';
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <div class="border-top border-width-3 border-warning mb-5" style="background:white;padding: 16px;">
-        <h2 class="mb-3">Welcome to Malam Adamu Foundation Scholarship Portal</h2>
+        <div class="border-top border-width-3 border-warning mb-2" style="background:white;padding: 16px;">
+        <h2 class="mb-1">Welcome to Malam Adamu Foundation Scholarship Portal</h2>
       </div>
        <div class="container">
-        <div class="mb-3">
+        <div class="mb-2">
           <h4 class="text-danger">Note:</h4>
-          <p></p>
+          <p>If you have <mark>5 credits</mark> including <mark>English and Mathematics</mark> in <mark>First Sitting</mark> (WAEC/NECO/NABTEB) you don't have to fill <mark>Second Sitting</mark>, otherwise you have to fill it.</p>
         </div>
           <div class="row mt-2">
             <div class="col-6">

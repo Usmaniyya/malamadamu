@@ -74,6 +74,10 @@ include 'admin/fetch_data.php';
         <h2 class="mb-3">Welcome to Malam Adamu Foundation Scholarship Portal</h2>
       </div>
        <div class="container">
+        <div class="mb-3">
+          <h4 class="text-danger">Note:</h4>
+          <p></p>
+        </div>
           <div class="row mt-2">
             <div class="col-6">
               <h4 class="text-underline">Eligibility</h4>
@@ -87,7 +91,11 @@ include 'admin/fetch_data.php';
             <div class="col-6">
               <h4>Guidelines</h4>
               <ul>
-                <li></li>
+                <li>Update Profile</li>
+                <li>Update O'Level</li>
+                <li>Update JAMB</li>
+                <li>Make Payment</li>
+                <li>Print Acknowledgement Slip</li>
               </ul>
             </div>
           </div>

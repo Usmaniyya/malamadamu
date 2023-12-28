@@ -112,8 +112,8 @@ if (isset($_SESSION['email'])) {
                      <label for="year" class="form-label">Year</label>
         <select class="form-control" name="year">
             <option value="<?= $user_data[ 'year'] ?? '' ?>"><?= $user_data[ 'year'] ?? 'Not Selected' ?></option>
-             <option value='2017'>2015</option>
-            <option value='2018'>2016</option>
+             <option value='2015'>2015</option>
+            <option value='2016'>2016</option>
             <option value='2017'>2017</option>
             <option value='2018'>2018</option>
             <option value='2019'>2019</option>
@@ -337,7 +337,7 @@ if (isset($_SESSION['email'])) {
         <select class="form-control" name="year">
             <option value="<?= $form_2_user_data[ 'year'] ?? '' ?>"><?= $form_2_user_data[ 'year'] ?? 'Not Selected' ?></option>
              <option value='2017'>2015</option>
-            <option value='2018'>2016</option>
+            <option value='2016'>2016</option>
             <option value='2017'>2017</option>
             <option value='2018'>2018</option>
             <option value='2019'>2019</option>

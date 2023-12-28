@@ -146,6 +146,7 @@ include "includes/student_swal_functions.php";
                     <div class="col-sm-6 col-12">
                         <label for="program" class="form-label">Program</label>
                         <select id="faculty-data" class="form-control" name="program">
+                        <option>Select Program...</option>
                         <option><?=$user_data["program"]?? ''?></option>
                             <!-- programs -->
                         </select>

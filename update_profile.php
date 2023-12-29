@@ -12,7 +12,10 @@ if (isset($_SESSION['email'])) {
     $student_id = $_SESSION['id'];
 
     // Fetch all fields for the user with the specific ID
-    $query = 'SELECT * FROM `signup` JOIN applicants ON signup.id = applicants.student_id WHERE applicants.student_id = ?';
+    $query = 'SELECT * FROM `applicants`
+    JOIN states ON applicants.state = states.id
+    JOIN lga ON applicants.lga = lga.id
+    WHERE applicants.student_id = ?';
 
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, 'i', $student_id);
@@ -20,12 +23,21 @@ if (isset($_SESSION['email'])) {
     $result = mysqli_stmt_get_result($stmt);
     $user_data = mysqli_fetch_assoc($result);
 
+    $query_signup = 'SELECT * FROM `signup` WHERE signup.id = ?';
+
+    $stmt = mysqli_prepare($conn, $query_signup);
+    mysqli_stmt_bind_param($stmt, 'i', $student_id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $user_signup_data = mysqli_fetch_assoc($result);
+
     // Close the database connection
     // mysqli_close($conn);
 }
 
 // Get form data
 $student_id = $_SESSION['id'];
+$passport = $_FILES['passport']['name'];
 $first_name = $_POST['first_name'];
 $last_name = $_POST['last_name'];
 $other_name = $_POST['other_name'];
@@ -40,9 +52,8 @@ $next_of_kin = $_POST['next_of_kin'];
 $nok_email = $_POST['nok_email'];
 $relation = $_POST['relation'];
 
-// echo "<script> alert(".$user_data['relation'].")</script>";
 // Check if the record exists
-if ($user_data) {
+if ($user_data && $user_signup_data) {
     // Update the existing records
     $updateSignupQuery = "UPDATE `signup` SET first_name = ?, last_name = ?, other_name = ?, email = ? WHERE id = ?";
 
@@ -52,11 +63,11 @@ if ($user_data) {
     );
 
     $updateApplicantsQuery = "UPDATE `applicants` SET
-        state = ?, lga = ?, address = ?, nok_address = ?, next_of_kin = ?, nok_email = ?, relation = ?, phone = ?, dob = ? WHERE student_id = ?";
+        state = ?, lga = ?, address = ?, nok_address = ?, next_of_kin = ?, nok_email = ?, relation = ?, phone = ?, dob = ?, passport_path = ? WHERE student_id = ?";
 
     $updateApplicantsStmt = mysqli_prepare($conn, $updateApplicantsQuery);
     mysqli_stmt_bind_param(
-        $updateApplicantsStmt, 'sssssssssi', $state, $lga, $address, $nok_address, $next_of_kin, $nok_email, $relation, $phone, $dob, $student_id
+        $updateApplicantsStmt, 'ssssssssssi', $state, $lga, $address, $nok_address, $next_of_kin, $nok_email, $relation, $phone, $dob, $passport, $student_id
     );
 
     if (mysqli_stmt_execute($updateSignupStmt) && mysqli_stmt_execute($updateApplicantsStmt)) {
@@ -77,12 +88,12 @@ if ($user_data) {
         $insertSignupStmt, 'ssss', $first_name, $last_name, $other_name, $email
     );
 
-    $insertApplicantsQuery = "INSERT INTO `applicants` (student_id, state, lga, address, nok_address, next_of_kin, nok_email, relation, phone, dob)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $insertApplicantsQuery = "INSERT INTO `applicants` (student_id, state, lga, address, nok_address, next_of_kin, nok_email, relation, phone, dob, passport_path)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $insertApplicantsStmt = mysqli_prepare($conn, $insertApplicantsQuery);
     mysqli_stmt_bind_param(
-        $insertApplicantsStmt,'isssssssss', $student_id, $state, $lga, $address, $nok_address, $next_of_kin, $nok_email, $relation, $phone, $dob
+        $insertApplicantsStmt,'issssssssss', $student_id, $state, $lga, $address, $nok_address, $next_of_kin, $nok_email, $relation, $phone, $dob, $passport
     );
 
     if (mysqli_stmt_execute($insertSignupStmt) && mysqli_stmt_execute($insertApplicantsStmt)) {

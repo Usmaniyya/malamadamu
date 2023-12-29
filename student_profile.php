@@ -7,37 +7,39 @@ include 'admin/fetch_data.php';
 if (isset($_SESSION['email'])) {
     $student_id = $_SESSION['id'];
 
-    // Fetch all fields for the user with the specific ID
-    $query =
-        'SELECT 
-        states.name AS "states",
-        lga.name AS "lga",
-        applicants.passport_path,
-        signup.first_name,
-        signup.last_name,
-        signup.other_name,
-        signup.email,
-        applicants.phone,
-        applicants.dob,
-        applicants.address,
-        applicants.next_of_kin,
-        applicants.nok_address,
-        applicants.nok_email,
-        applicants.relation
-
-        FROM `signup` 
-        JOIN applicants ON signup.id = applicants.student_id
-        JOIN states ON applicants.state = states.id
-        JOIN lga ON applicants.lga = lga.id
-         WHERE applicants.student_id = ?';
+    // Fetch selected fields for the Student with the specific ID
+    $query = 'SELECT 
+      states.id AS "state_id",
+      states.name AS "states",
+      lga.id AS "lga_id",
+      lga.name AS "lga",
+      applicants.passport_path,
+      applicants.phone,
+      applicants.dob,
+      applicants.address,
+      applicants.next_of_kin,
+      applicants.nok_address,
+      applicants.nok_email,
+      applicants.relation 
+    FROM `applicants`
+    JOIN states ON applicants.state = states.id
+    JOIN lga ON applicants.lga = lga.id
+    WHERE applicants.student_id = ?';
 
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, 'i', $student_id);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     $user_data = mysqli_fetch_assoc($result);
-    // Close the database connection
-    // mysqli_close($conn);
+
+// Fetch all fields for the Student with the specific ID
+    $query_signup = 'SELECT * FROM `signup` WHERE id = ?';
+
+    $stmt = mysqli_prepare($conn, $query_signup);
+    mysqli_stmt_bind_param($stmt, 'i', $student_id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $user_signup_data = mysqli_fetch_assoc($result);
 }
 ?>
 <!DOCTYPE html>
@@ -118,19 +120,19 @@ if (isset($_SESSION['email'])) {
 <div class="row mb-2">
   <div class="col-sm-4 col-6">
         <label for="first_name" class="form-label">First Name</label>
-          <input type="text" name="first_name" class="form-control" value="<?= $user_data[
+          <input type="text" name="first_name" class="form-control" value="<?= $user_signup_data[
               'first_name'
           ] ?? '' ?>" required>
   </div>
   <div class="col-sm-4 col-6">
       <label for="last_name" class="form-label">Last Name</label>
-          <input type="text" class="form-control" name="last_name" value="<?= $user_data[
+          <input type="text" class="form-control" name="last_name" value="<?= $user_signup_data[
               'last_name'
           ] ?? '' ?>" required>
   </div>
   <div class="col-sm-4 col-6">
       <label for="other_name"  class="form-label">Other Name</label>
-          <input type="text" class="form-control" name="other_name" value="<?= $user_data[
+          <input type="text" class="form-control" name="other_name" value="<?= $user_signup_data[
               'other_name'
           ] ?? '' ?>">
   </div>
@@ -139,7 +141,7 @@ if (isset($_SESSION['email'])) {
 <div class="row mb-2">
     <div class="col-sm-4 col-6">
  <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" name="email" value="<?= $user_data[
+        <input type="email" class="form-control" name="email" value="<?= $user_signup_data[
             'email'
         ] ?? '' ?>" required>
     </div>
@@ -161,7 +163,7 @@ if (isset($_SESSION['email'])) {
         <div class="col-sm-4 col-6">
               <label for="" class="form-label">State</label>
           <select name="state" id="state" onchange="fetch_LGAs(this.value)" class="form-control" autocomplete="off" class="select">
-          <option><?=$user_data["states"]?? 'Select State..'?></option>
+          <option><?=$user_data["states"]?? 'Select States...'?></option>
           <?php
                 $query_states_data = "SELECT * FROM `states` ";
                 $query_states = mysqli_query($conn, $query_states_data);
@@ -177,7 +179,7 @@ if (isset($_SESSION['email'])) {
         <div class="col-sm-4 col-6">
               <label for="lga" class="form-label">Local Government</label>
         <select name="lga" id="lga" class="form-control" autocomplete="off" class="lga">
-          <option><?=$user_data['lga']?? 'Select L.G.A...'?></option>
+          <option><?=$user_data['lga']?? 'Select Program...'?></option>
         </select>
         </div>
     </div>

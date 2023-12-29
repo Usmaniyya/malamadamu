@@ -161,7 +161,7 @@ if (isset($_SESSION['email'])) {
         <div class="col-sm-4 col-6">
               <label for="" class="form-label">State</label>
           <select name="state" id="state" onchange="fetch_LGAs(this.value)" class="form-control" autocomplete="off" class="select">
-          <option><?=$user_data["states"]?? 'Select States...'?></option>
+          <option><?=$user_data["states"]?? 'Select State..'?></option>
           <?php
                 $query_states_data = "SELECT * FROM `states` ";
                 $query_states = mysqli_query($conn, $query_states_data);
@@ -177,7 +177,7 @@ if (isset($_SESSION['email'])) {
         <div class="col-sm-4 col-6">
               <label for="lga" class="form-label">Local Government</label>
         <select name="lga" id="lga" class="form-control" autocomplete="off" class="lga">
-          <option><?=$user_data['lga']?? 'Select Program...'?></option>
+          <option><?=$user_data['lga']?? 'Select L.G.A...'?></option>
         </select>
         </div>
     </div>

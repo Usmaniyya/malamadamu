@@ -14,8 +14,8 @@ $query = "SELECT
 a.passport_path AS Photograph,
 a.phone,
 a.dob, 
-a.state,
-a.lga,
+st.name AS 'state',
+lga.name AS 'lga',
 a.address, 
 a.next_of_kin, 
 a.nok_address, 
@@ -70,6 +70,8 @@ LEFT JOIN payments p ON a.student_id = p.student_id
 JOIN choice_of_study cs ON s.id = cs.applicant_id
 JOIN faculty f ON f.id = cs.faculty
 JOIN programs pr ON pr.faculty_id = cs.program
+JOIN states st ON st.id = a.state
+JOIN lga ON lga.id = a.lga
 WHERE a.student_id = ?";
 
 $stmt = mysqli_prepare($conn, $query);

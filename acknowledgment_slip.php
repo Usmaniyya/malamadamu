@@ -25,6 +25,8 @@ if (isset($_SESSION['email'])) {
     payments.channel,
     payments.amount,
     payments.status,
+    -- Jamb 
+
     -- OLevel
     olevel.form_flag, olevel.exam_type, olevel.exam_no, olevel.year, olevel.exam_center, olevel.english, olevel.english_grade, olevel.maths, olevel.maths_grade, olevel.subject1, olevel.subject1_grade, olevel.subject2, olevel.subject2_grade, olevel.subject3, olevel.subject3_grade, olevel.subject4, olevel.subject4_grade, olevel.subject5, olevel.subject5_grade, olevel.subject6, olevel.subject6_grade, olevel.subject7, olevel.subject7_grade 
     FROM `signup` 
@@ -79,73 +81,141 @@ if (empty($user_data['reference']) || empty($user_data['status'])) {
             <div>
                 <h1 class="text-center text-bold">MALAM ADAMU FOUNDATION</h1>
                 <h3 class="text-center text-bold">2023/2024 SCHOLARSHIP PROGRAM</h3>
-            <h4 class="text-center text-bold text-underline mt-3">Acknowledgment Slip</h4>
+            <h4 class="text-center text-bold text-underline mt-3">Acknowledgement Slip</h4>
             </div>
             <div class="d-flex justify-content-between mt-2">
                 <div class="mt-3">
                  <p class="text-bold"><?= $user_data['first_name'].' '.$user_data['last_name'] ?? '' ?></p>
+                 <p class="text-bold"> <?=$user_data["jamb_reg_no"] ?? ''?></p>
             <p class="text-bold"><?= $user_data['program'] ?? '' ?></p>
             <p class="text-bold">Faculty of <?= $user_data['faculty'] ?? '' ?></p>
                 </div>
                 <div class="">
                  <?php if (!empty($user_data['passport_path'])) { ?>
-             <img src="<?= $user_data['passport_path'] ?>" alt="Passport Image" style="max-width: 120px;">
+                  <img src="<?= $user_data['passport_path'] ?>" alt="Passport Image" style="max-width: 120px;">
                <?php } ?>
                 </div>
             </div>
             <div class="mt-3">
             <h5 class="text-bold text-center "><==================== O' Level ====================></h5>
-            <table>
-                <tr class="text-center">
-                    <td><?= $user_data["form_flag"] ?? ''?></td>
+           <div class="d-flex justify-content-center align-items-center row mt-3">
+            <div class="col-6">
+                   <p class="text-bold">First Sitting</p>
+                 <table class="table-bordered border-dark w-75">
+                     <thead>
+      <tr class="text-center">
+        <th class="px-2" scope="col">School</th>
+        <th class="px-2 text-center" scope="col">Exam/Year</th>
+      </tr>
+    </thead>
+                <tr>
+                     <td class="text-center"><?=$user_data["exam_center"] ?? ''?></td>
+                    <td class="px-2 text-center"><?=$user_data["exam_type"] ?? ''?>/<?=$user_data["year"] ?? ''?></td>
+                </tr>
+                <theahd>
+                    <tr>
+                        <th class="text-center" scope="col">Subjects</th>
+                        <th class="text-center" scope="col">Grades</th>
+                    </tr>
+                </theahd> 
+                <tr>
+                    <td class="text-center"><?=$user_data["english"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["english_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td><b>Exam Type:</b> <?=$user_data["exam_type"] ?? ''?></td>
-                    <td><b>Exam Number:</b> <?=$user_data["exam_no"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["maths"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["maths_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td><b>Year:</b> <?=$user_data["year"] ?? ''?></td>
-                    <td><b>Exam Center:</b> <?=$user_data["exam_center"] ?? ''?></td>
-                </tr>
-                
-                <tr>
-                    <td><?=$user_data["english"] ?? ''?></td>
-                    <td><?=$user_data["english_grade"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject1"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject1_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td><?=$user_data["maths"] ?? ''?></td>
-                    <td><?=$user_data["maths_grade"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject2"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject2_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td><?=$user_data["subject1"] ?? ''?></td>
-                    <td><?=$user_data["subject1_grade"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject3"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject3_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td><?=$user_data["subject2"] ?? ''?></td>
-                    <td><?=$user_data["subject2_grade"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject4"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject4_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td><?=$user_data["subject3"] ?? ''?></td>
-                    <td><?=$user_data["subject3_grade"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject5"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject5_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td><?=$user_data["subject4"] ?? ''?></td>
-                    <td><?=$user_data["subject4_grade"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject6"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject6_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td><?=$user_data["subject5"] ?? ''?></td>
-                    <td><?=$user_data["subject5_grade"] ?? ''?></td>
-                </tr>
-                <tr>
-                    <td><?=$user_data["subject6"] ?? ''?></td>
-                    <td><?=$user_data["subject6_grade"] ?? ''?></td>
-                </tr>
-                <tr>
-                    <td><?=$user_data["subject7"] ?? ''?></td>
-                    <td><?=$user_data["subject7_grade"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject7"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject7_grade"] ?? ''?></td>
                 </tr>
                  
             </table>
+            </div>
+            <div class="col-6">
+                <p class="text-bold">Second Sitting</p>
+                    <table class="table-bordered border-dark w-75">
+                     <thead>
+      <tr class="text-center">
+        <th class="px-2" scope="col">School</th>
+        <th class="px-2 text-center" scope="col">Exam/Year</th>
+      </tr>
+    </thead>
+                <tr>
+                     <td class="text-center"><?=$user_data["exam_center"] ?? ''?></td>
+                    <td class="px-2 text-center"><?=$user_data["exam_type"] ?? ''?>/<?=$user_data["year"] ?? ''?></td>
+                </tr>
+                <theahd>
+                    <tr>
+                        <th class="text-center" scope="col">Subjects</th>
+                        <th class="text-center" scope="col">Grades</th>
+                    </tr>
+                </theahd> 
+                <tr>
+                    <td class="text-center"><?=$user_data["english"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["english_grade"] ?? ''?></td>
+                </tr>
+                <tr>
+                    <td class="text-center"><?=$user_data["maths"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["maths_grade"] ?? ''?></td>
+                </tr>
+                <tr>
+                    <td class="text-center"><?=$user_data["subject1"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject1_grade"] ?? ''?></td>
+                </tr>
+                <tr>
+                    <td class="text-center"><?=$user_data["subject2"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject2_grade"] ?? ''?></td>
+                </tr>
+                <tr>
+                    <td class="text-center"><?=$user_data["subject3"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject3_grade"] ?? ''?></td>
+                </tr>
+                <tr>
+                    <td class="text-center"><?=$user_data["subject4"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject4_grade"] ?? ''?></td>
+                </tr>
+                <tr>
+                    <td class="text-center"><?=$user_data["subject5"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject5_grade"] ?? ''?></td>
+                </tr>
+                <tr>
+                    <td class="text-center"><?=$user_data["subject6"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject6_grade"] ?? ''?></td>
+                </tr>
+                <tr>
+                    <td class="text-center"><?=$user_data["subject7"] ?? ''?></td>
+                    <td class="text-center"><?=$user_data["subject7_grade"] ?? ''?></td>
+                </tr>
+                 
+            </table>
+            </div>
+           </div>
             <!-- Second Sitting -->
 <?php
 if (isset($_SESSION['email'])) {
@@ -168,57 +238,7 @@ if (isset($_SESSION['email'])) {
     }
 }
 ?>
-            <table>
-                <tr class="text-center">
-                    <td><?= $form_2_user_data["form_flag"] ?? ''?></td>
-                </tr>
-                <tr>
-                    <td><b>Exam Type:</b> <?=$form_2_user_data["exam_type"] ?? ''?></td>
-                    <td><b>Exam Number:</b> <?=$form_2_user_data["exam_no"] ?? ''?></td>
-                </tr>
-                <tr>
-                    <td><b>Year:</b> <?=$form_2_user_data["year"] ?? ''?></td>
-                    <td><b>Exam Center:</b> <?=$form_2_user_data["exam_center"] ?? ''?></td>
-                </tr>
-                
-                <tr>
-                    <td><?=$form_2_user_data["english"] ?? ''?></td>
-                    <td><?=$form_2_user_data["english_grade"] ?? ''?></td>
-                </tr>
-                <tr>
-                    <td><?=$form_2_user_data["maths"] ?? ''?></td>
-                    <td><?=$form_2_user_data["maths_grade"] ?? ''?></td>
-                </tr>
-                <tr>
-                    <td><?=$form_2_user_data["subject1"] ?? ''?></td>
-                    <td><?=$form_2_user_data["subject1_grade"] ?? ''?></td>
-                </tr>
-                <tr>
-                    <td><?=$form_2_user_data["subject2"] ?? ''?></td>
-                    <td><?=$form_2_user_data["subject2_grade"] ?? ''?></td>
-                </tr>
-                <tr>
-                    <td><?=$form_2_user_data["subject3"] ?? ''?></td>
-                    <td><?=$form_2_user_data["subject3_grade"] ?? ''?></td>
-                </tr>
-                <tr>
-                    <td><?=$form_2_user_data["subject4"] ?? ''?></td>
-                    <td><?=$form_2_user_data["subject4_grade"] ?? ''?></td>
-                </tr>
-                <tr>
-                    <td><?=$form_2_user_data["subject5"] ?? ''?></td>
-                    <td><?=$form_2_user_data["subject5_grade"] ?? ''?></td>
-                </tr>
-                <tr>
-                    <td><?=$form_2_user_data["subject6"] ?? ''?></td>
-                    <td><?=$form_2_user_data["subject6_grade"] ?? ''?></td>
-                </tr>
-                <tr>
-                    <td><?=$form_2_user_data["subject7"] ?? ''?></td>
-                    <td><?=$form_2_user_data["subject7_grade"] ?? ''?></td>
-                </tr>
-                 
-            </table>            
+                       
 
             </div>
 
@@ -239,33 +259,45 @@ $applicant_id = $_SESSION['id'];
   mysqli_close($conn);
 
 ?>
-            <div class="mt-3">
+            <div class="my-3">
             <h5 class="text-bold text-center "><==================== JAMB ====================></h5>
-            <table>
-                <tr>
-                    <td>Jamb Number: <?=$jamb_data["jamb_reg_no"] ?? ''?></td>
+            <div class="d-flex justify-content-center align-items-center">
+                  <table class="table-bordered w-50">
+               <thead>
+                 <tr class="text-center">
+                    <td>S/N</td>
+                    <td>Subjects</td>
+                   <td>Score</td>
                 </tr>
-                <tr>
+               </thead>
+                <tr class="text-center">
+                    <td>1</td>
                     <td><?=$jamb_data["english"] ?? ''?></td>
                     <td><?=$jamb_data["english_score"] ?? ''?></td>
                 </tr>
-                <tr>
+                <tr class="text-center">
+                     <td>2</td>
                     <td><?=$jamb_data["subject1"] ?? ''?></td>
                     <td><?=$jamb_data["subject1_score"] ?? ''?></td>
                 </tr>
-                <tr>
+                <tr class="text-center">
+                     <td>3</td>
                     <td><?=$jamb_data["subject2"] ?? ''?></td>
                     <td><?=$jamb_data["subject2_score"] ?? ''?></td>
                 </tr>
-                <tr>
+                <tr class="text-center">
+                     <td>4</td>
                     <td><?=$jamb_data["subject3"] ?? ''?></td>
                     <td><?=$jamb_data["subject3_score"] ?? ''?></td>
                 </tr>
-                <tr>
+                <tr class="text-center">
                     <td></td>
-                    <td>Total Score: <?=$total_score?></td>
+                    <td class="text-bold">Total Score</td>
+                    <td class="text-bold"><?=$total_score?></td>
                 </tr>
-            </table>            
+            </table> 
+            </div>
+                     
             </div>
             <div>
                 <p class="text-bold">

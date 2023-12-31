@@ -286,7 +286,7 @@ if (isset($_SESSION['email'])) {
         
     </div>
     <div class="col-4">
-        <button type="submit" class="btn btn-warning px-3" name="update" onclick="submitForm()">Save</button>
+        <button type="submit" class="btn btn-warning px-3" name="update">Save</button>
     </div>
     <div class="col-4">
         

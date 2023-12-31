@@ -1,5 +1,5 @@
 <?php
-include("includes/config.php");// Database connection
+// include("includes/config.php");// Database connection
 if (isset($_SESSION['email'])) {
     $student_id =  $_SESSION['id'];
 

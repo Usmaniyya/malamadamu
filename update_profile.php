@@ -60,9 +60,9 @@ if ($passport !== null) {
     $file_info = pathinfo($passport);
     $upload_path = $upload_dir . $file_info['basename'];
 }
-
+// var_dump($user_signup_data);
 // Check if the record exists
-if ($user_data && $user_signup_data) {
+if ($user_signup_data > 0) {
     // Update the existing records
     $updateSignupQuery = "UPDATE `signup` SET first_name = ?, last_name = ?, other_name = ?, email = ? WHERE id = ?";
 
@@ -83,9 +83,9 @@ if ($user_data && $user_signup_data) {
         // Move uploaded file to the secure location
         if ($upload_path !== null) {
             move_uploaded_file($_FILES['passport']['tmp_name'], $upload_path);
+            $successMessage = "Data Saved successfully";
         }
 
-        $successMessage = "Data Saved successfully";
     } else {
         $errorMessage = "Error updating data: " . mysqli_error($conn);
     }

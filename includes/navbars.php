@@ -1,23 +1,4 @@
-<<<<<<< HEAD
-<?php
-// include("includes/config.php");// Database connection
-if (isset($_SESSION['email'])) {
-    $student_id =  $_SESSION['id'];
 
-    // Fetch all fields for the user with the specific ID
-    $query = "SELECT applicants.passport_path FROM `applicants` WHERE applicants.student_id = ?";
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "i", $student_id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $user_data = mysqli_fetch_assoc($result);
-
-    // Close the database connection
-    // mysqli_close($conn);
-}
-?>
-=======
->>>>>>> parent of d20ddbc (few torches)
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand bgColor">
     <!-- Left navbar links -->

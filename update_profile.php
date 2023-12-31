@@ -37,7 +37,7 @@ if (isset($_SESSION['email'])) {
 
 // Get form data
 $student_id = $_SESSION['id'];
-$passport = isset($_FILES['passport']['name']) ? $_FILES['passport']['name'] : null;
+$passport = $_FILES['passport']['name'];
 $first_name = $_POST['first_name'];
 $last_name = $_POST['last_name'];
 $other_name = $_POST['other_name'];
@@ -52,6 +52,7 @@ $next_of_kin = $_POST['next_of_kin'];
 $nok_email = $_POST['nok_email'];
 $relation = $_POST['relation'];
 
+<<<<<<< HEAD
 // File upload handling
 $upload_dir = 'uploads/';
 $upload_path = null;
@@ -61,6 +62,8 @@ if ($passport !== null) {
     $upload_path = $upload_dir . $file_info['basename'];
 }
 // var_dump($user_signup_data);
+=======
+>>>>>>> parent of d505f51 (troubleshooting image with ajax)
 // Check if the record exists
 if ($user_signup_data > 0) {
     // Update the existing records
@@ -76,16 +79,20 @@ if ($user_signup_data > 0) {
 
     $updateApplicantsStmt = mysqli_prepare($conn, $updateApplicantsQuery);
     mysqli_stmt_bind_param(
-        $updateApplicantsStmt, 'ssssssssssi', $state, $lga, $address, $nok_address, $next_of_kin, $nok_email, $relation, $phone, $dob, $upload_path, $student_id
+        $updateApplicantsStmt, 'ssssssssssi', $state, $lga, $address, $nok_address, $next_of_kin, $nok_email, $relation, $phone, $dob, $passport, $student_id
     );
 
     if (mysqli_stmt_execute($updateSignupStmt) && mysqli_stmt_execute($updateApplicantsStmt)) {
+<<<<<<< HEAD
         // Move uploaded file to the secure location
         if ($upload_path !== null) {
             move_uploaded_file($_FILES['passport']['tmp_name'], $upload_path);
             $successMessage = "Data Saved successfully";
         }
 
+=======
+        $successMessage = "Data Saved successfully";
+>>>>>>> parent of d505f51 (troubleshooting image with ajax)
     } else {
         $errorMessage = "Error updating data: " . mysqli_error($conn);
     }
@@ -107,19 +114,10 @@ if ($user_signup_data > 0) {
 
     $insertApplicantsStmt = mysqli_prepare($conn, $insertApplicantsQuery);
     mysqli_stmt_bind_param(
-        $insertApplicantsStmt,'issssssssss', $student_id, $state, $lga, $address, $nok_address, $next_of_kin, $nok_email, $relation, $phone, $dob, $upload_path
+        $insertApplicantsStmt,'issssssssss', $student_id, $state, $lga, $address, $nok_address, $next_of_kin, $nok_email, $relation, $phone, $dob, $passport
     );
 
     if (mysqli_stmt_execute($insertSignupStmt) && mysqli_stmt_execute($insertApplicantsStmt)) {
-        // Move uploaded file to the secure location
-        if ($upload_path !== null) {
-            move_uploaded_file($_FILES['passport']['tmp_name'], $upload_path);
-        }
-
-        if ($_FILES['passport']['error'] > 0) {
-            $errorMessage = 'File Upload Error: ' . $_FILES['passport']['error'];
-        }
-        
         $successMessage = "Data Saved successfully";
     } else {
         $errorMessage = "Error Saving data: " . mysqli_error($conn);
@@ -133,6 +131,6 @@ if ($user_signup_data > 0) {
 mysqli_close($conn);
 
 // Redirect back to the profile page
-// header("Location: student_profile");
+header("Location: student_profile");
 exit();
 ?>

@@ -25,7 +25,6 @@ if (isset($_SESSION['email'])) {
     
 
     // Fetch all fields for the user with the specific ID
-<<<<<<< HEAD
     $query = "SELECT 
     -- Program
     programs.name AS 'program',
@@ -42,8 +41,6 @@ if (isset($_SESSION['email'])) {
     payments.channel,
     payments.amount,
     payments.status,
-    -- Jamb 
-
     -- OLevel
     olevel.form_flag, olevel.exam_type, olevel.exam_no, olevel.year, olevel.exam_center, olevel.english, olevel.english_grade, olevel.maths, olevel.maths_grade, olevel.subject1, olevel.subject1_grade, olevel.subject2, olevel.subject2_grade, olevel.subject3, olevel.subject3_grade, olevel.subject4, olevel.subject4_grade, olevel.subject5, olevel.subject5_grade, olevel.subject6, olevel.subject6_grade, olevel.subject7, olevel.subject7_grade 
     FROM `signup` 
@@ -55,15 +52,6 @@ if (isset($_SESSION['email'])) {
     JOIN olevel ON signup.id = olevel.student_id
     JOIN jamb_results ON signup.id = jamb_results.student_id
     WHERE payments.student_id = ?";
-=======
-    $query = "SELECT programs.name AS 'program', faculty.name AS 'faculty', applicants.passport_path,signup.first_name,signup.last_name,payments.reference,payments.paid_at,payments.channel,payments.amount,payments.status FROM `signup` 
-              JOIN applicants ON signup.id = applicants.student_id
-              JOIN payments ON signup.id = payments.student_id
-              JOIN choice_of_study ON signup.id = choice_of_study.applicant_id
-              JOIN faculty ON faculty.id = choice_of_study.faculty
-              JOIN programs ON programs.faculty_id = choice_of_study.program
-              WHERE payments.student_id = ?";
->>>>>>> parent of 0b62647 (Completing the Acknoladgement)
 
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "i", $student_id);
@@ -100,85 +88,78 @@ if (empty($user_data['reference']) || empty($user_data['status'])) {
                 <h1 class=" text-bold">MALAM ADAMU FOUNDATION</h1>
                 <h3 class=" text-bold">2023/2024 SCHOLARSHIP PROGRAM</h3>
             <h4 class=" text-bold text-underline mt-3">Acknowledgement Slip</h4>
+                <h1 class="text-center text-bold">MALAM ADAMU FOUNDATION</h1>
+                <h3 class="text-center text-bold">2023/2024 SCHOLARSHIP PROGRAM</h3>
+            <h4 class="text-center text-bold text-underline mt-3">Acknowledgment Slip</h4>
             </div>
             <div class="d-flex justify-content-between mt-2">
                 <div class="mt-3">
                  <p class="text-bold"><?= $user_data['first_name'].' '.$user_data['last_name'] ?? '' ?></p>
-                 <p class="text-bold"> <?=$user_data["jamb_reg_no"] ?? ''?></p>
             <p class="text-bold"><?= $user_data['program'] ?? '' ?></p>
             <p class="text-bold">Faculty of <?= $user_data['faculty'] ?? '' ?></p>
             <p class="text-bold">JAMB: <?= $jamb_data['jamb_reg_no'] ?? '' ?></p>
                 </div>
                 <div class="">
                  <?php if (!empty($user_data['passport_path'])) { ?>
-                  <img src="<?= $user_data['passport_path'] ?>" alt="Passport Image" style="max-width: 120px;">
+             <img src="<?= $user_data['passport_path'] ?>" alt="Passport Image" style="max-width: 120px;">
                <?php } ?>
                 </div>
             </div>
 <<<<<<< HEAD
             <div class="mt-3">
             <h5 class="text-bold text-center "><==================== O' Level ====================></h5>
-           <div class="d-flex justify-content-center align-items-center row mt-3">
-            <div class="col-6">
-                   <p class="text-bold">First Sitting</p>
-                 <table class="table-bordered border-dark w-75">
-                     <thead>
-      <tr class="">
-        <th class="px-2" scope="col">School</th>
-        <th class="px-2 " scope="col">Exam/Year</th>
-      </tr>
-    </thead>
-                <tr>
-                     <td class=""><?=$user_data["exam_center"] ?? ''?></td>
-                    <td class="px-2 "><?=$user_data["exam_type"] ?? ''?>/<?=$user_data["year"] ?? ''?></td>
-                </tr>
-                <theahd>
-                    <tr>
-                        <th class="" scope="col">Subjects</th>
-                        <th class="" scope="col">Grades</th>
-                    </tr>
-                </theahd> 
-                <tr>
-                    <td class=""><?=$user_data["english"] ?? ''?></td>
-                    <td class=""><?=$user_data["english_grade"] ?? ''?></td>
+            <table>
+                <tr class="text-center">
+                    <td><?= $user_data["form_flag"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td class=""><?=$user_data["maths"] ?? ''?></td>
-                    <td class=""><?=$user_data["maths_grade"] ?? ''?></td>
+                    <td><b>Exam Type:</b> <?=$user_data["exam_type"] ?? ''?></td>
+                    <td><b>Exam Number:</b> <?=$user_data["exam_no"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td class=""><?=$user_data["subject1"] ?? ''?></td>
-                    <td class=""><?=$user_data["subject1_grade"] ?? ''?></td>
+                    <td><b>Year:</b> <?=$user_data["year"] ?? ''?></td>
+                    <td><b>Exam Center:</b> <?=$user_data["exam_center"] ?? ''?></td>
+                </tr>
+                
+                <tr>
+                    <td><?=$user_data["english"] ?? ''?></td>
+                    <td><?=$user_data["english_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td class=""><?=$user_data["subject2"] ?? ''?></td>
-                    <td class=""><?=$user_data["subject2_grade"] ?? ''?></td>
+                    <td><?=$user_data["maths"] ?? ''?></td>
+                    <td><?=$user_data["maths_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td class=""><?=$user_data["subject3"] ?? ''?></td>
-                    <td class=""><?=$user_data["subject3_grade"] ?? ''?></td>
+                    <td><?=$user_data["subject1"] ?? ''?></td>
+                    <td><?=$user_data["subject1_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td class=""><?=$user_data["subject4"] ?? ''?></td>
-                    <td class=""><?=$user_data["subject4_grade"] ?? ''?></td>
+                    <td><?=$user_data["subject2"] ?? ''?></td>
+                    <td><?=$user_data["subject2_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td class=""><?=$user_data["subject5"] ?? ''?></td>
-                    <td class=""><?=$user_data["subject5_grade"] ?? ''?></td>
+                    <td><?=$user_data["subject3"] ?? ''?></td>
+                    <td><?=$user_data["subject3_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td class=""><?=$user_data["subject6"] ?? ''?></td>
-                    <td class=""><?=$user_data["subject6_grade"] ?? ''?></td>
+                    <td><?=$user_data["subject4"] ?? ''?></td>
+                    <td><?=$user_data["subject4_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td class=""><?=$user_data["subject7"] ?? ''?></td>
-                    <td class=""><?=$user_data["subject7_grade"] ?? ''?></td>
+                    <td><?=$user_data["subject5"] ?? ''?></td>
+                    <td><?=$user_data["subject5_grade"] ?? ''?></td>
+                </tr>
+                <tr>
+                    <td><?=$user_data["subject6"] ?? ''?></td>
+                    <td><?=$user_data["subject6_grade"] ?? ''?></td>
+                </tr>
+                <tr>
+                    <td><?=$user_data["subject7"] ?? ''?></td>
+                    <td><?=$user_data["subject7_grade"] ?? ''?></td>
                 </tr>
                  
             </table>
-            </div>
-
-                        <!-- Second Sitting -->
+            <!-- Second Sitting -->
 <?php
 if (isset($_SESSION['email'])) {
   $student_id = $_SESSION['id'];
@@ -201,114 +182,104 @@ if (isset($_SESSION['email'])) {
     }
 }
 ?>
-            <div class="col-6">
-                <p class="text-bold">Second Sitting</p>
-                    <table class="table-bordered border-dark w-75">
-                     <thead>
-                    <tr class="">
-                        <th class="px-2" scope="col">School</th>
-                        <th class="px-2 " scope="col">Exam/Year</th>
-                    </tr>
-                    </thead>
-                    <tr>
-                     <td class=""><?=$form_2_user_data["exam_center"] ?? ''?></td>
-                    <td class="px-2 "><?=$form_2_user_data["exam_type"] ?? ''?>/<?=$form_2_user_data["year"] ?? ''?></td>
-                </tr>
-                <theahd>
-                    <tr>
-                        <th class="" scope="col">Subjects</th>
-                        <th class="" scope="col">Grades</th>
-                    </tr>
-                </theahd> 
-                <tr>
-                    <td class=""><?=$form_2_user_data["english"] ?? ''?></td>
-                    <td class=""><?=$form_2_user_data["english_grade"] ?? ''?></td>
+            <table>
+                <tr class="text-center">
+                    <td><?= $form_2_user_data["form_flag"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td class=""><?=$form_2_user_data["maths"] ?? ''?></td>
-                    <td class=""><?=$form_2_user_data["maths_grade"] ?? ''?></td>
+                    <td><b>Exam Type:</b> <?=$form_2_user_data["exam_type"] ?? ''?></td>
+                    <td><b>Exam Number:</b> <?=$form_2_user_data["exam_no"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td class=""><?=$form_2_user_data["subject1"] ?? ''?></td>
-                    <td class=""><?=$form_2_user_data["subject1_grade"] ?? ''?></td>
+                    <td><b>Year:</b> <?=$form_2_user_data["year"] ?? ''?></td>
+                    <td><b>Exam Center:</b> <?=$form_2_user_data["exam_center"] ?? ''?></td>
+                </tr>
+                
+                <tr>
+                    <td><?=$form_2_user_data["english"] ?? ''?></td>
+                    <td><?=$form_2_user_data["english_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td class=""><?=$form_2_user_data["subject2"] ?? ''?></td>
-                    <td class=""><?=$form_2_user_data["subject2_grade"] ?? ''?></td>
+                    <td><?=$form_2_user_data["maths"] ?? ''?></td>
+                    <td><?=$form_2_user_data["maths_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td class=""><?=$form_2_user_data["subject3"] ?? ''?></td>
-                    <td class=""><?=$form_2_user_data["subject3_grade"] ?? ''?></td>
+                    <td><?=$form_2_user_data["subject1"] ?? ''?></td>
+                    <td><?=$form_2_user_data["subject1_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td class=""><?=$form_2_user_data["subject4"] ?? ''?></td>
-                    <td class=""><?=$form_2_user_data["subject4_grade"] ?? ''?></td>
+                    <td><?=$form_2_user_data["subject2"] ?? ''?></td>
+                    <td><?=$form_2_user_data["subject2_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td class=""><?=$form_2_user_data["subject5"] ?? ''?></td>
-                    <td class=""><?=$form_2_user_data["subject5_grade"] ?? ''?></td>
+                    <td><?=$form_2_user_data["subject3"] ?? ''?></td>
+                    <td><?=$form_2_user_data["subject3_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td class=""><?=$form_2_user_data["subject6"] ?? ''?></td>
-                    <td class=""><?=$form_2_user_data["subject6_grade"] ?? ''?></td>
+                    <td><?=$form_2_user_data["subject4"] ?? ''?></td>
+                    <td><?=$form_2_user_data["subject4_grade"] ?? ''?></td>
                 </tr>
                 <tr>
-                    <td class=""><?=$form_2_user_data["subject7"] ?? ''?></td>
-                    <td class=""><?=$form_2_user_data["subject7_grade"] ?? ''?></td>
+                    <td><?=$form_2_user_data["subject5"] ?? ''?></td>
+                    <td><?=$form_2_user_data["subject5_grade"] ?? ''?></td>
+                </tr>
+                <tr>
+                    <td><?=$form_2_user_data["subject6"] ?? ''?></td>
+                    <td><?=$form_2_user_data["subject6_grade"] ?? ''?></td>
+                </tr>
+                <tr>
+                    <td><?=$form_2_user_data["subject7"] ?? ''?></td>
+                    <td><?=$form_2_user_data["subject7_grade"] ?? ''?></td>
                 </tr>
                  
-            </table>
-            </div>
-<?php } ?>
-           </div>
-        </div>
+            </table>            
 
-            <div class="my-3">
-            <h5 class="text-bold text-center"><==================== JAMB ====================></h5>
-            <div class="d-flex justify-content-center align-items-center">
-                  <table class="table-bordered w-50">
-               <thead>
-                 <tr class="">
-                    <td>S/N</td>
-                    <td>Subjects</td>
-                   <td>Score</td>
+            </div>
+
+<!-- Jamb Result -->
+<?php
+
+$applicant_id = $_SESSION['id'];
+  // Fetch all fields for the user with the specific ID
+  $query_jamb = 'SELECT * FROM `jamb_results` WHERE student_id = ?';
+
+  $stmt = mysqli_prepare($conn, $query_jamb);
+  mysqli_stmt_bind_param($stmt, 'i', $applicant_id);
+  mysqli_stmt_execute($stmt);
+  $result = mysqli_stmt_get_result($stmt);
+  $jamb_data = mysqli_fetch_assoc($result);
+  $total_score = $jamb_data["english_score"] + $jamb_data["subject1_score"] + $jamb_data["subject2_score"] + $jamb_data["subject3_score"];
+  // Close the database connection
+  mysqli_close($conn);
+
+?>
+            <div class="mt-3">
+            <h5 class="text-bold text-center "><==================== JAMB ====================></h5>
+            <table>
+                <tr>
+                    <td>Jamb Number: <?=$jamb_data["jamb_reg_no"] ?? ''?></td>
                 </tr>
-               </thead>
-                <tr class="">
-                    <td>1</td>
+                <tr>
                     <td><?=$jamb_data["english"] ?? ''?></td>
                     <td><?=$jamb_data["english_score"] ?? ''?></td>
                 </tr>
-                <tr class="">
-                     <td>2</td>
+                <tr>
                     <td><?=$jamb_data["subject1"] ?? ''?></td>
                     <td><?=$jamb_data["subject1_score"] ?? ''?></td>
                 </tr>
-                <tr class="">
-                     <td>3</td>
+                <tr>
                     <td><?=$jamb_data["subject2"] ?? ''?></td>
                     <td><?=$jamb_data["subject2_score"] ?? ''?></td>
                 </tr>
-                <tr class="">
-                     <td>4</td>
+                <tr>
                     <td><?=$jamb_data["subject3"] ?? ''?></td>
                     <td><?=$jamb_data["subject3_score"] ?? ''?></td>
                 </tr>
-                <tr class="">
+                <tr>
                     <td></td>
-                    <td class="text-bold text-right">Total Score</td>
-                    <td class=""><?=$total_score?></td>
+                    <td>Total Score: <?=$total_score?></td>
                 </tr>
-            </table> 
-            </div>
-                     
-=======
-            <div class="text-center mt-3">
-            <h5 class="text-bold"><==================== O' Level ====================></h5>
-            </div>
-              <div class="text-center mt-3">
-            <h5 class="text-bold"><==================== JAMB ====================></h5>
->>>>>>> parent of 0b62647 (Completing the Acknoladgement)
+            </table>            
             </div>
             <div>
                 <p class="text-bold">

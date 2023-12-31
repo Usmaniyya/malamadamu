@@ -5,11 +5,9 @@ if (!$_SESSION['id']) {
 }
 include 'fetch_data.php';
 // Perform the query
-$query = "SELECT a.status, a.id, a.student_id AS applicant_id, a.phone, a.dob, st.name AS 'state', lga.name AS 'lga', a.address, a.next_of_kin, a.nok_address, a.nok_email, a.relation, a.passport_path, s.id AS signup_id, s.first_name, s.last_name, s.email, s.rank, s.status, s.created_at, s.updated_at
+$query = "SELECT a.status, a.id, a.student_id AS applicant_id, a.phone, a.dob, a.state, a.lga, a.address, a.next_of_kin, a.nok_address, a.nok_email, a.relation, a.passport_path, s.id AS signup_id, s.first_name, s.last_name, s.email, s.rank, s.status, s.created_at, s.updated_at
 FROM applicants a
-INNER JOIN signup s ON a.student_id = s.id
-JOIN states st ON st.id = a.state
-JOIN lga ON lga.id = a.lga WHERE a.status = 0";
+INNER JOIN signup s ON a.student_id = s.id WHERE a.status = 0";
 
 $result = mysqli_query($conn, $query);
 ?>

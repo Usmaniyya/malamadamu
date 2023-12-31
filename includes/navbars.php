@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 // include("includes/config.php");// Database connection
 if (isset($_SESSION['email'])) {
@@ -15,6 +16,8 @@ if (isset($_SESSION['email'])) {
     // mysqli_close($conn);
 }
 ?>
+=======
+>>>>>>> parent of d20ddbc (few torches)
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand bgColor">
     <!-- Left navbar links -->
@@ -29,37 +32,12 @@ if (isset($_SESSION['email'])) {
     <ul class="navbar-nav ml-auto">
        <div class="user-panel d-flex">
         <div class="image">
-              <!-- <i class="bi bi-person p-1 text-warning mt-2 elevation-2"></i> -->
-          <img src="<?= $user_data['passport_path'] ?>" class="img-circle" alt="User Image">
+              <i class="bi bi-person p-1 text-warning mt-2 elevation-2"></i>
+          <!-- <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"> -->
         </div>
         <div class="info">
           <a href="#" class="d-block text-warning"><?=$_SESSION['first_name']?></a>
         </div>
-        <li class="nav-item dropdown show">
-        <a class="nav-link btn-danger" data-toggle="dropdown" href="#" aria-expanded="true">
-          <i class="bi bi-box-arrow-right"></i> SignOut
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right show" style="left: inherit; right: -12px;">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-        </div>
-      </li>
       <!-- </div>
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">

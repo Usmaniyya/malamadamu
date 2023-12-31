@@ -25,6 +25,7 @@ if (isset($_SESSION['email'])) {
     
 
     // Fetch all fields for the user with the specific ID
+<<<<<<< HEAD
     $query = "SELECT 
     -- Program
     programs.name AS 'program',
@@ -54,24 +55,25 @@ if (isset($_SESSION['email'])) {
     JOIN olevel ON signup.id = olevel.student_id
     JOIN jamb_results ON signup.id = jamb_results.student_id
     WHERE payments.student_id = ?";
+=======
+    $query = "SELECT programs.name AS 'program', faculty.name AS 'faculty', applicants.passport_path,signup.first_name,signup.last_name,payments.reference,payments.paid_at,payments.channel,payments.amount,payments.status FROM `signup` 
+              JOIN applicants ON signup.id = applicants.student_id
+              JOIN payments ON signup.id = payments.student_id
+              JOIN choice_of_study ON signup.id = choice_of_study.applicant_id
+              JOIN faculty ON faculty.id = choice_of_study.faculty
+              JOIN programs ON programs.faculty_id = choice_of_study.program
+              WHERE payments.student_id = ?";
+>>>>>>> parent of 0b62647 (Completing the Acknoladgement)
 
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "i", $student_id);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     $user_data = mysqli_fetch_assoc($result);
-    if ($user_data["form_flag"] == 1) {
-        $user_data["form_flag"] = "First Sitting";
-    }
-    if ($user_data["form_flag"] == 2) {
-        $user_data["form_flag"] = "Second Sitting";
-    }
-
     $amount_data = $user_data['amount']?? '0';
     $amount = number_format($amount_data / 100, 2);
-
     // Close the database connection
-    // mysqli_close($conn);
+    mysqli_close($conn);
 }
 
 if (empty($user_data['reference']) || empty($user_data['status'])) {
@@ -113,6 +115,7 @@ if (empty($user_data['reference']) || empty($user_data['status'])) {
                <?php } ?>
                 </div>
             </div>
+<<<<<<< HEAD
             <div class="mt-3">
             <h5 class="text-bold text-center "><==================== O' Level ====================></h5>
            <div class="d-flex justify-content-center align-items-center row mt-3">
@@ -299,6 +302,13 @@ if (isset($_SESSION['email'])) {
             </table> 
             </div>
                      
+=======
+            <div class="text-center mt-3">
+            <h5 class="text-bold"><==================== O' Level ====================></h5>
+            </div>
+              <div class="text-center mt-3">
+            <h5 class="text-bold"><==================== JAMB ====================></h5>
+>>>>>>> parent of 0b62647 (Completing the Acknoladgement)
             </div>
             <div>
                 <p class="text-bold">

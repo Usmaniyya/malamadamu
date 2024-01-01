@@ -52,7 +52,7 @@ if (isset($_POST['signup'])) {
     <div class="row">
       <div class="col-12">
         <div class="mb-2">
-          <h2 class="display-5 fw-bold text-center">Register</h2>
+          <h3 class="fw-bold text-center">Create Account</h3>
         </div>
       </div>
     </div>

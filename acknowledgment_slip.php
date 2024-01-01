@@ -35,6 +35,7 @@ if (isset($_SESSION['email'])) {
     -- Signup
     signup.first_name,
     signup.last_name,
+    signup.other_name,
     -- Payment
     payments.reference,
     payments.paid_at,
@@ -101,11 +102,11 @@ if (empty($user_data['reference']) || empty($user_data['status'])) {
             </div>
             <div class="d-flex justify-content-between mt-5">
                 <div class="mt-3">
-                 <p class="text-bold"><?= $user_data['first_name'].' '.$user_data['last_name'] ?? '' ?></p>
+                 <p class="text-bold"><?= $user_data['first_name'].' '.$user_data['last_name']. ' '.$user_data['other_name'] ?? '' ?></p>
+                 <p class="text-bold"><?= $jamb_data['jamb_reg_no'] ?? '' ?></p>
                  <p class="text-bold"> <?=$user_data["jamb_reg_no"] ?? ''?></p>
             <p class="text-bold"><?= $user_data['program'] ?? '' ?></p>
-            <p class="text-bold">Faculty of <?= $user_data['faculty'] ?? '' ?></p>
-            <p class="text-bold">JAMB: <?= $jamb_data['jamb_reg_no'] ?? '' ?></p>
+            <p class="text-bold"><?= $user_data['faculty'] ?? '' ?></p>
                 </div>
                 <div class="">
                  <?php if (!empty($user_data['passport_path'])) { ?>
@@ -115,7 +116,7 @@ if (empty($user_data['reference']) || empty($user_data['status'])) {
             </div>
             <div class="mt-3">
             <h5 class="text-bold text-center "><==================== O' Level ====================></h5>
-           <div class="d-flex justify-content-center align-items-center row mt-3">
+           <div class="d-flex justify-content-between mt-3">
             <div class="col-6">
                    <p class="text-bold">First Sitting</p>
                  <table class="table-bordered border-dark w-75">

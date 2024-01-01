@@ -61,7 +61,7 @@ if (isset($_POST['login'])) {
     <div class="row">
       <div class="col-12">
         <div class="mb-3">
-          <h2 class="display-5 fw-bold text-center">Login</h2>
+          <h3 class="fw-bold text-center">Login</h3>
         </div>
       </div>
     </div>

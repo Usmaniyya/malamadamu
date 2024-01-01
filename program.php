@@ -26,6 +26,7 @@ if (isset($_POST["program"])) {
 
       if (mysqli_stmt_execute($updateStmt)) {
           $successMessage = "Program Updated Successfully!";
+          header("refresh:2; url=payment");
       } else {
           $errorMessage = "Error updating program!";
       }
@@ -40,6 +41,7 @@ if (isset($_POST["program"])) {
 
       if (mysqli_stmt_execute($insertStmt)) {
           $successMessage = "Program Saved Successfully!";
+          header("refresh:2; url=payment");
       } else {
           $errorMessage = "Error saving program!";
       }
@@ -68,10 +70,10 @@ include "includes/student_swal_functions.php";
 <?php include "includes/navbars.php"; ?>
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar bgColor elevation-4">
+  <aside class="main-sidebar bgColor">
     <!-- Brand Logo -->
     <a href="dashboard" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle " style="opacity: .8">
       <span class="brand-text text-warning">M.A FOUNDATION</span>
     </a>
 
@@ -150,7 +152,7 @@ include "includes/student_swal_functions.php";
                     </div>
                     <div class="col-sm-6 col-12">
                         <label for="program" class="form-label">Program</label>
-                        <select id="faculty-data" class="form-control" name="program">
+                        <select id="faculty-data" class="form-control" name="program" >
                         <option><?=$user_data["program"]?? 'Select Program...'?></option>
                             <!-- programs -->
                         </select>

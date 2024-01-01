@@ -144,10 +144,11 @@ if (isset($_SESSION['email'])) {
         <div class="row mb-3">
                  <!-- Row 2: English Grade -->
             <div class="col-8">
- <input type="text" class="form-control" name="english" placeholder="English" readonly value="<?= $user_data[
-     'english'
- ] ?? '' ?>" required>
- </div>
+                <select type="text" class="form-control" name="english" required>
+                    <option><?= $user_data['english'] ?? 'Not Selected' ?></option>
+                    <option value="English">English</option>
+                </select>
+            </div>
  <div class="col-4">
     <select class="form-control" name="english_grade" required>
             <option><?= $user_data['english_grade'] ?? 'Grade' ?></option>
@@ -158,9 +159,10 @@ if (isset($_SESSION['email'])) {
                     <div class="row mb-3">
 <div class="col-8">
                  <!-- Row 3: Math Grade -->
-        <input type="text" class="form-control" name="maths" placeholder="Mathematics" readonly value="<?= $user_data[
-            'maths'
-        ] ?? '' ?>" required>
+        <select type="text" class="form-control" name="maths" required>
+            <option><?= $user_data['maths'] ?? 'Not Selected' ?></option>
+            <option value="Mathematics">Mathematics</option>
+        </select>
         </div>
         <div class="col-4">
  <select class="form-control" name="maths_grade" required>
@@ -368,10 +370,11 @@ if (isset($_SESSION['email'])) {
         <div class="row mb-3">
                  <!-- Row 2: English Grade -->
             <div class="col-8">
- <input type="text" class="form-control" name="english" placeholder="English" readonly value="<?= $form_2_user_data[
-     'english'
- ] ?? 'English' ?>" required>
- </div>
+                <select type="text" class="form-control" name="english" required>
+                    <option><?= $form_2_user_data['english'] ?? 'Not Selected' ?></option>
+                    <option value="English">English</option>
+                </select>
+            </div>
  <div class="col-4">
     <select class="form-control" name="english_grade" required>
             <option><?= $form_2_user_data['english_grade'] ?? 'Grade' ?></option>
@@ -380,11 +383,12 @@ if (isset($_SESSION['email'])) {
  </div>
                     </div>
                     <div class="row mb-3">
-<div class="col-8">
+        <div class="col-8">
                  <!-- Row 3: Math Grade -->
-        <input type="text" class="form-control" name="maths" placeholder="Mathematics" readonly value="<?= $form_2_user_data[
-            'maths'
-        ] ?? 'Maths' ?>" required>
+                 <select type="text" class="form-control" name="maths" required>
+                    <option><?= $form_2_user_data['maths'] ?? 'Not Selected' ?></option>
+                    <option value="Maths">English</option>
+                </select>
         </div>
         <div class="col-4">
  <select class="form-control" name="maths_grade" required>

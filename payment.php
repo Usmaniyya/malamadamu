@@ -5,19 +5,19 @@ if (!$_SESSION['id']) {
 }
 include 'admin/fetch_data.php';
 if (isset($_SESSION['email'])) {
-  $user_id = $_SESSION['id'];
+  $applicant_id = $_SESSION['id'];
 
   // Fetch all fields for the user with the specific ID
   $query =
       'SELECT * FROM `signup` JOIN applicants ON signup.id = applicants.student_id WHERE applicants.student_id = ?';
 
   $stmt = mysqli_prepare($conn, $query);
-  mysqli_stmt_bind_param($stmt, 'i', $user_id);
+  mysqli_stmt_bind_param($stmt, 'i', $applicant_id);
   mysqli_stmt_execute($stmt);
   $result = mysqli_stmt_get_result($stmt);
   $user_data = mysqli_fetch_assoc($result);
   // Close the database connection
-  mysqli_close($conn);
+  // mysqli_close($conn);
 }
 ?>
 <!DOCTYPE html>

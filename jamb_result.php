@@ -17,7 +17,7 @@ if (isset($_SESSION['email'])) {
   $result = mysqli_stmt_get_result($stmt);
   $user_data = mysqli_fetch_assoc($result);
   // Close the database connection
-  mysqli_close($conn);
+  // mysqli_close($conn);
 }
 ?>
 <!DOCTYPE html>

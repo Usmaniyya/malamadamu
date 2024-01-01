@@ -4,12 +4,12 @@ if (isset($_SESSION['email'])) {
     $student_id =  $_SESSION['id'];
 
     // Fetch all fields for the user with the specific ID
-    $query = "SELECT applicants.passport_path FROM `applicants` WHERE applicants.student_id = ?";
-    $stmt = mysqli_prepare($conn, $query);
+    $query_passport = "SELECT applicants.passport_path FROM `applicants` WHERE applicants.student_id = ?";
+    $stmt = mysqli_prepare($conn, $query_passport);
     mysqli_stmt_bind_param($stmt, "i", $student_id);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-    $user_data = mysqli_fetch_assoc($result);
+    $passport_data = mysqli_fetch_assoc($result);
 
     // Close the database connection
     // mysqli_close($conn);
@@ -30,7 +30,7 @@ if (isset($_SESSION['email'])) {
        <div class="user-panel d-flex">
         <div class="image">
               <!-- <i class="bi bi-person p-1 text-warning mt-2 elevation-2"></i> -->
-          <img src="<?= $user_data['passport_path'] ?>" class="img-circle" alt="User Image">
+          <img src="<?= $passport_data['passport_path'] ?>" class="img-circle" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block text-warning"><?=$_SESSION['first_name']?></a>

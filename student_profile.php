@@ -261,35 +261,39 @@ if (isset($_SESSION['email'])) {
       }
     })
   }
-    function submitForm() {
-        var formData = $('#dataForm').serialize();
-        $.ajax({
-            type: 'POST',
-            url: 'update_profile',
-            data: formData,
-            success: function(response) {
-                Swal.fire({
+  function submitForm() {
+    var formData = new FormData($('#dataForm')[0]);
+
+    $.ajax({
+        type: 'POST',
+        url: 'update_profile',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            Swal.fire({
                 title: "Saved ",
                 text: "Successfully Saved!",
                 icon: "success"
-                });
-            },
-            error: function(error) {
-                Swal.fire({
+            });
+        },
+        error: function(error) {
+            Swal.fire({
                 title: "error ",
                 text: "Data not Saved!",
                 icon: "error"
-                });
-            }
-        });
-    }
-
-    $(document).ready(function() {
-        $('#dataForm').submit(function(e) {
-            e.preventDefault();
-            submitForm();
-        });
+            });
+        }
     });
+}
+
+$(document).ready(function() {
+    $('#dataForm').submit(function(e) {
+        e.preventDefault();
+        submitForm();
+    });
+});
+
 
 </script>
       

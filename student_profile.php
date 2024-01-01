@@ -60,7 +60,7 @@ if (isset($_SESSION['email'])) {
 <?php include "includes/navbars.php"; ?>
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar bgColor elevation-4">
+  <aside class="main-sidebar bgColor">
     <!-- Brand Logo -->
     <a href="dashboard" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -112,7 +112,7 @@ if (isset($_SESSION['email'])) {
   <label for="formFile" class="form-label">Upload Passport</label>
   <input class="form-control border-warning" type="file" name="passport" accept=".jpg, .jpeg, .png" id="formFile" value="<?= $user_data[
       'passport_path'
-  ] ?? '' ?>"><!-- accept="image/*" -->
+  ] ?? '' ?>" required><!-- accept="image/*" -->
 </div>
   </div>
 </div>
@@ -149,20 +149,20 @@ if (isset($_SESSION['email'])) {
              <label for="phone" class="form-label">Phone</label>
         <input type="text" name="phone" class="form-control" value="<?= $user_data[
             'phone'
-        ] ?? '' ?>">
+        ] ?? '' ?>" required>
         </div>
         <div class="col-sm-4 col-6">
 <label for="dob" class="form-label">Date of Birth</label>
         <input type="date" name="dob" class="form-control" value="<?= $user_data[
             'dob'
-        ] ?? '' ?>">
+        ] ?? '' ?>" required>
         </div>
 </div>
 <hr>
     <div class="row mb-2">
         <div class="col-sm-4 col-6">
               <label for="" class="form-label">State</label>
-          <select name="state" id="state" onchange="fetch_LGAs(this.value)" class="form-control" autocomplete="off" class="select">
+          <select name="state" id="state" onchange="fetch_LGAs(this.value)" class="form-control" autocomplete="off" class="select" required>
           <option><?=$user_data["states"]?? 'Select State...'?></option>
           <?php
                 $query_states_data = "SELECT * FROM `states` ";
@@ -178,7 +178,7 @@ if (isset($_SESSION['email'])) {
         </div>
         <div class="col-sm-4 col-6">
               <label for="lga" class="form-label">Local Government</label>
-        <select name="lga" id="lga" class="form-control" autocomplete="off" class="lga">
+        <select name="lga" id="lga" class="form-control" autocomplete="off" class="lga" required>
           <option><?=$user_data['lga']?? 'Select LGA...'?></option>
         </select>
         </div>
@@ -187,13 +187,13 @@ if (isset($_SESSION['email'])) {
     <div class="row mb-2">
 <div class="col-sm-4 col-6">
 <label for="address" class="form-label">Address</label>
-        <textarea name="address" class="form-control" rows="4" cols="50"><?= $user_data[
+        <textarea name="address" class="form-control" rows="4" required cols="50"><?= $user_data[
             'address'
         ] ?? '' ?></textarea>
 </div>
 <div class="col-sm-4 col-6">
 <label for="nok_address" class="form-label">Next of Kin Address</label>
-        <textarea name="nok_address" class="form-control" rows="4" cols="50"><?= $user_data[
+        <textarea name="nok_address" class="form-control" rows="4" required cols="50"><?= $user_data[
             'nok_address'
         ] ?? '' ?></textarea>
 </div>
@@ -204,19 +204,19 @@ if (isset($_SESSION['email'])) {
 <label for="next_of_kin" class="form-label">Next of Kin</label>
         <input type="text" class="form-control" name="next_of_kin" value="<?= $user_data[
             'next_of_kin'
-        ] ?? '' ?>">
+        ] ?? '' ?>" required>
 </div>
 <div class="col-sm-4 col-6">
     <label for="nok_email" class="form-label">Next of Kin Email</label>
         <input type="email" class="form-control" name="nok_email" value="<?= $user_data[
             'nok_email'
-        ] ?? '' ?>">
+        ] ?? '' ?>" required>
 </div>
 <div class="col-sm-4 col-12">
 <label for="relation" class="form-label">Relationship</label>
         <input type="text" class="form-control" name="relation" value="<?= $user_data[
             'relation'
-        ] ?? '' ?>">
+        ] ?? '' ?>" required>
 </div>
     </div>
     <hr>

@@ -26,6 +26,7 @@ if (isset($_POST["program"])) {
 
       if (mysqli_stmt_execute($updateStmt)) {
           $successMessage = "Program Updated Successfully!";
+          header("refresh:2; url=payment");
       } else {
           $errorMessage = "Error updating program!";
       }
@@ -40,6 +41,7 @@ if (isset($_POST["program"])) {
 
       if (mysqli_stmt_execute($insertStmt)) {
           $successMessage = "Program Saved Successfully!";
+          header("refresh:2; url=payment");
       } else {
           $errorMessage = "Error saving program!";
       }
@@ -150,7 +152,7 @@ include "includes/student_swal_functions.php";
                     </div>
                     <div class="col-sm-6 col-12">
                         <label for="program" class="form-label">Program</label>
-                        <select id="faculty-data" class="form-control" name="program">
+                        <select id="faculty-data" class="form-control" name="program" >
                         <option><?=$user_data["program"]?? 'Select Program...'?></option>
                             <!-- programs -->
                         </select>

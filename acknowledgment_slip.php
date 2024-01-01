@@ -310,6 +310,9 @@ if (isset($_SESSION['email'])) {
     <!-- <div class="button-container">
             <a href="#" class="return-button" onclick="print()" >Print</a>
         </div> -->
+        <script>
+            window.onload = function() { window.print(); }
+        </script>
 </body>
 </html>
 <?php } ?>

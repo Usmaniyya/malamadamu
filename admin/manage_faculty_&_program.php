@@ -30,7 +30,7 @@ $programsResult = mysqli_query($conn, $programsQuery);
     <img class="animation__wobble" src="../dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
   </div>
 
-<?php include "../includes/navbars.php"; ?>
+<?php include "../includes/admin_navbars.php"; ?>
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar bgColor elevation-4">

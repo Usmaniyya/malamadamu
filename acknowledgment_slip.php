@@ -51,7 +51,7 @@ if (isset($_SESSION['email'])) {
     JOIN payments ON signup.id = payments.student_id
     JOIN choice_of_study ON signup.id = choice_of_study.applicant_id
     JOIN faculty ON faculty.id = choice_of_study.faculty
-    JOIN programs ON programs.faculty_id = choice_of_study.program
+    JOIN programs ON programs.id = choice_of_study.program
     JOIN olevel ON signup.id = olevel.student_id
     JOIN jamb_results ON signup.id = jamb_results.student_id
     WHERE payments.student_id = ?";
@@ -104,7 +104,6 @@ if (empty($user_data['reference']) || empty($user_data['status'])) {
                 <div class="mt-3">
                  <p class="text-bold"><?= $user_data['first_name'].' '.$user_data['last_name']. ' '.$user_data['other_name'] ?? '' ?></p>
                  <p class="text-bold"><?= $jamb_data['jamb_reg_no'] ?? '' ?></p>
-                 <p class="text-bold"> <?=$user_data["jamb_reg_no"] ?? ''?></p>
             <p class="text-bold"><?= $user_data['program'] ?? '' ?></p>
             <p class="text-bold"><?= $user_data['faculty'] ?? '' ?></p>
                 </div>

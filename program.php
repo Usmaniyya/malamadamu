@@ -112,7 +112,12 @@ include "includes/student_swal_functions.php";
               $user_id = $_SESSION['id'];
 
               $query =
-                  'SELECT programs.name AS "program", faculty.name AS "faculty", signup.first_name, signup.last_name FROM `choice_of_study` JOIN programs ON programs.faculty_id = choice_of_study.program JOIN signup ON signup.id = choice_of_study.applicant_id JOIN faculty ON faculty.id = choice_of_study.faculty WHERE choice_of_study.applicant_id = ?';
+                  'SELECT programs.name AS "program", faculty.name AS "faculty", signup.first_name, signup.last_name
+                   FROM `choice_of_study` 
+                   JOIN programs ON programs.id = choice_of_study.program
+                   JOIN signup ON signup.id = choice_of_study.applicant_id 
+                   JOIN faculty ON faculty.id = choice_of_study.faculty 
+                   WHERE choice_of_study.applicant_id = ?';
 
               $stmt = mysqli_prepare($conn, $query);
               mysqli_stmt_bind_param($stmt, 'i', $user_id);

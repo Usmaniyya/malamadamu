@@ -61,7 +61,7 @@ if (isset($_SESSION['email'])) {
 <?php include "includes/navbars.php"; ?>
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar bgColor elevation-4">
+  <aside class="main-sidebar bgColor">
     <!-- Brand Logo -->
     <a href="dashboard" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="MAF Logo" class="brand-image img-circle elevation-3" style="opacity: .8">

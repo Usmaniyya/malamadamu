@@ -189,17 +189,11 @@ if (isset($_SESSION['email'])) {
   mysqli_stmt_execute($stmt);
   $result = mysqli_stmt_get_result($stmt);
   $form_2_user_data = mysqli_fetch_assoc($result);
-  if (isset($form_2_user_data)) {
+    $display = isset($form_2_user_data)? ' ' : 'd-none';
   
-  if ($form_2_user_data["form_flag"] == 1) {
-      $form_2_user_data["form_flag"] = "First Sitting";
-    }
-  if ($form_2_user_data["form_flag"] == 2) {
-      $form_2_user_data["form_flag"] = "Second Sitting";
-    }
 }
 ?>
-            <div class="col-6">
+            <div class="col-6 <?=$display?>">
                 <p class="text-bold">Second Sitting</p>
                     <table class="table-bordered border-dark w-75">
                      <thead>
@@ -257,7 +251,7 @@ if (isset($_SESSION['email'])) {
                  
             </table>
             </div>
-<?php } ?>
+
            </div>
         </div>
 

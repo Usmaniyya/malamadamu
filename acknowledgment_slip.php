@@ -254,7 +254,7 @@ if (isset($_SESSION['email'])) {
            </div>
         </div>
 
-            <div class="my-3">
+            <div class="my-5">
             <h5 class="text-bold text-center"><==================== JAMB ====================></h5>
             <div class="d-flex justify-content-center align-items-center">
                   <table class="table-bordered w-50">
@@ -294,8 +294,8 @@ if (isset($_SESSION['email'])) {
             </div>
                      
             </div>
-            <div>
-                <p class="text-bold">
+            <div class="mt-3">
+                <p class="text-bold text-center">
                     Successfull applicants will be contacted for screening and must present the following documents: 
                 </p>
                 <ol>
@@ -304,6 +304,7 @@ if (isset($_SESSION['email'])) {
                     <li>WAEC/NECO/NABTEB</li>
                     <li>Two Passport Photograph</li>
                     <li>Certificate of Indigeneship</li>
+                    <li> Birth Certificate or Declaration of Age</li>
                 </ol>
             </div>
     </div>
